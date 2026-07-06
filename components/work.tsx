@@ -88,7 +88,7 @@ export function Work() {
 
   const layoutTransition = reduceMotion
     ? { duration: 0 }
-    : { duration: 0.55, ease: EASE };
+    : { duration: 0.6, ease: EASE, delay: 0.05 };
 
   return (
     <>
@@ -98,6 +98,11 @@ export function Work() {
             key={project.slug}
             layoutId={`card-${project.slug}`}
             transition={layoutTransition}
+            whileHover={
+              reduceMotion
+                ? undefined
+                : { y: -4, transition: { duration: 0.3, ease: EASE } }
+            }
             type="button"
             onClick={(e) => open(project, e.currentTarget)}
             aria-haspopup="dialog"
@@ -140,8 +145,11 @@ export function Work() {
             key="overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.35 }}
+            exit={{
+              opacity: 0,
+              transition: { duration: reduceMotion ? 0 : 0.5 },
+            }}
+            transition={{ duration: reduceMotion ? 0 : 0.4 }}
             onClick={close}
             className="fixed inset-0 z-[60] overflow-y-auto bg-black/70 backdrop-blur-sm"
           >
@@ -157,13 +165,8 @@ export function Work() {
                 className="h-fit w-full max-w-3xl rounded-2xl border border-white/[0.08] bg-ink-raised"
               >
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={false}
                   exit={{ opacity: 0, transition: { duration: 0.15 } }}
-                  transition={{
-                    duration: reduceMotion ? 0 : 0.4,
-                    delay: reduceMotion ? 0 : 0.25,
-                  }}
                 >
                   <CaseStudy project={active} onClose={close} />
                 </motion.div>
