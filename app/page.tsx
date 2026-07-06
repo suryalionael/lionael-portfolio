@@ -1,25 +1,10 @@
+import { About } from "@/components/about";
+import { Contact } from "@/components/contact";
+import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { Nav } from "@/components/nav";
 import { Work } from "@/components/work";
 import { moreSystems } from "@/lib/projects";
-
-const stubs = [
-  {
-    id: "experience",
-    title: "Experience",
-    note: "QuickRN, PERMIKA Toronto, and leadership before that.",
-  },
-  {
-    id: "about",
-    title: "About",
-    note: "Who I am and how I work.",
-  },
-  {
-    id: "contact",
-    title: "Contact",
-    note: "suryalionael@gmail.com",
-  },
-];
 
 export default function Home() {
   return (
@@ -86,20 +71,9 @@ export default function Home() {
           </div>
         </section>
 
-        {stubs.map((section) => (
-          <section
-            key={section.id}
-            id={section.id}
-            className="border-t border-white/[0.06]"
-          >
-            <div className="mx-auto max-w-[1120px] px-6 py-32">
-              <h2 className="text-2xl font-medium tracking-tight">
-                {section.title}
-              </h2>
-              <p className="mt-3 text-muted">{section.note}</p>
-            </div>
-          </section>
-        ))}
+        <Experience />
+        <About />
+        <Contact />
       </main>
       <footer className="border-t border-white/[0.06]">
         <div className="mx-auto flex max-w-[1120px] items-center justify-between px-6 py-8">
