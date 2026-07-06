@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const links = [
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
@@ -6,14 +10,29 @@ const links = [
 ];
 
 export function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
-      className="anim-fade fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-ink/70 backdrop-blur-md"
-      style={{ "--d": "1.2s" } as React.CSSProperties}
+      className={`anim-fade fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${
+        scrolled
+          ? "border-white/[0.08] bg-ink/75 backdrop-blur-md"
+          : "border-transparent bg-transparent"
+      }`}
+      style={{ "--d": "1.9s" } as React.CSSProperties}
     >
       <nav
         aria-label="Main"
-        className="mx-auto flex h-14 max-w-[1120px] items-center justify-between px-6"
+        className={`mx-auto flex max-w-[1120px] items-center justify-between px-6 transition-[height] duration-500 ${
+          scrolled ? "h-13" : "h-16"
+        }`}
       >
         <a
           href="#top"
@@ -27,7 +46,7 @@ export function Nav() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-[13px] text-neutral-400 transition-colors hover:text-paper"
+                className="u-link text-[13px] text-neutral-400 transition-colors hover:text-paper"
               >
                 {link.label}
               </a>
