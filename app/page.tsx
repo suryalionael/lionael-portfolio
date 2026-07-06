@@ -47,10 +47,10 @@ export default function Home() {
       </main>
       <footer className="border-t border-white/[0.06]">
         <div className="mx-auto flex max-w-[1120px] items-center justify-between px-6 py-8">
-          <p className="font-mono text-xs text-neutral-600">
+          <p className="font-mono text-xs text-neutral-500">
             © 2026 Lionael Surya
           </p>
-          <p className="font-mono text-xs text-neutral-600">
+          <p className="font-mono text-xs text-neutral-500">
             Toronto, Canada
           </p>
         </div>
