@@ -80,7 +80,7 @@ body {
 .anim-fade-up,
 .anim-fade,
 .anim-grow-x {
-  animation-duration: 0.9s;
+  animation-duration: 1.15s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   animation-fill-mode: both;
   animation-delay: var(--d, 0s);
@@ -92,25 +92,126 @@ body {
 
 .anim-fade-up {
   animation-name: fade-up;
-  animation-duration: 0.7s;
+  animation-duration: 0.9s;
 }
 
 .anim-fade {
   animation-name: fade;
-  animation-duration: 0.5s;
+  animation-duration: 0.7s;
 }
 
 .anim-grow-x {
   animation-name: grow-x;
-  animation-duration: 0.5s;
+  animation-duration: 0.7s;
   transform-origin: left;
+}
+
+.u-link {
+  position: relative;
+}
+
+.u-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.u-link:hover::after,
+.u-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.dot-live {
+  box-shadow: 0 0 10px 1px rgb(62 99 221 / 0.55);
+  animation: pulse-soft 3.2s ease-in-out infinite;
+}
+
+.stage-label {
+  transition:
+    color 0.4s ease,
+    letter-spacing 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stage-label:hover {
+  color: var(--color-paper);
+  letter-spacing: 0.08em;
+}
+
+.flow-line {
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+.flow-line-active {
+  background: linear-gradient(
+    90deg,
+    rgb(62 99 221 / 0),
+    rgb(62 99 221 / 0.9),
+    rgb(62 99 221 / 0)
+  );
+  background-size: 200% 100%;
+  animation: flow-x 1.8s linear infinite;
+}
+
+@keyframes flow-x {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .flow-line-active {
+    background: linear-gradient(
+      180deg,
+      rgb(62 99 221 / 0),
+      rgb(62 99 221 / 0.9),
+      rgb(62 99 221 / 0)
+    );
+    background-size: 100% 200%;
+    animation: flow-y 1.8s linear infinite;
+  }
+}
+
+@keyframes flow-y {
+  from {
+    background-position: 0 200%;
+  }
+  to {
+    background-position: 0 -200%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .anim-rise,
   .anim-fade-up,
   .anim-fade,
-  .anim-grow-x {
+  .anim-grow-x,
+  .dot-live,
+  .flow-line-active {
     animation: none;
+  }
+
+  .flow-line-active {
+    background: rgb(62 99 221 / 0.5);
   }
 }
