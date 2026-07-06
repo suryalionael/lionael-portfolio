@@ -37,7 +37,7 @@ export function Hero() {
             <span className="block text-sm font-medium text-paper">
               Lionael Surya
             </span>
-            <span className="mt-0.5 block font-mono text-xs tracking-[0.18em] text-neutral-500 uppercase">
+            <span className="mt-0.5 block font-mono text-xs tracking-[0.18em] text-muted uppercase">
               Data &amp; software engineering · Toronto
             </span>
           </span>
@@ -87,7 +87,7 @@ export function Hero() {
                 />
               )}
               <span
-                className="anim-fade stage-label flex items-center gap-2 font-mono text-xs text-neutral-500"
+                className="anim-fade stage-label flex items-center gap-2 font-mono text-xs text-muted"
                 style={delay(1.4 + i * 0.15)}
               >
                 {stage === "ship" && (
