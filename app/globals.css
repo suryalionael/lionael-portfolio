@@ -163,12 +163,12 @@ body {
 .flow-line-active {
   background: linear-gradient(
     90deg,
-    rgb(62 99 221 / 0),
-    rgb(62 99 221 / 0.9),
-    rgb(62 99 221 / 0)
+    rgb(62 99 221 / 0.18) 38%,
+    rgb(62 99 221 / 0.95) 50%,
+    rgb(62 99 221 / 0.18) 62%
   );
-  background-size: 200% 100%;
-  animation: flow-x 1.8s linear infinite;
+  background-size: 260% 100%;
+  animation: flow-x 2.2s linear infinite;
 }
 
 @keyframes flow-x {
@@ -184,12 +184,12 @@ body {
   .flow-line-active {
     background: linear-gradient(
       180deg,
-      rgb(62 99 221 / 0),
-      rgb(62 99 221 / 0.9),
-      rgb(62 99 221 / 0)
+      rgb(62 99 221 / 0.18) 38%,
+      rgb(62 99 221 / 0.95) 50%,
+      rgb(62 99 221 / 0.18) 62%
     );
-    background-size: 100% 200%;
-    animation: flow-y 1.8s linear infinite;
+    background-size: 100% 260%;
+    animation: flow-y 2.2s linear infinite;
   }
 }
 
