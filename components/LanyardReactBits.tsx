@@ -259,7 +259,7 @@ function Band({
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
             )}
           >
-            <mesh geometry={nodes.card.geometry}>
+            <mesh geometry={(nodes.card as any).geometry}>
               <meshPhysicalMaterial
                 map={cardMap}
                 map-anisotropy={16}
@@ -269,8 +269,8 @@ function Band({
                 metalness={0.8}
               />
             </mesh>
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
-            <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
+            <mesh geometry={(nodes.clip as any).geometry} material={materials.metal as any} material-roughness={0.3} />
+            <mesh geometry={(nodes.clamp as any).geometry} material={materials.metal as any} />
           </group>
         </RigidBody>
       </group>
