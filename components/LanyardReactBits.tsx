@@ -150,7 +150,7 @@ function Band({
     if (!ctx) return baseMap;
     ctx.drawImage(baseImg, 0, 0, W, H);
 
-    const drawFitted = (img, rect) => {
+    const drawFitted = (img: any, rect: any) => {
       const rx = rect.x * W;
       const ry = rect.y * H;
       const rw = rect.w * W;
