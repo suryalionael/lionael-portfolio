@@ -15,18 +15,6 @@ const BLANK_PIXEL =
 const FRONT_UV_RECT = { x: 0, y: 0, w: 0.5, h: 0.755 };
 const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
 
-type LanyardProps = {
-  position?: [number, number, number];
-  gravity?: [number, number, number];
-  fov?: number;
-  transparent?: boolean;
-  frontImage?: string | null;
-  backImage?: string | null;
-  imageFit?: 'cover' | 'contain';
-  lanyardImage?: string | null;
-  lanyardWidth?: number;
-};
-
 export default function Lanyard({
   position = [0, 0, 30],
   gravity = [0, -40, 0],
@@ -37,7 +25,17 @@ export default function Lanyard({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1
-}: LanyardProps) {
+}: {
+  position?: [number, number, number];
+  gravity?: [number, number, number];
+  fov?: number;
+  transparent?: boolean;
+  frontImage?: string | null;
+  backImage?: string | null;
+  imageFit?: string;
+  lanyardImage?: string | null;
+  lanyardWidth?: number;
+}) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
   useEffect(() => {
@@ -47,7 +45,7 @@ export default function Lanyard({
   }, []);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <div className="lanyard-wrapper">
       <Canvas
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
@@ -115,22 +113,21 @@ function Band({
   isMobile?: boolean;
   frontImage?: string | null;
   backImage?: string | null;
-  imageFit?: 'cover' | 'contain';
+  imageFit?: string;
   lanyardImage?: string | null;
   lanyardWidth?: number;
 }) {
-  const band = useRef<any>(null);
-  const fixed = useRef<any>(null);
-  const j1 = useRef<any>(null);
-  const j2 = useRef<any>(null);
-  const j3 = useRef<any>(null);
-  const card = useRef<any>(null);
+  const band = useRef<any>(null),
+    fixed = useRef<any>(null),
+    j1 = useRef<any>(null),
+    j2 = useRef<any>(null),
+    j3 = useRef<any>(null),
+    card = useRef<any>(null);
   const vec = new THREE.Vector3(),
     ang = new THREE.Vector3(),
     rot = new THREE.Vector3(),
     dir = new THREE.Vector3();
   const segmentProps = { type: 'dynamic' as const, canSleep: true, colliders: false as const, angularDamping: 4, linearDamping: 4 };
-  
   const { nodes, materials } = useGLTF('/assets/lanyard/card.glb');
   const texture = useTexture(lanyardImage || '/assets/lanyard/lanyard.png');
   const frontTex = useTexture(frontImage || BLANK_PIXEL);
@@ -275,9 +272,9 @@ function Band({
         </RigidBody>
       </group>
       <mesh ref={band}>
-        {/* @ts-expect-error - meshLineGeometry is extended via extend() */}
+        {/* @ts-expect-error - extended via extend() */}
         <meshLineGeometry />
-        {/* @ts-expect-error - meshLineMaterial is extended via extend() */}
+        {/* @ts-expect-error - extended via extend() */}
         <meshLineMaterial
           color="white"
           depthTest={false}
