@@ -137,7 +137,7 @@ function Band({
   const backTex = useTexture(backImage || BLANK_PIXEL);
 
   const cardMap = useMemo(() => {
-    const baseMap = materials.base.map;
+    const baseMap = (materials.base as any).map;
     if (!frontImage && !backImage) return baseMap;
 
     const baseImg = baseMap.image;
