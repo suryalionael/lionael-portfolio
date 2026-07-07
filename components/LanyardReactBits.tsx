@@ -275,7 +275,9 @@ function Band({
         </RigidBody>
       </group>
       <mesh ref={band}>
+        {/* @ts-expect-error - meshLineGeometry is extended via extend() */}
         <meshLineGeometry />
+        {/* @ts-expect-error - meshLineMaterial is extended via extend() */}
         <meshLineMaterial
           color="white"
           depthTest={false}
