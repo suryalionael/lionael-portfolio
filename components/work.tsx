@@ -50,7 +50,12 @@ export function Work() {
       triggerRef.current = null;
       return;
     }
+    const scrollY = window.scrollY;
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    
     setTimeout(() => {
       dialogRef.current
         ?.querySelector<HTMLElement>("[aria-label='Close case study']")
@@ -81,7 +86,12 @@ export function Work() {
     };
     document.addEventListener("keydown", onKey);
     return () => {
+      const scrollY = document.body.style.top;
       document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, parseInt(scrollY || "0") * -1);
       document.removeEventListener("keydown", onKey);
     };
   }, [active, close]);

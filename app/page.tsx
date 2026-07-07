@@ -9,8 +9,14 @@ import { moreSystems } from "@/lib/projects";
 export default function Home() {
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-paper focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink"
+      >
+        Skip to main content
+      </a>
       <Nav />
-      <main>
+      <main id="main">
         <Hero />
 
         <section id="work" className="border-t border-white/[0.06]">

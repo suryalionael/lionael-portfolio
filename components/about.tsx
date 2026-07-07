@@ -1,5 +1,5 @@
 import Image from "next/image";
-import portrait from "@/public/portrait.png";
+import portrait from "@/public/portrait.jpg";
 
 export function About() {
   return (
@@ -7,7 +7,7 @@ export function About() {
       <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/10">
+            <figure className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/10">
               <Image
                 src={portrait}
                 alt="Lionael Surya, seated on a stool in a studio, wearing a black shirt"
@@ -15,7 +15,7 @@ export function About() {
                 sizes="(min-width: 768px) 40vw, 100vw"
                 className="object-cover object-[50%_20%]"
               />
-            </div>
+            </figure>
             <div className="mt-5 font-mono text-xs leading-6 text-muted">
               <p>Toronto, Canada — from Bekasi, Indonesia</p>
               <p>Seneca Polytechnic · Data Science</p>

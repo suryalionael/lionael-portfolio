@@ -14,7 +14,7 @@ export function Contact() {
         >
           suryalionael@gmail.com
         </a>
-        <div className="mt-14 flex items-center gap-8">
+        <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
             href="https://github.com/suryalionael"
             target="_blank"

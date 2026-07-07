@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import portrait from "@/public/portrait.png";
+import portrait from "@/public/portrait.jpg";
 
 const STAGES = ["source", "ingest", "transform", "model", "ship"];
 
@@ -23,7 +23,7 @@ export function Hero() {
     <section id="top" className="flex min-h-svh flex-col justify-end">
       <div className="mx-auto w-full max-w-[1120px] px-6 pt-36 pb-12">
         <div className="anim-fade-up mb-12 flex items-center gap-4" style={delay(0.15)}>
-          <span className="relative size-12 shrink-0 overflow-hidden rounded-full border border-white/10">
+          <div className="relative size-12 shrink-0 overflow-hidden rounded-full border border-white/10">
             <Image
               src={portrait}
               alt="Portrait of Lionael Surya"
@@ -32,15 +32,15 @@ export function Hero() {
               priority
               className="object-cover object-[50%_16%] grayscale"
             />
-          </span>
-          <span>
-            <span className="block text-sm font-medium text-paper">
+          </div>
+          <div>
+            <p className="text-sm font-medium text-paper">
               Lionael Surya
-            </span>
-            <span className="mt-0.5 block font-mono text-xs tracking-[0.18em] text-muted uppercase">
+            </p>
+            <p className="mt-0.5 font-mono text-xs tracking-[0.18em] text-muted uppercase">
               Data &amp; software engineering · Toronto
-            </span>
-          </span>
+            </p>
+          </div>
         </div>
 
         <h1 className="text-[clamp(3.5rem,9.5vw,8rem)] leading-[0.95] font-medium tracking-[-0.045em]">
