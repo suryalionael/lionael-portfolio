@@ -1,3 +1,7 @@
+"use client";
+
+"use client";
+
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import portrait from "@/public/portrait.jpg";
