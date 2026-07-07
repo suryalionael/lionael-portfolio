@@ -253,9 +253,9 @@ function Band({
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={e => (e.target.releasePointerCapture(e.pointerId), drag(false))}
+            onPointerUp={e => ((e.target as any).releasePointerCapture(e.pointerId), drag(false))}
             onPointerDown={e => (
-              e.target.setPointerCapture(e.pointerId),
+              (e.target as any).setPointerCapture(e.pointerId),
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
             )}
           >
