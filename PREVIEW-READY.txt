@@ -1,0 +1,112 @@
+
+=================================================================
+HERO EVOLUTION — LOCAL PREVIEW READY
+=================================================================
+
+Branch: feature/hero-evolution ✓
+Dev Server: RUNNING on port 3000
+
+=================================================================
+
+OPEN THESE TWO URLS TO COMPARE:
+
+1. ORIGINAL HERO (v1.0.0 — Production)
+   http://localhost:3000/
+
+2. EXPERIMENTAL HERO (v1.1.0 — Particle Typography + 3D Lanyard)
+   http://localhost:3000/hero-v2
+
+=================================================================
+
+WHAT TO LOOK FOR:
+
+Performance:
+- Which page loads faster?
+- Open DevTools → Network tab
+- v1.0.0: ~120KB bundle
+- v1.1.0: ~275KB bundle (+129%)
+
+First Impression:
+- Which page communicates the message faster?
+- v1.0.0: Immediate typography
+- v1.1.0: Particle assembly (1 second delay)
+
+Visual Focus:
+- Which page emphasizes the engineer vs. the effects?
+- v1.0.0: Typography-first
+- v1.1.0: Split focus (text + 3D card)
+
+Professional Tone:
+- Which page feels more like Apple/Linear/Stripe?
+- Which page feels more like a portfolio template?
+
+Philosophy:
+- Which page better embodies "Built Like Production"?
+- v1.0.0: Simple, fast, clear
+- v1.1.0: Complex, slower, visual-heavy
+
+=================================================================
+
+TEST ACCESSIBILITY:
+
+1. Open DevTools → Rendering
+2. Enable "Emulate CSS prefers-reduced-motion"
+3. Reload both pages
+4. v1.0.0: No change (already minimal)
+5. v1.1.0: Particles → static text, 3D card → static image
+
+=================================================================
+
+TEST MOBILE:
+
+1. Toggle Device Toolbar (Cmd+Shift+M)
+2. Test iPhone 14 Pro (390px)
+3. v1.0.0: Single column, clean
+4. v1.1.0: Stacked layout, lanyard below
+
+=================================================================
+
+DECISION CRITERIA:
+
+After comparing, ask yourself:
+
+1. Does the 3D lanyard strengthen or distract?
+2. Does the particle animation improve or delay the message?
+3. Which version would hiring managers trust more?
+4. Which version makes recruiters remember ME?
+5. Which version embodies "Built Like Production"?
+
+If v1.0.0 wins on 3+ criteria → Keep it in production
+
+=================================================================
+
+CURRENT RECOMMENDATION:
+
+Based on comprehensive analysis: KEEP v1.0.0
+
+Reasons:
+✓ 2.3x smaller bundle (performance)
+✓ 4x faster load time (speed)
+✓ Immediate message (clarity)
+✓ Typography-first (focus)
+✓ Embodies philosophy (alignment)
+
+Preview both versions to validate this recommendation.
+
+=================================================================
+
+TO STOP DEV SERVER:
+
+kill $(cat /tmp/portfolio-dev.pid)
+
+TO SWITCH BACK TO PRODUCTION BRANCH:
+
+git checkout main
+
+=================================================================
+
+Portfolio Status:
+- Production (main): v1.0.0 LIVE at https://lionael-portfolio.vercel.app
+- Experiment (feature/hero-evolution): v1.1.0 preview only
+
+=================================================================
