@@ -129,7 +129,7 @@ function Band({
     ang = new THREE.Vector3(),
     rot = new THREE.Vector3(),
     dir = new THREE.Vector3();
-  const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 };
+  const segmentProps = { type: 'dynamic' as const, canSleep: true, colliders: false as const, angularDamping: 4, linearDamping: 4 };
   
   const { nodes, materials } = useGLTF('/assets/lanyard/card.glb');
   const texture = useTexture(lanyardImage || '/assets/lanyard/lanyard.png');
