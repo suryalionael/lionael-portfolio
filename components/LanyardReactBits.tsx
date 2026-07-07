@@ -178,7 +178,7 @@ function Band({
     composite.anisotropy = 16;
     composite.needsUpdate = true;
     return composite;
-  }, [frontImage, backImage, imageFit, frontTex, backTex, materials.base.map]);
+  }, [frontImage, backImage, imageFit, frontTex, backTex, (materials.base as any).map]);
 
   const [curve] = useState(
     () =>
