@@ -1,6 +1,5 @@
-import Image from "next/image";
 import type { CSSProperties } from "react";
-import portrait from "@/public/portrait.jpg";
+import { LanyardHero } from "@/components/lanyard-hero";
 
 const STAGES = ["source", "ingest", "transform", "model", "ship"];
 
@@ -20,63 +19,64 @@ function Line({ children, at }: { children: string; at: number }) {
 
 export function Hero() {
   return (
-    <section id="top" className="flex min-h-svh flex-col justify-end">
-      <div className="mx-auto w-full max-w-[1120px] px-6 pt-36 pb-12">
-        <div className="anim-fade-up mb-12 flex items-center gap-4" style={delay(0.15)}>
-          <div className="relative size-12 shrink-0 overflow-hidden rounded-full border border-white/10">
-            <Image
-              src={portrait}
-              alt="Portrait of Lionael Surya"
-              fill
-              sizes="48px"
-              priority
-              className="object-cover object-[50%_16%] grayscale"
-            />
-          </div>
-          <div>
-            <p className="text-sm font-medium text-paper">
-              Lionael Surya
-            </p>
-            <p className="mt-0.5 font-mono text-xs tracking-[0.18em] text-muted uppercase">
+    <section
+      id="top"
+      className="relative flex min-h-svh flex-col overflow-hidden"
+    >
+      <div className="mx-auto grid w-full max-w-[1120px] flex-1 px-6 md:grid-cols-[minmax(0,1fr)_minmax(0,380px)] md:gap-12">
+        <div className="flex flex-col justify-end pt-32 pb-4 md:justify-center md:pt-24 md:pb-0">
+          <div className="anim-fade-up mb-10" style={delay(0.15)}>
+            <p className="text-sm font-medium text-paper">Lionael Surya</p>
+            <p className="mt-1 font-mono text-xs tracking-[0.18em] text-muted uppercase">
               Data &amp; software engineering · Toronto
             </p>
           </div>
-        </div>
 
-        <h1 className="text-[clamp(3.5rem,9.5vw,8rem)] leading-[0.95] font-medium tracking-[-0.045em]">
-          <Line at={0.35}>Built like</Line>
-          <Line at={0.5}>production.</Line>
-        </h1>
+          <h1 className="text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.95] font-medium tracking-[-0.045em]">
+            <Line at={0.35}>Built like</Line>
+            <Line at={0.5}>production.</Line>
+          </h1>
 
-        <p
-          className="anim-fade-up mt-12 max-w-[34rem] text-lg leading-8 text-neutral-400"
-          style={delay(0.95)}
-        >
-          I&apos;m a data science student at Seneca Polytechnic who builds data
-          systems the way real teams do — tested, documented, reproducible,
-          and shipped. Looking for data &amp; software engineering internships.
-        </p>
-
-        <div
-          className="anim-fade-up mt-12 flex items-center gap-10"
-          style={delay(1.15)}
-        >
-          <a href="#work" className="u-link text-sm font-medium text-paper">
-            Explore the systems ↓
-          </a>
-          <a
-            href="https://github.com/suryalionael"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="u-link text-sm text-neutral-400 transition-colors hover:text-paper"
+          <p
+            className="anim-fade-up mt-10 max-w-[34rem] text-lg leading-8 text-neutral-400"
+            style={delay(0.95)}
           >
-            GitHub ↗
-          </a>
+            I&apos;m a data science student at Seneca Polytechnic who builds
+            data systems the way real teams do — tested, documented,
+            reproducible, and shipped. Looking for data &amp; software
+            engineering internships.
+          </p>
+
+          <div
+            className="anim-fade-up mt-10 flex items-center gap-10"
+            style={delay(1.15)}
+          >
+            <a href="#work" className="u-link text-sm font-medium text-paper">
+              Explore the systems{" "}
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a
+              href="https://github.com/suryalionael"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="u-link text-sm text-neutral-400 transition-colors hover:text-paper"
+            >
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
 
+        <div className="relative hidden md:block">
+          <div className="absolute inset-x-0 -top-0 bottom-0">
+            <LanyardHero />
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto w-full max-w-[1120px] px-6 pb-12">
         <div
           aria-hidden="true"
-          className="mt-28 flex items-center gap-3 md:gap-6"
+          className="flex items-center gap-3 pt-10 md:gap-6"
         >
           {STAGES.map((stage, i) => (
             <div key={stage} className="contents">
