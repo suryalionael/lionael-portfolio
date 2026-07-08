@@ -1,8 +1,9 @@
-import { About } from "@/components/about";
 import { Contact } from "@/components/contact";
+import { Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { Nav } from "@/components/nav";
+import { WhyIBuild } from "@/components/why-i-build";
 import { Work } from "@/components/work";
 import { moreSystems } from "@/lib/projects";
 
@@ -18,6 +19,8 @@ export default function Home() {
       <Nav />
       <main id="main">
         <Hero />
+        <WhyIBuild />
+        <Education />
 
         <section id="work" className="border-t border-white/[0.06]">
           <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
@@ -78,7 +81,6 @@ export default function Home() {
         </section>
 
         <Experience />
-        <About />
         <Contact />
       </main>
       <footer className="border-t border-white/[0.06]">
