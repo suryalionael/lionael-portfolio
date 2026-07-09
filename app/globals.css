@@ -223,12 +223,27 @@ body {
   }
 }
 
+@keyframes card-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(1.5deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+.card-float {
+  animation: card-float 7s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .anim-rise,
   .anim-fade-up,
   .anim-fade,
   .anim-grow-x,
   .dot-live,
+  .card-float,
   .flow-line-active {
     animation: none;
   }

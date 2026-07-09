@@ -1,10 +1,13 @@
-import { About } from "@/components/about";
 import { Contact } from "@/components/contact";
+import { Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { Nav } from "@/components/nav";
+import { Skills } from "@/components/skills";
+import { SocialActivities } from "@/components/social-activities";
+import { WhyIBuild } from "@/components/why-i-build";
 import { Work } from "@/components/work";
-import { moreSystems } from "@/lib/projects";
+import { roadmap } from "@/lib/projects";
 
 export default function Home() {
   return (
@@ -18,18 +21,21 @@ export default function Home() {
       <Nav />
       <main id="main">
         <Hero />
+        <WhyIBuild />
+        <Education />
 
         <section id="work" className="border-t border-white/[0.06]">
           <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
             <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
               Selected work
             </p>
-            <h2 className="mt-4 text-4xl font-medium tracking-[-0.03em] md:text-5xl">
+            <h2 className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl">
               Systems I&apos;ve built.
             </h2>
-            <p className="mt-5 max-w-[34rem] leading-relaxed text-neutral-400">
-              Two case studies in depth. Each one runs, each one is tested,
-              and each one documents the decisions behind it.
+            <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
+              Eleven systems across five disciplines. Each one runs, each one
+              is documented, and every case study explains the decisions
+              behind it.
             </p>
 
             <div className="mt-14">
@@ -38,47 +44,47 @@ export default function Home() {
 
             <div className="mt-20">
               <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
-                More systems
+                On the roadmap
               </p>
-              <ul className="mt-4 border-t border-white/[0.06]">
-                {moreSystems.map((system) => (
-                  <li key={system.title}>
+              <p className="mt-3 max-w-[36rem] text-base leading-relaxed text-neutral-400">
+                Planned systems from the portfolio monorepo — listed, not
+                claimed. Each link goes to its design brief.
+              </p>
+              <ul className="mt-5 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+                {roadmap.map((item) => (
+                  <li key={item.title}>
                     <a
-                      href={system.href}
+                      href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-baseline justify-between gap-6 border-b border-white/[0.06] py-5 transition-colors hover:border-white/20"
+                      className="group flex items-baseline justify-between gap-4 border-b border-white/[0.06] py-3 transition-colors hover:border-white/20"
                     >
-                      <span className="shrink-0 text-base font-medium text-neutral-200 transition-colors group-hover:text-paper">
-                        {system.title}
+                      <span className="text-base text-neutral-300 transition-colors group-hover:text-paper">
+                        {item.title}
                       </span>
-                      <span className="hidden flex-1 truncate text-sm text-muted sm:block">
-                        {system.note}
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-paper"
-                      >
-                        ↗
+                      <span className="hidden truncate font-mono text-xs text-muted lg:block">
+                        {item.note}
                       </span>
                     </a>
                   </li>
                 ))}
               </ul>
-              <a
-                href="https://github.com/suryalionael"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="u-link mt-6 inline-block text-sm text-neutral-400 transition-colors hover:text-paper"
-              >
-                Everything else on GitHub ↗
-              </a>
             </div>
+
+            <a
+              href="https://github.com/suryalionael"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="u-link mt-14 inline-block text-base text-neutral-400 transition-colors hover:text-paper"
+            >
+              Everything else on GitHub <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </section>
 
         <Experience />
-        <About />
+        <Skills />
+        <SocialActivities />
         <Contact />
       </main>
       <footer className="border-t border-white/[0.06]">

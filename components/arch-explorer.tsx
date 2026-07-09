@@ -69,7 +69,7 @@ export function ArchExplorer({ nodes, foundation }: Props) {
                 }`}
               >
                 <span
-                  className={`block text-[13px] font-medium transition-colors duration-300 ${
+                  className={`block text-sm font-medium transition-colors duration-300 ${
                     isSelected
                       ? "text-paper"
                       : isNeighbor
@@ -79,7 +79,7 @@ export function ArchExplorer({ nodes, foundation }: Props) {
                 >
                   {node.label}
                 </span>
-                <span className="mt-0.5 block font-mono text-[11px] text-neutral-400">
+                <span className="mt-0.5 block font-mono text-xs text-neutral-400">
                   {node.tech}
                 </span>
               </button>
@@ -101,7 +101,7 @@ export function ArchExplorer({ nodes, foundation }: Props) {
           <p className="font-mono text-xs tracking-[0.15em] text-muted uppercase">
             {String(selectedIndex + 1).padStart(2, "0")} · {selected.label}
           </p>
-          <p className="mt-2 max-w-[42rem] text-sm leading-relaxed text-neutral-400">
+          <p className="mt-2 max-w-[44rem] text-base leading-relaxed text-neutral-400">
             {selected.detail}
           </p>
         </motion.div>
