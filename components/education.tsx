@@ -24,10 +24,10 @@ export function Education() {
           </div>
 
           <div>
-            <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
+            <h3 className="text-3xl font-medium tracking-tight md:text-4xl">
               Data Science &amp; Analytics
             </h3>
-            <p className="mt-4 max-w-[40rem] leading-relaxed text-neutral-400">
+            <p className="mt-4 max-w-[40rem] text-lg leading-8 text-neutral-400">
               President&apos;s Honour List with a 4.0 GPA and a scholarship —
               earned while working two part-time jobs and shipping the systems
               below. The degree gives me the theory; the projects are where I
@@ -43,7 +43,7 @@ export function Education() {
                   {COURSEWORK.map((course) => (
                     <li
                       key={course}
-                      className="text-sm leading-relaxed text-neutral-300"
+                      className="text-base leading-relaxed text-neutral-300"
                     >
                       {course}
                     </li>
@@ -58,7 +58,7 @@ export function Education() {
                   {TECHNOLOGIES.map((tech) => (
                     <li
                       key={tech}
-                      className="font-mono text-sm leading-relaxed text-neutral-300"
+                      className="font-mono text-base leading-relaxed text-neutral-300"
                     >
                       {tech}
                     </li>

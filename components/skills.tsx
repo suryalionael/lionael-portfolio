@@ -38,10 +38,10 @@ export function Skills() {
         <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Skills
         </p>
-        <h2 className="mt-4 text-4xl font-medium tracking-[-0.03em] md:text-5xl">
+        <h2 className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl">
           What I work with.
         </h2>
-        <p className="mt-5 max-w-[34rem] leading-relaxed text-neutral-400">
+        <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
           Grouped by the job to be done — nearly every tool here appears in a
           system above.
         </p>
@@ -56,7 +56,7 @@ export function Skills() {
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="text-sm leading-relaxed text-neutral-300"
+                    className="text-base leading-relaxed text-neutral-300"
                   >
                     {item}
                   </li>

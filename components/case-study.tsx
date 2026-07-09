@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import type { Project } from "@/lib/projects";
 import { ArchExplorer } from "@/components/arch-explorer";
+import { PhotoFade } from "@/components/photo-fade";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -80,10 +81,10 @@ export function CaseStudy({
           )}
           {project.category} · {project.year}
         </p>
-        <h3 className="mt-4 max-w-[16ch] text-3xl font-medium tracking-tight md:text-5xl md:tracking-[-0.03em]">
+        <h3 className="mt-4 max-w-[16ch] text-4xl font-medium tracking-tight md:text-5xl md:tracking-[-0.03em]">
           {project.title}
         </h3>
-        <p className="mt-5 max-w-[38rem] text-base leading-relaxed text-neutral-400 md:text-lg">
+        <p className="mt-5 max-w-[40rem] text-lg leading-8 text-neutral-400 md:text-xl md:leading-9">
           {project.summary}
         </p>
       </Reveal>
@@ -95,7 +96,7 @@ export function CaseStudy({
               href={project.links.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="u-link text-sm font-medium text-paper"
+              className="u-link text-base font-medium text-paper"
             >
               Live dashboard ↗
             </a>
@@ -105,7 +106,7 @@ export function CaseStudy({
               href={project.links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="u-link text-sm text-neutral-400 transition-colors hover:text-paper"
+              className="u-link text-base text-neutral-400 transition-colors hover:text-paper"
             >
               GitHub ↗
             </a>
@@ -117,10 +118,10 @@ export function CaseStudy({
         <dl className="mt-10 grid grid-cols-3 gap-4 border-y border-white/[0.08] py-8">
           {project.metrics.map((m) => (
             <div key={m.label}>
-              <dd className="text-2xl font-medium tracking-tight md:text-3xl">
+              <dd className="text-3xl font-medium tracking-tight md:text-4xl">
                 {m.value}
               </dd>
-              <dt className="mt-1 font-mono text-[11px] leading-snug text-neutral-400">
+              <dt className="mt-1 font-mono text-xs leading-snug text-neutral-400">
                 {m.label}
               </dt>
             </div>
@@ -152,25 +153,39 @@ export function CaseStudy({
             <h4 className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
               Dashboard
             </h4>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {project.images.map((image) => (
-                <figure key={image.src}>
-                  <div className="overflow-hidden rounded-xl border border-white/[0.08]">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      width={image.width}
-                      height={image.height}
-                      sizes="(min-width: 640px) 340px, 100vw"
-                      className="w-full"
-                    />
-                  </div>
-                  <figcaption className="mt-2 font-mono text-[11px] text-neutral-400">
-                    {image.caption}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
+            {project.images.length >= 3 ? (
+              <figure className="mt-4">
+                <PhotoFade
+                  photos={project.images}
+                  sizes="(min-width: 768px) 672px, 100vw"
+                  className="aspect-[36/25] rounded-xl border border-white/[0.08]"
+                  interval={4600}
+                />
+                <figcaption className="mt-2 font-mono text-xs text-neutral-400">
+                  {project.images[0].caption}
+                </figcaption>
+              </figure>
+            ) : (
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {project.images.map((image) => (
+                  <figure key={image.src}>
+                    <div className="overflow-hidden rounded-xl border border-white/[0.08]">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        width={image.width}
+                        height={image.height}
+                        sizes="(min-width: 640px) 340px, 100vw"
+                        className="w-full"
+                      />
+                    </div>
+                    <figcaption className="mt-2 font-mono text-xs text-neutral-400">
+                      {image.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
           </section>
         )}
 
@@ -189,7 +204,7 @@ export function CaseStudy({
             {section.body.map((paragraph) => (
               <p
                 key={paragraph.slice(0, 32)}
-                className="mt-4 max-w-[42rem] leading-relaxed text-neutral-300"
+                className="mt-4 max-w-[44rem] text-lg leading-8 text-neutral-300"
               >
                 {paragraph}
               </p>
@@ -201,7 +216,7 @@ export function CaseStudy({
           <button
             type="button"
             onClick={onClose}
-            className="u-link text-sm text-neutral-400 transition-colors hover:text-paper"
+            className="u-link text-base text-neutral-400 transition-colors hover:text-paper"
           >
             ← Back to all systems
           </button>

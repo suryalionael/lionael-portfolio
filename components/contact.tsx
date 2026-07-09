@@ -5,12 +5,12 @@ export function Contact() {
         <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Contact
         </p>
-        <h2 className="mt-6 max-w-[24ch] text-4xl leading-[1.1] font-medium tracking-[-0.03em] md:text-6xl">
+        <h2 className="mt-6 max-w-[24ch] text-5xl leading-[1.08] font-medium tracking-[-0.03em] md:text-7xl">
           The pipeline ends here. Let&apos;s build the next one together.
         </h2>
         <a
           href="mailto:suryalionael@gmail.com"
-          className="u-link mt-12 inline-block text-xl font-medium text-paper md:text-3xl"
+          className="u-link mt-12 inline-block text-2xl font-medium text-paper md:text-4xl"
         >
           suryalionael@gmail.com
         </a>
@@ -19,7 +19,7 @@ export function Contact() {
             href="https://github.com/suryalionael"
             target="_blank"
             rel="noopener noreferrer"
-            className="u-link text-sm text-neutral-400 transition-colors hover:text-paper"
+            className="u-link text-base text-neutral-400 transition-colors hover:text-paper"
           >
             GitHub ↗
           </a>
@@ -27,7 +27,7 @@ export function Contact() {
             href="https://www.linkedin.com/in/lionael-dwitama/"
             target="_blank"
             rel="noopener noreferrer"
-            className="u-link text-sm text-neutral-400 transition-colors hover:text-paper"
+            className="u-link text-base text-neutral-400 transition-colors hover:text-paper"
           >
             LinkedIn ↗
           </a>

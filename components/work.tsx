@@ -132,16 +132,16 @@ export function Work() {
               </span>
               <span>0{i + 1}</span>
             </span>
-            <span className="mt-16 block text-2xl font-medium tracking-tight md:mt-24 md:text-[1.75rem]">
+            <span className="mt-16 block text-3xl font-medium tracking-tight md:mt-24 md:text-[2rem]">
               {project.title}
             </span>
-            <span className="mt-3 block max-w-[30rem] text-sm leading-relaxed text-neutral-400">
+            <span className="mt-3 block max-w-[30rem] text-base leading-relaxed text-neutral-400">
               {project.summary}
             </span>
             <span className="mt-6 block font-mono text-[11px] text-neutral-400">
               {project.tags.join(" · ")}
             </span>
-            <span className="mt-8 flex items-center gap-2 text-sm font-medium text-neutral-300 transition-colors group-hover:text-paper">
+            <span className="mt-8 flex items-center gap-2 text-base font-medium text-neutral-300 transition-colors group-hover:text-paper">
               Open case study
               <span
                 aria-hidden="true"
@@ -174,13 +174,13 @@ export function Work() {
                       aria-haspopup="dialog"
                       className="group flex w-full items-baseline justify-between gap-6 border-b border-white/[0.06] py-5 text-left transition-colors hover:border-white/20"
                     >
-                      <span className="flex shrink-0 items-center gap-3 text-base font-medium text-neutral-200 transition-colors group-hover:text-paper">
+                      <span className="flex shrink-0 items-center gap-3 text-lg font-medium text-neutral-200 transition-colors group-hover:text-paper">
                         {project.live && (
                           <span className="dot-live inline-block size-1.5 rounded-full bg-accent" />
                         )}
                         {project.title}
                       </span>
-                      <span className="hidden flex-1 truncate text-sm text-muted md:block">
+                      <span className="hidden flex-1 truncate text-base text-muted md:block">
                         {project.summary}
                       </span>
                       <span className="hidden shrink-0 font-mono text-[11px] text-neutral-400 sm:block">
