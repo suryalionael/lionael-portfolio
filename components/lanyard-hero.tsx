@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const Lanyard = dynamic(() => import("./LanyardReactBits"), {
   ssr: false,
@@ -31,29 +31,70 @@ function getServerSnapshot(): Mode {
   return "pending";
 }
 
+function StaticCard() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="relative h-[420px] w-[300px] rotate-2 overflow-hidden rounded-2xl border border-white/10">
+        <Image
+          src="/assets/lanyard/front.png"
+          alt=""
+          fill
+          sizes="300px"
+          className="object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
 export function LanyardHero() {
   const mode = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [contextLost, setContextLost] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const is3d = mode === "3d" && !contextLost;
+
+  // If the GPU ever drops the WebGL context (background tab reclaim,
+  // driver reset), swap to the static card instead of a dead canvas.
+  // Attached at the DOM level: webglcontextlost does not bubble, and the
+  // canvas mounts later via dynamic import, so observe until it appears.
+  useEffect(() => {
+    if (!is3d) return;
+    const el = wrapRef.current;
+    if (!el) return;
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setContextLost(true);
+    };
+    let canvas = el.querySelector("canvas");
+    let observer: MutationObserver | undefined;
+    if (canvas) {
+      canvas.addEventListener("webglcontextlost", handler);
+    } else {
+      observer = new MutationObserver(() => {
+        canvas = el.querySelector("canvas");
+        if (canvas) {
+          canvas.addEventListener("webglcontextlost", handler);
+          observer?.disconnect();
+        }
+      });
+      observer.observe(el, { childList: true, subtree: true });
+    }
+    return () => {
+      canvas?.removeEventListener("webglcontextlost", handler);
+      observer?.disconnect();
+    };
+  }, [is3d]);
 
   if (mode === "pending" || mode === "none") return null;
 
-  if (mode === "static") {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <div className="relative h-[420px] w-[300px] overflow-hidden rounded-2xl border border-white/10 rotate-2">
-          <Image
-            src="/assets/lanyard/front.png"
-            alt=""
-            fill
-            sizes="300px"
-            className="object-cover"
-          />
-        </div>
-      </div>
-    );
-  }
+  if (!is3d) return <StaticCard />;
 
   return (
-    <div className="anim-fade h-full" style={{ "--d": "0.6s" } as React.CSSProperties}>
+    <div
+      ref={wrapRef}
+      className="anim-fade h-full"
+      style={{ "--d": "0.6s" } as React.CSSProperties}
+    >
       <span className="sr-only">
         An interactive ID card of Lionael Surya hanging from a lanyard.
       </span>
