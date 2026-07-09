@@ -1,15 +1,15 @@
 export function WhyIBuild() {
   return (
     <section id="about" className="border-t border-white/[0.06]">
-      <div className="mx-auto max-w-[42rem] px-6 py-28 md:py-36">
+      <div className="mx-auto max-w-[44rem] px-6 py-28 md:py-36">
         <p className="text-center font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Why I build
         </p>
-        <h2 className="mt-4 text-center text-4xl font-medium tracking-[-0.03em] md:text-5xl">
+        <h2 className="mt-4 text-center text-5xl font-medium tracking-[-0.03em] md:text-6xl">
           Details nobody sees.
         </h2>
 
-        <div className="mt-12 space-y-7 text-lg leading-8 text-neutral-300">
+        <div className="mt-12 space-y-8 text-xl leading-9 text-neutral-300">
           <p>
             I grew up in Bekasi, Indonesia, and moved to Toronto to study data
             science. The first thing I ever led wasn&apos;t a system — it was

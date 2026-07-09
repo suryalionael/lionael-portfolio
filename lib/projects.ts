@@ -148,16 +148,23 @@ export const projects: Project[] = [
     ],
     images: [
       {
+        src: "/projects/nutrition-home.png",
+        alt: "Nutrition Priority Index dashboard home page with national overview",
+        caption: "Live six-page dashboard — overview, priority map, and ranking explorer",
+        width: 1440,
+        height: 1000,
+      },
+      {
         src: "/projects/nutrition-map.png",
         alt: "Choropleth map of Indonesia showing provincial nutrition priority tiers",
-        caption: "Priority map — LISA clusters over 38 provinces",
+        caption: "Live six-page dashboard — overview, priority map, and ranking explorer",
         width: 1440,
         height: 1000,
       },
       {
         src: "/projects/nutrition-ranking.png",
         alt: "Ranking explorer table listing provinces by Nutrition Priority Index score",
-        caption: "Ranking explorer with per-indicator breakdown",
+        caption: "Live six-page dashboard — overview, priority map, and ranking explorer",
         width: 1440,
         height: 1200,
       },
@@ -858,7 +865,10 @@ export const projects: Project[] = [
     summary:
       "A daily decision-support agent for Indonesian equities with a three-layer architecture: rules filter, ML ranks, and an LLM explains — each layer doing what it's best at.",
     tags: ["Python", "XGBoost", "Claude API", "yfinance", "Parquet"],
-    links: {},
+    links: {
+      github:
+        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/idx-stock-signal-scanner",
+    },
     metrics: [
       { value: "3", label: "layers — rules → ML → LLM" },
       { value: "24", label: "engineered indicators" },
@@ -1133,3 +1143,45 @@ export const projectsByDiscipline = disciplines.map((discipline) => ({
   discipline,
   projects: projects.filter((p) => p.discipline === discipline),
 }));
+
+const monorepo = "https://github.com/suryalionael/Lionael-Surya/tree/main";
+
+// Planned systems from the portfolio monorepo — documented as roadmap
+// entries, never presented as shipped work.
+export const roadmap = [
+  {
+    title: "End-to-End Retail Data Platform",
+    note: "Capstone: raw data → warehouse → ML → BI in one platform",
+    href: `${monorepo}/case-studies/end-to-end-retail-data-platform`,
+  },
+  {
+    title: "RAG Financial Report Q&A",
+    note: "LLM-powered Q&A over financial filings",
+    href: `${monorepo}/ai-engineering/rag-financial-report-qa`,
+  },
+  {
+    title: "AI Customer Support Agent",
+    note: "Tool-calling support agent with escalation paths",
+    href: `${monorepo}/ai-engineering/ai-customer-support-agent`,
+  },
+  {
+    title: "SaaS Subscription Metrics Model",
+    note: "dbt cohort and revenue-retention modelling",
+    href: `${monorepo}/analytics-engineering/saas-subscription-metrics-model`,
+  },
+  {
+    title: "CI/CD for Data Pipelines",
+    note: "GitHub Actions → Docker → AWS deployment path",
+    href: `${monorepo}/cloud-devops/cicd-data-pipeline-deployment`,
+  },
+  {
+    title: "Serverless ETL on AWS Lambda",
+    note: "S3 → Lambda → Glue → Athena, event-driven",
+    href: `${monorepo}/cloud-devops/serverless-etl-aws-lambda`,
+  },
+  {
+    title: "Expense Tracker Automation",
+    note: "Apps Script personal-finance automation",
+    href: `${monorepo}/software-products/expense-tracker-automation`,
+  },
+];

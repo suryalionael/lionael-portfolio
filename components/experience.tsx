@@ -47,10 +47,10 @@ export function Experience() {
         <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Experience
         </p>
-        <h2 className="mt-4 text-4xl font-medium tracking-[-0.03em] md:text-5xl">
+        <h2 className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl">
           The journey so far.
         </h2>
-        <p className="mt-5 max-w-[34rem] leading-relaxed text-neutral-400">
+        <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
           Three chapters, in order — each one raised the bar for the next.
         </p>
 
@@ -69,22 +69,22 @@ export function Experience() {
                 <span className="block">{chapter.place}</span>
               </div>
               <div>
-                <h3 className="text-xl font-medium tracking-tight md:text-2xl">
+                <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
                   {chapter.role}
                 </h3>
-                <p className="mt-4 max-w-[40rem] leading-relaxed text-neutral-400">
+                <p className="mt-4 max-w-[40rem] text-lg leading-8 text-neutral-400">
                   {chapter.context}
                 </p>
                 <p className="mt-6 font-mono text-xs tracking-[0.18em] text-muted uppercase">
                   Built
                 </p>
-                <p className="mt-2 max-w-[40rem] leading-relaxed text-neutral-300">
+                <p className="mt-2 max-w-[40rem] text-lg leading-8 text-neutral-300">
                   {chapter.built}
                 </p>
                 <p className="mt-6 font-mono text-xs tracking-[0.18em] text-muted uppercase">
                   Learned
                 </p>
-                <p className="mt-2 max-w-[40rem] leading-relaxed text-neutral-300">
+                <p className="mt-2 max-w-[40rem] text-lg leading-8 text-neutral-300">
                   {chapter.learned}
                 </p>
               </div>
