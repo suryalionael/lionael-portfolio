@@ -1,55 +1,42 @@
 const chapters = [
   {
     index: "01",
-    years: "2023 — 2024",
-    org: "SMAK Penabur Summarecon Bekasi",
-    place: "Bekasi, Indonesia",
-    role: "Student council president & event chief",
+    years: "Jun — Aug 2025",
+    org: "CV. Veda Sakti Dharma",
+    place: "Indonesia",
+    role: "Student intern — payroll systems",
     context:
-      "Before any software, I led people. As student council president I ran a year of initiatives, and as chief committee of SUBSCRIBE 6 — our seven-day sport-and-art festival — I led the team that pulled it off, from the opening speech to closing night.",
+      "My first engineering internship: a firm where payroll ran on manual spreadsheets — including PPh 21, Indonesia's income-tax withholding calculation, recomputed by hand every cycle.",
     built:
-      "A council that earned its Golden Flag certification with a near-perfect score (248 of 251), and a festival an entire school remembers.",
+      "A Python system for PPh 21 tax calculation, automated payroll reports, and an employee database — turning a monthly manual process into software the finance team can rerun on demand.",
     learned:
-      "Logistics, stakeholders, and staying calm when the schedule slips. Organizations run on unglamorous details — a lesson that transferred directly to engineering.",
+      "Payroll is unforgiving: a wrong number isn't a bug, it's someone's salary. Correctness, auditability, and boring reliability beat anything clever — a standard I've held every system to since.",
   },
   {
     index: "02",
-    years: "2024 — 2025",
-    org: "Aux Merveilleux de Fred",
-    place: "Toronto, Canada",
-    role: "Sales support",
-    context:
-      "My first job after moving to Canada: a French pâtisserie where I oversaw inventory and stock movement and kept the daily and weekly documentation accurate.",
-    built:
-      "Reliable records under real-world constraints — daily counts, cash precision, no room for roughly right.",
-    learned:
-      "How much of a business lives in spreadsheets and memory. I started noticing every process that deserved to be automated — and wanting to be the one to build it.",
-  },
-  {
-    index: "03",
-    years: "2025 — present",
+    years: "Jul 2025 — present",
     org: "QuickRN",
     place: "Remote",
     role: "Web development & data operations",
     context:
-      "A nursing-education company where I moved from managing exam-prep content data to building the organization's software.",
+      "A nursing-education company where I moved from managing exam-prep content data to owning the organization's software end to end.",
     built:
-      "Three production websites from concept to deployment, and Aspen OS — the internal project-management platform the team now runs on: tasks, kanban boards, documentation, and collaboration in one place.",
+      "Three production websites from concept to deployment, and Aspen OS — the internal project platform the team now runs on daily: tasks, kanban boards, documentation, and collaboration in one place. It's documented as a case study above.",
     learned:
-      "What shipping actually means: turning requirements from non-technical stakeholders into a product, deploying it, and maintaining it. Real users are the most honest code review.",
+      "Ownership means the full lifecycle: requirements from non-technical stakeholders, deployment, and the maintenance that follows. Real users are the most honest code review I've had.",
   },
   {
-    index: "04",
-    years: "2025 — present",
+    index: "03",
+    years: "Aug 2025 — present",
     org: "PERMIKA Toronto",
     place: "Toronto, Canada",
     role: "IT & media strategy associate",
     context:
-      "One of Canada's largest Indonesian student organizations, where I work across the IT and strategic-operations divisions on internal systems, workflows, and automation.",
+      "One of Canada's largest Indonesian student organizations, where I work across the IT and strategic-operations divisions on the systems the organization runs on.",
     built:
-      "Better tooling for events and member engagement — and an Instagram campaign for League of Toronto 2026, the organization's biggest event, where I led a team of ten.",
+      "Internal workflows and automation for events and member engagement, and the Instagram campaign for League of Toronto 2026 — the organization's biggest event — where I led a team of ten from planning to delivery.",
     learned:
-      "Technology is leverage for communities, not just companies. And leading peers — where nobody reports to you — is its own engineering discipline.",
+      "Technology is leverage for communities, not just companies. And leading peers — where nobody reports to you — is its own engineering discipline: alignment has to be earned, not assigned.",
   },
 ];
 
@@ -64,7 +51,7 @@ export function Experience() {
           The journey so far.
         </h2>
         <p className="mt-5 max-w-[34rem] leading-relaxed text-neutral-400">
-          Four chapters, in order — each one changed how I build.
+          Three chapters, in order — each one raised the bar for the next.
         </p>
 
         <ol className="mt-16">

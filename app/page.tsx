@@ -3,6 +3,7 @@ import { Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { Nav } from "@/components/nav";
+import { Skills } from "@/components/skills";
 import { WhyIBuild } from "@/components/why-i-build";
 import { Work } from "@/components/work";
 
@@ -51,6 +52,7 @@ export default function Home() {
         </section>
 
         <Experience />
+        <Skills />
         <Contact />
       </main>
       <footer className="border-t border-white/[0.06]">
