@@ -223,15 +223,18 @@ body {
   }
 }
 
-.lanyard-wrapper {
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  touch-action: none;
+@keyframes card-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(1.5deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+.card-float {
+  animation: card-float 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -240,6 +243,7 @@ body {
   .anim-fade,
   .anim-grow-x,
   .dot-live,
+  .card-float,
   .flow-line-active {
     animation: none;
   }
