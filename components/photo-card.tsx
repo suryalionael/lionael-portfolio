@@ -10,7 +10,7 @@ export function PhotoCard() {
         />
         <div className="relative aspect-[3/4] overflow-hidden rounded-xl">
           <Image
-            src="/assets/lanyard/front.png"
+            src="/portrait.jpg"
             alt="Studio portrait of Lionael Surya in a black shirt"
             fill
             priority
