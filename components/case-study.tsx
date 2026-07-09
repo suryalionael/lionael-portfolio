@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import type { Project } from "@/lib/projects";
 import { ArchExplorer } from "@/components/arch-explorer";
@@ -146,6 +147,33 @@ export function CaseStudy({
         animate={{ opacity: 1 }}
         transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.95 }}
       >
+        {project.images && (
+          <section className="mt-12">
+            <h4 className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+              Dashboard
+            </h4>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {project.images.map((image) => (
+                <figure key={image.src}>
+                  <div className="overflow-hidden rounded-xl border border-white/[0.08]">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      sizes="(min-width: 640px) 340px, 100vw"
+                      className="w-full"
+                    />
+                  </div>
+                  <figcaption className="mt-2 font-mono text-[11px] text-neutral-400">
+                    {image.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
         {project.sections.map((section, i) => (
           <motion.section
             key={section.heading}
