@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { projects, type Project } from "@/lib/projects";
+import {
+  featuredProjects,
+  projects,
+  projectsByDiscipline,
+  type Project,
+} from "@/lib/projects";
 import { CaseStudy } from "@/components/case-study";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -103,7 +108,7 @@ export function Work() {
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 md:gap-6">
-        {projects.map((project, i) => (
+        {featuredProjects.map((project, i) => (
           <motion.button
             key={project.slug}
             layoutId={`card-${project.slug}`}
@@ -147,6 +152,53 @@ export function Work() {
             </span>
           </motion.button>
         ))}
+      </div>
+
+      <div className="mt-20 space-y-14">
+        {projectsByDiscipline.map((group) => {
+          const rows = group.projects.filter((p) => !p.featured);
+          if (rows.length === 0) return null;
+          return (
+            <div key={group.discipline}>
+              <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+                {group.discipline}
+              </p>
+              <ul className="mt-4 border-t border-white/[0.06]">
+                {rows.map((project) => (
+                  <li key={project.slug}>
+                    <motion.button
+                      layoutId={`card-${project.slug}`}
+                      transition={layoutTransition}
+                      type="button"
+                      onClick={(e) => open(project, e.currentTarget)}
+                      aria-haspopup="dialog"
+                      className="group flex w-full items-baseline justify-between gap-6 border-b border-white/[0.06] py-5 text-left transition-colors hover:border-white/20"
+                    >
+                      <span className="flex shrink-0 items-center gap-3 text-base font-medium text-neutral-200 transition-colors group-hover:text-paper">
+                        {project.live && (
+                          <span className="dot-live inline-block size-1.5 rounded-full bg-accent" />
+                        )}
+                        {project.title}
+                      </span>
+                      <span className="hidden flex-1 truncate text-sm text-muted md:block">
+                        {project.summary}
+                      </span>
+                      <span className="hidden shrink-0 font-mono text-[11px] text-neutral-400 sm:block">
+                        {project.tags.slice(0, 3).join(" · ")}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 text-neutral-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-paper"
+                      >
+                        →
+                      </span>
+                    </motion.button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
 
       <AnimatePresence>
