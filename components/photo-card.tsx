@@ -15,6 +15,7 @@ export function PhotoCard() {
             fill
             priority
             sizes="330px"
+            quality={95}
             className="object-cover"
           />
         </div>
