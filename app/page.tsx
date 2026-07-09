@@ -4,6 +4,7 @@ import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { Nav } from "@/components/nav";
 import { Skills } from "@/components/skills";
+import { SocialActivities } from "@/components/social-activities";
 import { WhyIBuild } from "@/components/why-i-build";
 import { Work } from "@/components/work";
 
@@ -53,6 +54,7 @@ export default function Home() {
 
         <Experience />
         <Skills />
+        <SocialActivities />
         <Contact />
       </main>
       <footer className="border-t border-white/[0.06]">
