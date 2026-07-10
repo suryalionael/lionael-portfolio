@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const alt =
-  "Lionael Surya — Built like production. Data & software engineering, Toronto.";
+  "Lionael Surya — Building systems people can depend on. Data Science · Data Engineering · Software Engineering, Toronto, Canada.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -38,7 +38,7 @@ export default async function OpenGraphImage() {
             marginBottom: 28,
           }}
         >
-          Lionael Surya · Toronto, Canada
+          Lionael Surya · Toronto, Canada · Data Science
         </div>
         <div
           style={{
@@ -50,7 +50,7 @@ export default async function OpenGraphImage() {
             color: "#fafafa",
           }}
         >
-          Built like production.
+          Building systems people can depend on.
         </div>
         <div
           style={{
@@ -60,7 +60,7 @@ export default async function OpenGraphImage() {
             marginTop: 40,
           }}
         >
-          Data & software engineering — tested, documented, shipped.
+          Data Science · Data Engineering · Software Engineering
         </div>
         <div
           style={{

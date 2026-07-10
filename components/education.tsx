@@ -28,10 +28,12 @@ export function Education() {
               Data Science &amp; Analytics
             </h3>
             <p className="mt-4 max-w-[40rem] text-lg leading-8 text-neutral-400">
-              President&apos;s Honour List with a 4.0 GPA and a scholarship —
-              earned while working two part-time jobs and shipping the systems
-              below. The degree gives me the theory; the projects are where I
-              hold it to production standards.
+              President&apos;s Honour List recipient and SSF International
+              Student Merit Award scholar. Throughout my first four semesters at
+              Seneca Polytechnic, I balanced multiple part-time roles while
+              building production software for real organizations. The classroom
+              provides the theory; my projects are where I turn it into reliable
+              systems.
             </p>
 
             <div className="mt-8 grid gap-8 sm:grid-cols-2">
