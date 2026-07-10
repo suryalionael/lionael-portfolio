@@ -17,6 +17,7 @@ export type Project = {
   slug: string;
   title: string;
   category: string;
+  group?: string;
   discipline: Discipline;
   year: string;
   live: boolean;
@@ -32,10 +33,10 @@ export type Project = {
 
 export const disciplines = [
   "Data Engineering",
-  "Analytics Engineering",
   "Data Science & ML",
-  "AI & Automation",
   "Full Stack",
+  "Automation",
+  "Research & Simulation",
 ] as const;
 
 export type Discipline = (typeof disciplines)[number];
@@ -45,6 +46,7 @@ export const projects: Project[] = [
     slug: "nutrition-priority-index",
     title: "Nutrition Priority Index",
     category: "Policy analytics",
+    group: "Featured Systems",
     discipline: "Data Science & ML",
     year: "2026",
     live: true,
@@ -173,7 +175,8 @@ export const projects: Project[] = [
   {
     slug: "streaming-clickstream-pipeline",
     title: "Streaming Clickstream Pipeline",
-    category: "Data engineering",
+    category: "Real-time data",
+    group: "Featured Systems",
     discipline: "Data Engineering",
     year: "2026",
     live: false,
@@ -278,11 +281,124 @@ export const projects: Project[] = [
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/streaming-clickstream.png",
+        alt: "Streaming Clickstream Pipeline GitHub repository with architecture documentation",
+        caption: "Architecture documented in the repo — Kafka, Spark, Delta Lake, DuckDB, Streamlit",
+        width: 1440,
+        height: 900,
+      },
+    ],
   },
+  {
+    slug: "aspen-os",
+    title: "Aspen OS",
+    category: "Internal software",
+    group: "Featured Systems",
+    discipline: "Full Stack",
+    year: "2026",
+    live: true,
+    featured: true,
+    summary:
+      "The project operating system a nonprofit team actually runs on — tasks, kanban, documentation, and collaboration in one place. Built solo, in production at QuickRN.",
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Vercel"],
+    links: {
+      github: "https://github.com/suryalionael/aspen-os",
+      demo: "https://aspen-os.vercel.app",
+    },
+    metrics: [
+      { value: "in production", label: "daily use at QuickRN" },
+      { value: "1", label: "hub for tasks, docs, kanban" },
+      { value: "solo", label: "designed, built, and shipped" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "ui",
+          label: "Next.js app",
+          tech: "App Router · TypeScript",
+          detail:
+            "Server-first React with the App Router: shadcn/ui components over Tailwind, client interactivity only where the kanban and editors need it.",
+        },
+        {
+          id: "data",
+          label: "Supabase",
+          tech: "Postgres · auth",
+          detail:
+            "Postgres with SQL migrations under version control, plus Supabase auth — a real relational schema for projects, tasks, and documents rather than a document soup.",
+        },
+        {
+          id: "workflows",
+          label: "Project workflows",
+          tech: "kanban · tasks · docs",
+          detail:
+            "Kanban boards, task tracking, and documentation live in one tool with one source of truth — replacing the spreadsheet-and-chat sprawl the team had before.",
+        },
+        {
+          id: "deploy",
+          label: "Deployment",
+          tech: "Vercel",
+          detail:
+            "Continuously deployed on Vercel; the sprint planning that drives development is documented in the repo itself.",
+        },
+      ],
+      foundation: [
+        "TypeScript strict",
+        "SQL migrations in version control",
+        "built for and with the team using it",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "QuickRN's project coordination lived across spreadsheets, chats, and memory — the default state of most small nonprofits. The team needed one place for tasks, boards, and documentation, simple enough that non-technical members would actually use it.",
+        ],
+      },
+      {
+        heading: "Solution",
+        body: [
+          "Aspen OS: an internal project operating system built on Next.js and Supabase, covering task management, kanban workflows, project tracking, documentation, and collaboration — designed with the people who use it daily.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "Server Components by default with client code only where interaction demands it — the same discipline as this portfolio. A relational Postgres schema with versioned migrations instead of a schemaless store, because project data has real relationships and real integrity constraints. And 'simplest tool that the team enjoys' as the explicit product bar, which cut more features than it added.",
+        ],
+      },
+      {
+        heading: "Results",
+        body: [
+          "The platform is the team's daily hub at QuickRN — the strongest kind of result a portfolio project can have: real users who chose to keep using it. Built end-to-end solo, from requirements gathering with non-technical stakeholders to deployment and maintenance.",
+        ],
+      },
+      {
+        heading: "Lessons learned",
+        body: [
+          "Products for real teams are shaped by adoption, not features: every design decision had to survive contact with people who don't care how it's built. Maintenance — the part after shipping — is where most of the engineering lessons lived.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/aspen-os.png",
+        alt: "Aspen OS application showing the project dashboard",
+        caption: "Live application — internal project operating system in daily use at QuickRN",
+        width: 1440,
+        height: 1000,
+      },
+    ],
+  },
+
+  /* ── Data Engineering ── */
+
   {
     slug: "retail-sales-etl-pipeline",
     title: "Retail Sales ETL Pipeline",
     category: "Data engineering",
+    group: "Data Engineering",
     discipline: "Data Engineering",
     year: "2026",
     live: false,
@@ -373,12 +489,22 @@ export const projects: Project[] = [
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/retail-sales-etl.png",
+        alt: "Retail Sales ETL Pipeline GitHub repository with pipeline architecture",
+        caption: "GitHub repository — Airflow-orchestrated batch ETL with star-schema warehouse",
+        width: 1440,
+        height: 900,
+      },
+    ],
   },
   {
     slug: "dbt-ecommerce-analytics-mart",
     title: "dbt E-Commerce Analytics Mart",
     category: "Analytics engineering",
-    discipline: "Analytics Engineering",
+    group: "Data Engineering",
+    discipline: "Data Engineering",
     year: "2026",
     live: false,
     summary:
@@ -468,11 +594,24 @@ export const projects: Project[] = [
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/dbt-ecommerce.png",
+        alt: "dbt E-Commerce Analytics Mart GitHub repository with model documentation",
+        caption: "GitHub repository — 14 dbt models with staging, intermediate, and marts layers",
+        width: 1440,
+        height: 900,
+      },
+    ],
   },
+
+  /* ── Machine Learning & Data Science ── */
+
   {
     slug: "customer-churn-prediction",
     title: "Customer Churn Prediction",
     category: "Machine learning",
+    group: "Machine Learning & Data Science",
     discipline: "Data Science & ML",
     year: "2026",
     live: false,
@@ -481,7 +620,7 @@ export const projects: Project[] = [
     tags: ["XGBoost", "SHAP", "Optuna", "FastAPI", "Streamlit"],
     links: {
       github:
-        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/customer-churn-prediction-telecom",
+        "https://github.com/suryalionael/Customer-Churn-Prediction",
     },
     metrics: [
       { value: "0.847", label: "ROC-AUC on holdout" },
@@ -571,11 +710,21 @@ export const projects: Project[] = [
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/customer-churn.png",
+        alt: "Customer Churn Prediction GitHub repository with system architecture",
+        caption: "GitHub repository — end-to-end churn prediction system with XGBoost and SHAP",
+        width: 1440,
+        height: 900,
+      },
+    ],
   },
   {
     slug: "retail-demand-forecasting",
     title: "Retail Demand Forecasting",
-    category: "Machine learning",
+    category: "Forecasting",
+    group: "Machine Learning & Data Science",
     discipline: "Data Science & ML",
     year: "2026",
     live: false,
@@ -666,11 +815,21 @@ export const projects: Project[] = [
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/retail-demand.png",
+        alt: "Retail Demand Forecasting GitHub repository with backtesting framework",
+        caption: "GitHub repository — walk-forward validation with Prophet, XGBoost, and naive seasonal baselines",
+        width: 1440,
+        height: 900,
+      },
+    ],
   },
   {
     slug: "floodcast-jakarta",
     title: "FloodCast Jakarta",
     category: "Machine learning",
+    group: "Machine Learning & Data Science",
     discipline: "Data Science & ML",
     year: "2026",
     live: false,
@@ -762,199 +921,247 @@ export const projects: Project[] = [
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/floodcast-jakarta.png",
+        alt: "FloodCast Jakarta GitHub repository with flood risk prediction documentation",
+        caption: "GitHub repository — calibrated multi-horizon XGBoost with SHAP in Bahasa Indonesia",
+        width: 1440,
+        height: 900,
+      },
+    ],
   },
+
+  /* ── Client Software & Websites ── */
+
   {
-    slug: "elevator-simulation",
-    title: "Elevator Simulation",
-    category: "Simulation",
-    discipline: "Data Science & ML",
-    year: "2026",
-    live: false,
+    slug: "aspen-training-centre",
+    title: "Aspen Training Centre",
+    category: "Client website",
+    group: "Client Software & Websites",
+    discipline: "Full Stack",
+    year: "2025",
+    live: true,
     summary:
-      "A discrete-event simulation answering a real capital question: how many elevators does a five-floor commercial building actually need — one, two, or three?",
-    tags: ["Python", "SimPy", "NumPy", "matplotlib"],
+      "Responsive marketing website for a Canadian vocational training centre — built with HTML, CSS, and JavaScript. No framework, no build step, no unnecessary complexity.",
+    tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
     links: {
-      github:
-        "https://github.com/suryalionael/BDA450-Elevator-Simulation-Cost-vs-Waiting-Time",
+      github: "https://github.com/suryalionael/aspen-training-centre-website",
+      demo: "https://aspentrainingcentre.ca",
     },
     metrics: [
-      { value: "1–3", label: "elevator configurations compared" },
-      { value: "P95", label: "waiting-time percentiles, not just means" },
-      { value: "NHPP", label: "realistic time-varying demand" },
+      { value: "Live", label: "in production" },
+      { value: "1", label: "responsive site" },
+      { value: "2025", label: "launched" },
     ],
     architecture: {
       nodes: [
         {
-          id: "demand",
-          label: "Passenger demand",
-          tech: "non-homogeneous Poisson",
+          id: "site",
+          label: "Static site",
+          tech: "HTML · CSS · JavaScript",
           detail:
-            "Arrivals follow a non-homogeneous Poisson process — morning rush, lunch spikes, evening exodus — because uniform demand would make every configuration look fine.",
+            "Hand-coded responsive marketing website with semantic HTML, modern CSS layout (flexbox and grid), and vanilla JavaScript for navigation and form handling. No framework — the right tool for a content-focused brochure site.",
         },
         {
-          id: "engine",
-          label: "Simulation engine",
-          tech: "SimPy DES",
+          id: "hosting",
+          label: "Hosting",
+          tech: "Netlify",
           detail:
-            "A discrete-event simulation advancing through passenger arrivals, boarding, travel, and departure events rather than fixed time steps.",
-        },
-        {
-          id: "policy",
-          label: "Elevator policy",
-          tech: "cooperative SCAN",
-          detail:
-            "Elevators run a cooperative SCAN algorithm — the disk-scheduling classic applied to floors — coordinating so they don't all chase the same call.",
-        },
-        {
-          id: "metrics",
-          label: "Service metrics",
-          tech: "wait · trip · fairness",
-          detail:
-            "Queue-to-board waiting time, full trip time, extreme delays, and fairness across floors — reported as distributions and percentiles, not just averages.",
-        },
-        {
-          id: "decision",
-          label: "Cost vs service",
-          tech: "the actual question",
-          detail:
-            "Each added elevator is capital cost; each removed one is passenger time. The simulation quantifies the trade so the decision is a judgment about numbers, not a guess.",
-        },
-      ],
-      foundation: ["SimPy 4", "course project — BDA450, Seneca"],
-    },
-    sections: [
-      {
-        heading: "Problem",
-        body: [
-          "Elevator capacity is a one-time capital decision with a permanent service consequence. Undersize and tenants wait every day; oversize and the building paid for steel it didn't need. Intuition can't answer this — queueing dynamics are famously counterintuitive.",
-        ],
-      },
-      {
-        heading: "Solution",
-        body: [
-          "A SimPy discrete-event simulation of a five-floor commercial building under realistic time-varying demand, comparing one, two, and three elevators under a cooperative SCAN policy, and reporting the full waiting-time distribution for each.",
-        ],
-      },
-      {
-        heading: "Engineering decisions",
-        body: [
-          "Demand is non-homogeneous on purpose — peak-hour behavior is what sizing decisions are about, and uniform arrivals would hide it. Percentiles and extreme delays are first-class outputs, because a mean wait of 40 seconds is meaningless to the person who waited six minutes.",
-        ],
-      },
-      {
-        heading: "Results",
-        body: [
-          "A quantified cost-versus-service frontier for the building: how much waiting time each additional elevator buys, including its effect on worst-case delays and cross-floor fairness.",
-        ],
-      },
-      {
-        heading: "Lessons learned",
-        body: [
-          "Simulation is judgment infrastructure: it doesn't make the decision, it makes the trade-offs visible. And distributions beat averages every time someone's experience lives in the tail.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "idx-stock-scanner",
-    title: "IDX Stock Scanner",
-    category: "AI engineering",
-    discipline: "AI & Automation",
-    year: "2026",
-    live: false,
-    summary:
-      "A daily decision-support agent for Indonesian equities with a three-layer architecture: rules filter, ML ranks, and an LLM explains — each layer doing what it's best at.",
-    tags: ["Python", "XGBoost", "Claude API", "yfinance", "Parquet"],
-    links: {
-      github:
-        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/idx-stock-signal-scanner",
-    },
-    metrics: [
-      { value: "3", label: "layers — rules → ML → LLM" },
-      { value: "24", label: "engineered indicators" },
-      { value: "daily", label: "scan cadence" },
-    ],
-    architecture: {
-      nodes: [
-        {
-          id: "fetch",
-          label: "Data fetcher",
-          tech: "yfinance · Parquet",
-          detail:
-            "Daily OHLCV for IDX-listed stocks behind an abstract fetcher contract, with incremental updates persisted to Parquet — providers can change without touching the pipeline.",
-        },
-        {
-          id: "validate",
-          label: "Validator & features",
-          tech: "24 indicators",
-          detail:
-            "Data quality checks and gap handling, then a feature engine computing 24 technical indicators per ticker.",
-        },
-        {
-          id: "rules",
-          label: "Rule engine",
-          tech: "guardrails first",
-          detail:
-            "Deterministic rules reject unsuitable stocks before any model sees them — liquidity, data quality, structural filters. The ML layer only ranks candidates that already passed judgment.",
-        },
-        {
-          id: "ml",
-          label: "ML ranker",
-          tech: "XGBoost",
-          detail:
-            "Probabilistic ranking of how likely each candidate is to exceed a return threshold within a horizon — ordering, not oracle.",
-        },
-        {
-          id: "llm",
-          label: "LLM explainer",
-          tech: "Claude",
-          detail:
-            "A short narrative per ticker: why this signal fired and what to watch — the layer that turns a score into something a human can interrogate.",
+            "Deployed on Netlify with a custom domain, automated SSL, and serverless form handling for admissions inquiries.",
         },
       ],
       foundation: [
-        "explicitly decision-support, not profit guarantee",
-        "source private — architecture documented",
+        "Semantic HTML",
+        "Responsive design",
+        "Mobile-first",
       ],
     },
     sections: [
       {
         heading: "Problem",
         body: [
-          "Screening hundreds of IDX tickers daily by hand doesn't scale, but neither does trusting a single opaque model with a ranked list. The design problem is trust: every recommendation needs to be filterable, rankable, and explainable.",
+          "Aspen Training Centre needed a professional web presence to showcase their vocational programs, communicate their educational philosophy, and make it easy for prospective students to find course information.",
         ],
       },
       {
         heading: "Solution",
         body: [
-          "A three-layer pipeline where each layer does what it's structurally best at: deterministic rules provide guardrails, gradient-boosted ranking provides prioritization, and an LLM provides per-ticker narrative explanation. No layer is asked to do another's job.",
+          "A clean, typography-driven marketing site built from scratch with HTML, CSS, and JavaScript. The design prioritises content clarity and fast load times over unnecessary complexity. Pages are structured around the training centre's core content — programs, courses, and admissions — with clear navigation and mobile-first responsive layout.",
         ],
       },
       {
-        heading: "Engineering decisions",
+        heading: "Outcome",
         body: [
-          "Rules run before ML deliberately — guardrails should be auditable, and a rejected stock should have a stateable reason. The LLM sits last and only explains; it never picks. And the whole system is framed as decision support with that caveat written into the README, because overstating a financial tool's promise is the fastest way to make it harmful.",
-        ],
-      },
-      {
-        heading: "Results",
-        body: [
-          "A daily scanner producing ranked, explained candidates from IDX market data — the most heavily iterated project in the portfolio, with 100+ commits of pipeline hardening. The source is private given the domain; the architecture is documented publicly.",
-        ],
-      },
-      {
-        heading: "Lessons learned",
-        body: [
-          "Hybrid systems beat monoliths when each layer's failure mode is different: rules fail loudly, models fail statistically, LLMs fail plausibly. Keeping them separate keeps each failure diagnosable.",
+          "A production website serving as the training centre's primary online presence. The site has received positive client feedback on its improved mobile experience and clearer information architecture.",
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/aspen-training-centre.png",
+        alt: "Aspen Training Centre homepage showing hero section and program overview",
+        caption: "Production website — responsive marketing site for a vocational training centre",
+        width: 1440,
+        height: 1000,
+      },
+    ],
   },
+  {
+    slug: "delta-harvest-festival",
+    title: "Delta Harvest Festival",
+    category: "Client website",
+    group: "Client Software & Websites",
+    discipline: "Full Stack",
+    year: "2026",
+    live: true,
+    summary:
+      "Heritage festival website for the Delta Mill Society — a two-day event site with programme details, venue histories, and ticketing. Built with HTML, CSS, and JavaScript.",
+    tags: ["HTML", "CSS", "JavaScript", "Event Website"],
+    links: {
+      github: "https://github.com/suryalionael/delta-harvest-festival",
+      demo: "https://deltaharvestfestival.ca",
+    },
+    metrics: [
+      { value: "Live", label: "in production" },
+      { value: "2", label: "historic venues featured" },
+      { value: "2026", label: "launched" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "site",
+          label: "Static site",
+          tech: "HTML · CSS · JavaScript",
+          detail:
+            "A multi-section festival website with scroll-based narrative layout, embedded maps, countdown timer, and performance schedule. Built with plain HTML, CSS, and JavaScript — a content-rich event site that doesn't need a framework.",
+        },
+        {
+          id: "hosting",
+          label: "Hosting",
+          tech: "Netlify",
+          detail:
+            "Deployed on Netlify with a custom domain and automated SSL. Served statically with no backend dependencies.",
+        },
+      ],
+      foundation: [
+        "Semantic HTML",
+        "Responsive design",
+        "SEO optimization",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "The Delta Mill Society needed a website to promote their annual Harvest Festival — a two-day heritage event at the Old Stone Mill and Old Town Hall in Delta, Ontario. The site needed to communicate the weekend programme, venue details, and ticket information clearly while reflecting the heritage character of the event.",
+        ],
+      },
+      {
+        heading: "Solution",
+        body: [
+          "A single-page multi-section website that guides visitors through the weekend programme, musical performances, venue histories, and ticketing information. The design uses scroll-driven storytelling, large typography, and historical imagery to convey the festival's heritage atmosphere.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "A production website serving as the festival's primary information source and promotional tool, with downloadable schedules and integrated venue maps.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/delta-harvest-festival.png",
+        alt: "Delta Harvest Festival homepage showing the weekend event and venue information",
+        caption: "Production website — heritage festival site for the Delta Mill Society",
+        width: 1440,
+        height: 1000,
+      },
+    ],
+  },
+  {
+    slug: "nel-coloma-moya-portfolio",
+    title: "Nel Coloma-Moya Portfolio",
+    category: "Client website",
+    group: "Client Software & Websites",
+    discipline: "Full Stack",
+    year: "2026",
+    live: true,
+    summary:
+      "Academic portfolio for a human geographer and educator — a comprehensive personal site with biography, teaching experience, research, events, and publications. Built with HTML, CSS, and JavaScript.",
+    tags: ["HTML", "CSS", "JavaScript", "Academic Portfolio"],
+    links: {
+      github: "https://github.com/suryalionael/nel-coloma-moya-portfolio",
+      demo: "https://nelcoloma-moya.ca",
+    },
+    metrics: [
+      { value: "Live", label: "in production" },
+      { value: "9", label: "content sections" },
+      { value: "2026", label: "launched" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "site",
+          label: "Static site",
+          tech: "HTML · CSS · JavaScript",
+          detail:
+            "A multi-section academic portfolio with tabbed navigation, interactive timeline, and content modules. Built with vanilla HTML, CSS, and JavaScript — a content-rich site that doesn't need a JavaScript framework.",
+        },
+        {
+          id: "hosting",
+          label: "Hosting",
+          tech: "Netlify",
+          detail:
+            "Deployed on Netlify with a custom domain and automated SSL. All content is statically served.",
+        },
+      ],
+      foundation: [
+        "Semantic HTML",
+        "Responsive design",
+        "Accessible navigation",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Professor Nel Coloma-Moya needed a professional academic portfolio to consolidate her biography, teaching experience, research, community events, and publications in one place. The site needed to serve multiple audiences — students, colleagues, conference organizers, and collaborators — while reflecting the depth of decades of work.",
+        ],
+      },
+      {
+        heading: "Solution",
+        body: [
+          "A comprehensive academic portfolio with nine content sections, an interactive educational journey timeline, detailed teaching history, community events archive, and integrated contact. The design prioritises content hierarchy and readability across devices, making decades of work navigable without overwhelming the visitor.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "A production website serving as the professor's primary academic presence online, consolidating teaching, research, community-building, and publications into one accessible, well-organized digital format.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/nel-coloma-moya.png",
+        alt: "Nel Coloma-Moya portfolio homepage showing biography and navigation",
+        caption: "Production website — academic portfolio for a human geographer and educator",
+        width: 1440,
+        height: 1000,
+      },
+    ],
+  },
+
+  /* ── Automation & Productivity ── */
+
   {
     slug: "cv-generator",
     title: "Employee CV Generator",
     category: "Automation",
-    discipline: "AI & Automation",
+    group: "Automation & Productivity",
+    discipline: "Automation",
     year: "2025",
     live: false,
     summary:
@@ -1045,93 +1252,223 @@ export const projects: Project[] = [
         ],
       },
     ],
+    images: [
+      {
+        src: "/projects/cv-generator.png",
+        alt: "Employee CV Generator GitHub repository with layered architecture documentation",
+        caption: "GitHub repository — Google Apps Script with controllers, services, and repositories",
+        width: 1440,
+        height: 900,
+      },
+    ],
   },
   {
-    slug: "aspen-os",
-    title: "Aspen OS",
-    category: "Full stack",
-    discipline: "Full Stack",
+    slug: "idx-stock-scanner",
+    title: "IDX Stock Scanner",
+    category: "AI engineering",
+    group: "Automation & Productivity",
+    discipline: "Automation",
     year: "2026",
-    live: true,
+    live: false,
     summary:
-      "The project operating system a nonprofit team actually runs on — tasks, kanban, documentation, and collaboration in one place. Built solo, in production at QuickRN.",
-    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Vercel"],
+      "A daily decision-support agent for Indonesian equities with a three-layer architecture: rules filter, ML ranks, and an LLM explains — each layer doing what it's best at.",
+    tags: ["Python", "XGBoost", "Claude API", "yfinance", "Parquet"],
     links: {
-      github: "https://github.com/suryalionael/aspen-os",
-      demo: "https://aspen-os.vercel.app",
+      github:
+        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/idx-stock-signal-scanner",
     },
     metrics: [
-      { value: "in production", label: "daily use at QuickRN" },
-      { value: "1", label: "hub for tasks, docs, kanban" },
-      { value: "solo", label: "designed, built, and shipped" },
+      { value: "3", label: "layers — rules → ML → LLM" },
+      { value: "24", label: "engineered indicators" },
+      { value: "daily", label: "scan cadence" },
     ],
     architecture: {
       nodes: [
         {
-          id: "ui",
-          label: "Next.js app",
-          tech: "App Router · TypeScript",
+          id: "fetch",
+          label: "Data fetcher",
+          tech: "yfinance · Parquet",
           detail:
-            "Server-first React with the App Router: shadcn/ui components over Tailwind, client interactivity only where the kanban and editors need it.",
+            "Daily OHLCV for IDX-listed stocks behind an abstract fetcher contract, with incremental updates persisted to Parquet — providers can change without touching the pipeline.",
         },
         {
-          id: "data",
-          label: "Supabase",
-          tech: "Postgres · auth",
+          id: "validate",
+          label: "Validator & features",
+          tech: "24 indicators",
           detail:
-            "Postgres with SQL migrations under version control, plus Supabase auth — a real relational schema for projects, tasks, and documents rather than a document soup.",
+            "Data quality checks and gap handling, then a feature engine computing 24 technical indicators per ticker.",
         },
         {
-          id: "workflows",
-          label: "Project workflows",
-          tech: "kanban · tasks · docs",
+          id: "rules",
+          label: "Rule engine",
+          tech: "guardrails first",
           detail:
-            "Kanban boards, task tracking, and documentation live in one tool with one source of truth — replacing the spreadsheet-and-chat sprawl the team had before.",
+            "Deterministic rules reject unsuitable stocks before any model sees them — liquidity, data quality, structural filters. The ML layer only ranks candidates that already passed judgment.",
         },
         {
-          id: "deploy",
-          label: "Deployment",
-          tech: "Vercel",
+          id: "ml",
+          label: "ML ranker",
+          tech: "XGBoost",
           detail:
-            "Continuously deployed on Vercel; the sprint planning that drives development is documented in the repo itself.",
+            "Probabilistic ranking of how likely each candidate is to exceed a return threshold within a horizon — ordering, not oracle.",
+        },
+        {
+          id: "llm",
+          label: "LLM explainer",
+          tech: "Claude",
+          detail:
+            "A short narrative per ticker: why this signal fired and what to watch — the layer that turns a score into something a human can interrogate.",
         },
       ],
       foundation: [
-        "TypeScript strict",
-        "SQL migrations in version control",
-        "built for and with the team using it",
+        "explicitly decision-support, not profit guarantee",
+        "source private — architecture documented",
       ],
     },
     sections: [
       {
         heading: "Problem",
         body: [
-          "QuickRN's project coordination lived across spreadsheets, chats, and memory — the default state of most small nonprofits. The team needed one place for tasks, boards, and documentation, simple enough that non-technical members would actually use it.",
+          "Screening hundreds of IDX tickers daily by hand doesn't scale, but neither does trusting a single opaque model with a ranked list. The design problem is trust: every recommendation needs to be filterable, rankable, and explainable.",
         ],
       },
       {
         heading: "Solution",
         body: [
-          "Aspen OS: an internal project operating system built on Next.js and Supabase, covering task management, kanban workflows, project tracking, documentation, and collaboration — designed with the people who use it daily.",
+          "A three-layer pipeline where each layer does what it's structurally best at: deterministic rules provide guardrails, gradient-boosted ranking provides prioritization, and an LLM provides per-ticker narrative explanation. No layer is asked to do another's job.",
         ],
       },
       {
         heading: "Engineering decisions",
         body: [
-          "Server Components by default with client code only where interaction demands it — the same discipline as this portfolio. A relational Postgres schema with versioned migrations instead of a schemaless store, because project data has real relationships and real integrity constraints. And 'simplest tool that the team enjoys' as the explicit product bar, which cut more features than it added.",
+          "Rules run before ML deliberately — guardrails should be auditable, and a rejected stock should have a stateable reason. The LLM sits last and only explains; it never picks. And the whole system is framed as decision support with that caveat written into the README, because overstating a financial tool's promise is the fastest way to make it harmful.",
         ],
       },
       {
         heading: "Results",
         body: [
-          "The platform is the team's daily hub at QuickRN — the strongest kind of result a portfolio project can have: real users who chose to keep using it. Built end-to-end solo, from requirements gathering with non-technical stakeholders to deployment and maintenance.",
+          "A daily scanner producing ranked, explained candidates from IDX market data — the most heavily iterated project in the portfolio, with 100+ commits of pipeline hardening. The source is private given the domain; the architecture is documented publicly.",
         ],
       },
       {
         heading: "Lessons learned",
         body: [
-          "Products for real teams are shaped by adoption, not features: every design decision had to survive contact with people who don't care how it's built. Maintenance — the part after shipping — is where most of the engineering lessons lived.",
+          "Hybrid systems beat monoliths when each layer's failure mode is different: rules fail loudly, models fail statistically, LLMs fail plausibly. Keeping them separate keeps each failure diagnosable.",
         ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/idx-stock-scanner.png",
+        alt: "IDX Stock Scanner GitHub repository with three-layer architecture documentation",
+        caption: "GitHub repository — rules filter, ML ranker, and LLM explainer pipeline",
+        width: 1440,
+        height: 900,
+      },
+    ],
+  },
+
+  /* ── Research & Simulation ── */
+
+  {
+    slug: "elevator-simulation",
+    title: "Elevator Simulation",
+    category: "Simulation",
+    group: "Research & Simulation",
+    discipline: "Research & Simulation",
+    year: "2026",
+    live: false,
+    summary:
+      "A discrete-event simulation answering a real capital question: how many elevators does a five-floor commercial building actually need — one, two, or three?",
+    tags: ["Python", "SimPy", "NumPy", "matplotlib"],
+    links: {
+      github:
+        "https://github.com/suryalionael/BDA450-Elevator-Simulation-Cost-vs-Waiting-Time",
+    },
+    metrics: [
+      { value: "1–3", label: "elevator configurations compared" },
+      { value: "P95", label: "waiting-time percentiles, not just means" },
+      { value: "NHPP", label: "realistic time-varying demand" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "demand",
+          label: "Passenger demand",
+          tech: "non-homogeneous Poisson",
+          detail:
+            "Arrivals follow a non-homogeneous Poisson process — morning rush, lunch spikes, evening exodus — because uniform demand would make every configuration look fine.",
+        },
+        {
+          id: "engine",
+          label: "Simulation engine",
+          tech: "SimPy DES",
+          detail:
+            "A discrete-event simulation advancing through passenger arrivals, boarding, travel, and departure events rather than fixed time steps.",
+        },
+        {
+          id: "policy",
+          label: "Elevator policy",
+          tech: "cooperative SCAN",
+          detail:
+            "Elevators run a cooperative SCAN algorithm — the disk-scheduling classic applied to floors — coordinating so they don't all chase the same call.",
+        },
+        {
+          id: "metrics",
+          label: "Service metrics",
+          tech: "wait · trip · fairness",
+          detail:
+            "Queue-to-board waiting time, full trip time, extreme delays, and fairness across floors — reported as distributions and percentiles, not just averages.",
+        },
+        {
+          id: "decision",
+          label: "Cost vs service",
+          tech: "the actual question",
+          detail:
+            "Each added elevator is capital cost; each removed one is passenger time. The simulation quantifies the trade so the decision is a judgment about numbers, not a guess.",
+        },
+      ],
+      foundation: ["SimPy 4", "course project — BDA450, Seneca"],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Elevator capacity is a one-time capital decision with a permanent service consequence. Undersize and tenants wait every day; oversize and the building paid for steel it didn't need. Intuition can't answer this — queueing dynamics are famously counterintuitive.",
+        ],
+      },
+      {
+        heading: "Solution",
+        body: [
+          "A SimPy discrete-event simulation of a five-floor commercial building under realistic time-varying demand, comparing one, two, and three elevators under a cooperative SCAN policy, and reporting the full waiting-time distribution for each.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "Demand is non-homogeneous on purpose — peak-hour behavior is what sizing decisions are about, and uniform arrivals would hide it. Percentiles and extreme delays are first-class outputs, because a mean wait of 40 seconds is meaningless to the person who waited six minutes.",
+        ],
+      },
+      {
+        heading: "Results",
+        body: [
+          "A quantified cost-versus-service frontier for the building: how much waiting time each additional elevator buys, including its effect on worst-case delays and cross-floor fairness.",
+        ],
+      },
+      {
+        heading: "Lessons learned",
+        body: [
+          "Simulation is judgment infrastructure: it doesn't make the decision, it makes the trade-offs visible. And distributions beat averages every time someone's experience lives in the tail.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/elevator-simulation.png",
+        alt: "Elevator Simulation GitHub repository with discrete-event simulation documentation",
+        caption: "GitHub repository — SimPy discrete-event simulation comparing elevator configurations",
+        width: 1440,
+        height: 900,
       },
     ],
   },
@@ -1139,49 +1476,17 @@ export const projects: Project[] = [
 
 export const featuredProjects = projects.filter((p) => p.featured);
 
-export const projectsByDiscipline = disciplines.map((discipline) => ({
-  discipline,
-  projects: projects.filter((p) => p.discipline === discipline),
+export const categories = [
+  "Data Engineering",
+  "Machine Learning & Data Science",
+  "Client Software & Websites",
+  "Automation & Productivity",
+  "Research & Simulation",
+] as const;
+
+export type Category = (typeof categories)[number];
+
+export const projectsByCategory = categories.map((category) => ({
+  category,
+  projects: projects.filter((p) => p.group === category),
 }));
-
-const monorepo = "https://github.com/suryalionael/Lionael-Surya/tree/main";
-
-// Planned systems from the portfolio monorepo — documented as roadmap
-// entries, never presented as shipped work.
-export const roadmap = [
-  {
-    title: "End-to-End Retail Data Platform",
-    note: "Capstone: raw data → warehouse → ML → BI in one platform",
-    href: `${monorepo}/case-studies/end-to-end-retail-data-platform`,
-  },
-  {
-    title: "RAG Financial Report Q&A",
-    note: "LLM-powered Q&A over financial filings",
-    href: `${monorepo}/ai-engineering/rag-financial-report-qa`,
-  },
-  {
-    title: "AI Customer Support Agent",
-    note: "Tool-calling support agent with escalation paths",
-    href: `${monorepo}/ai-engineering/ai-customer-support-agent`,
-  },
-  {
-    title: "SaaS Subscription Metrics Model",
-    note: "dbt cohort and revenue-retention modelling",
-    href: `${monorepo}/analytics-engineering/saas-subscription-metrics-model`,
-  },
-  {
-    title: "CI/CD for Data Pipelines",
-    note: "GitHub Actions → Docker → AWS deployment path",
-    href: `${monorepo}/cloud-devops/cicd-data-pipeline-deployment`,
-  },
-  {
-    title: "Serverless ETL on AWS Lambda",
-    note: "S3 → Lambda → Glue → Athena, event-driven",
-    href: `${monorepo}/cloud-devops/serverless-etl-aws-lambda`,
-  },
-  {
-    title: "Expense Tracker Automation",
-    note: "Apps Script personal-finance automation",
-    href: `${monorepo}/software-products/expense-tracker-automation`,
-  },
-];

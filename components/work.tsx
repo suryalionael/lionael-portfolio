@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import {
   featuredProjects,
   projects,
-  projectsByDiscipline,
+  projectsByCategory,
   type Project,
 } from "@/lib/projects";
 import { CaseStudy } from "@/components/case-study";
@@ -38,7 +39,6 @@ export function Work() {
   useEffect(() => {
     const fromHash = () =>
       projects.find((p) => `#${p.slug}` === window.location.hash) ?? null;
-    // Deep links (#slug) can only be read client-side; sync once on mount.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (window.location.hash) setActive(fromHash());
     const onPop = () => {
@@ -60,7 +60,7 @@ export function Work() {
     document.body.style.position = "fixed";
     document.body.style.top = `-${scrollY}px`;
     document.body.style.width = "100%";
-    
+
     setTimeout(() => {
       dialogRef.current
         ?.querySelector<HTMLElement>("[aria-label='Close case study']")
@@ -154,51 +154,126 @@ export function Work() {
         ))}
       </div>
 
-      <div className="mt-20 space-y-14">
-        {projectsByDiscipline.map((group) => {
-          const rows = group.projects.filter((p) => !p.featured);
-          if (rows.length === 0) return null;
-          return (
-            <div key={group.discipline}>
-              <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
-                {group.discipline}
-              </p>
-              <ul className="mt-4 border-t border-white/[0.06]">
-                {rows.map((project) => (
-                  <li key={project.slug}>
-                    <motion.button
-                      layoutId={`card-${project.slug}`}
-                      transition={layoutTransition}
-                      type="button"
-                      onClick={(e) => open(project, e.currentTarget)}
-                      aria-haspopup="dialog"
-                      className="group flex w-full items-baseline justify-between gap-6 border-b border-white/[0.06] py-5 text-left transition-colors hover:border-white/20"
-                    >
-                      <span className="flex shrink-0 items-center gap-3 text-lg font-medium text-neutral-200 transition-colors group-hover:text-paper">
+      <div className="mt-24 space-y-20">
+        {projectsByCategory.map((group) => (
+          <div key={group.category}>
+            <h3 className="text-2xl font-medium tracking-tight text-paper md:text-3xl">
+              {group.category}
+            </h3>
+
+            {group.category === "Client Software & Websites" ? (
+              <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {group.projects.map((project) => (
+                  <motion.button
+                    key={project.slug}
+                    layoutId={`card-${project.slug}`}
+                    transition={layoutTransition}
+                    type="button"
+                    onClick={(e) => open(project, e.currentTarget)}
+                    aria-haspopup="dialog"
+                    className="group overflow-hidden rounded-xl border border-white/[0.08] bg-ink-raised/50 text-left transition-colors duration-300 hover:border-white/20"
+                  >
+                    {project.images?.[0] && (
+                      <div className="aspect-video overflow-hidden bg-neutral-900">
+                        <Image
+                          src={project.images[0].src}
+                          alt={project.images[0].alt}
+                          width={project.images[0].width}
+                          height={project.images[0].height}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                        />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      <span className="flex items-center gap-2 font-mono text-[11px] tracking-[0.15em] text-muted uppercase">
                         {project.live && (
                           <span className="dot-live inline-block size-1.5 rounded-full bg-accent" />
                         )}
+                        {project.category}
+                      </span>
+                      <span className="mt-2 block text-lg font-medium text-neutral-200 transition-colors group-hover:text-paper">
                         {project.title}
                       </span>
-                      <span className="hidden flex-1 truncate text-base text-muted md:block">
+                      <span className="mt-1.5 block text-sm leading-relaxed text-neutral-400 line-clamp-2">
                         {project.summary}
                       </span>
-                      <span className="hidden shrink-0 font-mono text-[11px] text-neutral-400 sm:block">
-                        {project.tags.slice(0, 3).join(" · ")}
+                      <span className="mt-3 flex flex-wrap gap-1.5">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-md border border-white/[0.06] px-2 py-0.5 font-mono text-[10px] text-neutral-500"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </span>
-                      <span
-                        aria-hidden="true"
-                        className="shrink-0 text-neutral-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-paper"
-                      >
-                        →
-                      </span>
-                    </motion.button>
-                  </li>
+                      <div className="mt-4 flex items-center gap-4 border-t border-white/[0.06] pt-4">
+                        {project.links.demo && (
+                          <span
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.links.demo, "_blank", "noopener");
+                            }}
+                            className="u-link text-xs font-medium text-paper"
+                          >
+                            Live Website ↗
+                          </span>
+                        )}
+                        {project.links.github && (
+                          <span
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.links.github, "_blank", "noopener");
+                            }}
+                            className="u-link text-xs text-neutral-400 transition-colors hover:text-paper"
+                          >
+                            GitHub ↗
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </motion.button>
                 ))}
-              </ul>
-            </div>
-          );
-        })}
+              </div>
+            ) : (
+              <>
+                <ul className="mt-6 border-t border-white/[0.06]">
+                  {group.projects.map((project) => (
+                    <li key={project.slug}>
+                      <motion.button
+                        layoutId={`card-${project.slug}`}
+                        transition={layoutTransition}
+                        type="button"
+                        onClick={(e) => open(project, e.currentTarget)}
+                        aria-haspopup="dialog"
+                        className="group flex w-full items-baseline justify-between gap-6 border-b border-white/[0.06] py-5 text-left transition-colors hover:border-white/20"
+                      >
+                        <span className="flex shrink-0 items-center gap-3 text-lg font-medium text-neutral-200 transition-colors group-hover:text-paper">
+                          {project.live && (
+                            <span className="dot-live inline-block size-1.5 rounded-full bg-accent" />
+                          )}
+                          {project.title}
+                        </span>
+                        <span className="hidden flex-1 truncate text-base text-muted md:block">
+                          {project.summary}
+                        </span>
+                        <span className="hidden shrink-0 font-mono text-[11px] text-neutral-400 sm:block">
+                          {project.tags.slice(0, 3).join(" · ")}
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          className="shrink-0 text-neutral-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-paper"
+                        >
+                          →
+                        </span>
+                      </motion.button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        ))}
       </div>
 
       <AnimatePresence>
