@@ -946,7 +946,6 @@ export const projects: Project[] = [
       "Responsive marketing website for a Canadian vocational training centre — built with HTML, CSS, and JavaScript. No framework, no build step, no unnecessary complexity.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
     links: {
-      github: "https://github.com/suryalionael/aspen-training-centre-website",
       demo: "https://aspentrainingcentre.ca",
     },
     metrics: [
@@ -1019,7 +1018,6 @@ export const projects: Project[] = [
       "Heritage festival website for the Delta Mill Society — a two-day event site with programme details, venue histories, and ticketing. Built with HTML, CSS, and JavaScript.",
     tags: ["HTML", "CSS", "JavaScript", "Event Website"],
     links: {
-      github: "https://github.com/suryalionael/delta-harvest-festival",
       demo: "https://deltaharvestfestival.ca",
     },
     metrics: [
@@ -1092,7 +1090,6 @@ export const projects: Project[] = [
       "Academic portfolio for a human geographer and educator — a comprehensive personal site with biography, teaching experience, research, events, and publications. Built with HTML, CSS, and JavaScript.",
     tags: ["HTML", "CSS", "JavaScript", "Academic Portfolio"],
     links: {
-      github: "https://github.com/suryalionael/nel-coloma-moya-portfolio",
       demo: "https://nelcoloma-moya.ca",
     },
     metrics: [
