@@ -24,24 +24,25 @@ export function Hero() {
         <div>
           <div className="anim-fade-up mb-10" style={delay(0.15)}>
             <p className="text-base font-medium text-paper">Lionael Surya</p>
-            <p className="mt-1 font-mono text-xs tracking-[0.18em] text-muted uppercase">
-              Data &amp; software engineering · Toronto
+            <p className="mt-1 font-mono text-xs tracking-[0.18em] text-muted uppercase leading-6">
+              Data Science <span className="mx-1.5">•</span> Data Engineering <span className="mx-1.5">•</span> Software Engineering<br />
+              Toronto, Canada
             </p>
           </div>
 
           <h1 className="text-[clamp(3rem,9vw,7rem)] leading-[0.95] font-medium tracking-[-0.045em]">
-            <Line at={0.35}>Built like</Line>
-            <Line at={0.5}>production.</Line>
+            <Line at={0.35}>Building systems</Line>
+            <Line at={0.5}>people can depend on.</Line>
           </h1>
 
           <p
             className="anim-fade-up mt-10 max-w-[36rem] text-xl leading-9 text-neutral-400"
             style={delay(0.95)}
           >
-            I&apos;m a data science student at Seneca Polytechnic who builds
-            data systems the way real teams do — tested, documented,
-            reproducible, and shipped. Looking for data &amp; software
-            engineering internships.
+            I build production-ready data platforms, internal software,
+            and AI-powered systems while studying Data Science at Seneca
+            Polytechnic. My focus is reliable architecture, reproducible
+            pipelines, and software people can actually trust.
           </p>
 
           <div
@@ -49,7 +50,7 @@ export function Hero() {
             style={delay(1.15)}
           >
             <a href="#work" className="u-link text-base font-medium text-paper">
-              Explore the systems <span aria-hidden="true">↓</span>
+              Explore my work <span aria-hidden="true">↓</span>
             </a>
             <a
               href="https://github.com/suryalionael"

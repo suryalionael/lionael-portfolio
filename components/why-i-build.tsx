@@ -11,31 +11,32 @@ export function WhyIBuild() {
 
         <div className="mt-12 space-y-8 text-xl leading-9 text-neutral-300">
           <p>
-            I grew up in Bekasi, Indonesia, and moved to Toronto to study data
-            science. The first thing I ever led wasn&apos;t a system — it was
-            people: a student council, then a seven-day school festival. I
-            learned early that things go well when someone cares about the
-            details nobody sees. That instinct never left; it just found
-            software.
+            I grew up in Bekasi, Indonesia, before moving to Toronto to study
+            Data Science. Long before I started building software, I was
+            organizing teams, managing large student events, and learning that
+            great outcomes rarely happen by accident — they come from paying
+            attention to details that most people never notice. Today, that same
+            mindset shapes how I build software.
           </p>
           <p>
-            I build because software is honest leverage. A pipeline that runs
-            every morning without me, a dashboard a stranger can audit, an
-            internal tool a team quietly depends on — each one is a small
-            process rescued from spreadsheets and memory. Most of my projects
-            start the same way: noticing something messy that deserves better.
+            I&apos;m interested in systems that solve real operational problems
+            rather than demo projects built only for a portfolio. Whether
+            it&apos;s an internal workspace for a growing organization, a
+            streaming data pipeline, or an AI-powered analytics platform, I
+            enjoy turning messy processes into reliable products people can
+            actually use.
           </p>
           <p>
-            Production quality matters to me because unverified work quietly
-            becomes someone else&apos;s problem. So I hold my projects to the
-            standard of a real team: real data only, tests before anything is
-            published, and decisions documented — including the time a simpler
-            model beat the sophisticated one and shipped instead. If a claim
-            can&apos;t survive an audit, it isn&apos;t finished.
+            My focus is production quality. Every project starts with real data,
+            clear documentation, reproducible workflows, automated testing, and
+            engineering decisions that can be explained months later. If a claim
+            can&apos;t survive code review or technical scrutiny, it
+            isn&apos;t finished.
           </p>
           <p>
-            What motivates me isn&apos;t the tools. It&apos;s the moment a
-            thing I made becomes something a person can trust.
+            For me, software isn&apos;t just about writing code. It&apos;s
+            about building tools that quietly make other people&apos;s work
+            easier.
           </p>
         </div>
       </div>
