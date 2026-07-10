@@ -391,6 +391,112 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "idx-stock-scanner",
+    title: "IDX Stock Scanner",
+    category: "AI engineering",
+    group: "Featured Systems",
+    discipline: "Automation",
+    year: "2026",
+    live: true,
+    featured: true,
+    summary:
+      "A daily decision-support agent for Indonesian equities with a three-layer architecture: rules filter, ML ranks, and an LLM explains — each layer doing what it's best at.",
+    tags: ["Python", "XGBoost", "Claude API", "yfinance", "Parquet"],
+    links: {
+      github:
+        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/idx-stock-signal-scanner",
+    },
+    metrics: [
+      { value: "3", label: "layers — rules → ML → LLM" },
+      { value: "24", label: "engineered indicators" },
+      { value: "daily", label: "scan cadence" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "fetch",
+          label: "Data fetcher",
+          tech: "yfinance · Parquet",
+          detail:
+            "Daily OHLCV for IDX-listed stocks behind an abstract fetcher contract, with incremental updates persisted to Parquet — providers can change without touching the pipeline.",
+        },
+        {
+          id: "validate",
+          label: "Validator & features",
+          tech: "24 indicators",
+          detail:
+            "Data quality checks and gap handling, then a feature engine computing 24 technical indicators per ticker.",
+        },
+        {
+          id: "rules",
+          label: "Rule engine",
+          tech: "guardrails first",
+          detail:
+            "Deterministic rules reject unsuitable stocks before any model sees them — liquidity, data quality, structural filters. The ML layer only ranks candidates that already passed judgment.",
+        },
+        {
+          id: "ml",
+          label: "ML ranker",
+          tech: "XGBoost",
+          detail:
+            "Probabilistic ranking of how likely each candidate is to exceed a return threshold within a horizon — ordering, not oracle.",
+        },
+        {
+          id: "llm",
+          label: "LLM explainer",
+          tech: "Claude",
+          detail:
+            "A short narrative per ticker: why this signal fired and what to watch — the layer that turns a score into something a human can interrogate.",
+        },
+      ],
+      foundation: [
+        "explicitly decision-support, not profit guarantee",
+        "source private — architecture documented",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Screening hundreds of IDX tickers daily by hand doesn't scale, but neither does trusting a single opaque model with a ranked list. The design problem is trust: every recommendation needs to be filterable, rankable, and explainable.",
+        ],
+      },
+      {
+        heading: "Solution",
+        body: [
+          "A three-layer pipeline where each layer does what it's structurally best at: deterministic rules provide guardrails, gradient-boosted ranking provides prioritization, and an LLM provides per-ticker narrative explanation. No layer is asked to do another's job.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "Rules run before ML deliberately — guardrails should be auditable, and a rejected stock should have a stateable reason. The LLM sits last and only explains; it never picks. And the whole system is framed as decision support with that caveat written into the README, because overstating a financial tool's promise is the fastest way to make it harmful.",
+        ],
+      },
+      {
+        heading: "Results",
+        body: [
+          "A daily scanner producing ranked, explained candidates from IDX market data — the most heavily iterated project in the portfolio, with 100+ commits of pipeline hardening. The source is private given the domain; the architecture is documented publicly.",
+        ],
+      },
+      {
+        heading: "Lessons learned",
+        body: [
+          "Hybrid systems beat monoliths when each layer's failure mode is different: rules fail loudly, models fail statistically, LLMs fail plausibly. Keeping them separate keeps each failure diagnosable.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/idx-stock-scanner.png",
+        alt: "IDX Stock Scanner dashboard showing daily market analysis",
+        caption: "Daily decision-support dashboard — rules filter, ML ranker, and LLM explainer layers",
+        width: 1440,
+        height: 900,
+      },
+    ],
+  },
 
   /* ── Data Engineering ── */
 
@@ -1259,112 +1365,6 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    slug: "idx-stock-scanner",
-    title: "IDX Stock Scanner",
-    category: "AI engineering",
-    group: "Automation & Productivity",
-    discipline: "Automation",
-    year: "2026",
-    live: false,
-    summary:
-      "A daily decision-support agent for Indonesian equities with a three-layer architecture: rules filter, ML ranks, and an LLM explains — each layer doing what it's best at.",
-    tags: ["Python", "XGBoost", "Claude API", "yfinance", "Parquet"],
-    links: {
-      github:
-        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/idx-stock-signal-scanner",
-    },
-    metrics: [
-      { value: "3", label: "layers — rules → ML → LLM" },
-      { value: "24", label: "engineered indicators" },
-      { value: "daily", label: "scan cadence" },
-    ],
-    architecture: {
-      nodes: [
-        {
-          id: "fetch",
-          label: "Data fetcher",
-          tech: "yfinance · Parquet",
-          detail:
-            "Daily OHLCV for IDX-listed stocks behind an abstract fetcher contract, with incremental updates persisted to Parquet — providers can change without touching the pipeline.",
-        },
-        {
-          id: "validate",
-          label: "Validator & features",
-          tech: "24 indicators",
-          detail:
-            "Data quality checks and gap handling, then a feature engine computing 24 technical indicators per ticker.",
-        },
-        {
-          id: "rules",
-          label: "Rule engine",
-          tech: "guardrails first",
-          detail:
-            "Deterministic rules reject unsuitable stocks before any model sees them — liquidity, data quality, structural filters. The ML layer only ranks candidates that already passed judgment.",
-        },
-        {
-          id: "ml",
-          label: "ML ranker",
-          tech: "XGBoost",
-          detail:
-            "Probabilistic ranking of how likely each candidate is to exceed a return threshold within a horizon — ordering, not oracle.",
-        },
-        {
-          id: "llm",
-          label: "LLM explainer",
-          tech: "Claude",
-          detail:
-            "A short narrative per ticker: why this signal fired and what to watch — the layer that turns a score into something a human can interrogate.",
-        },
-      ],
-      foundation: [
-        "explicitly decision-support, not profit guarantee",
-        "source private — architecture documented",
-      ],
-    },
-    sections: [
-      {
-        heading: "Problem",
-        body: [
-          "Screening hundreds of IDX tickers daily by hand doesn't scale, but neither does trusting a single opaque model with a ranked list. The design problem is trust: every recommendation needs to be filterable, rankable, and explainable.",
-        ],
-      },
-      {
-        heading: "Solution",
-        body: [
-          "A three-layer pipeline where each layer does what it's structurally best at: deterministic rules provide guardrails, gradient-boosted ranking provides prioritization, and an LLM provides per-ticker narrative explanation. No layer is asked to do another's job.",
-        ],
-      },
-      {
-        heading: "Engineering decisions",
-        body: [
-          "Rules run before ML deliberately — guardrails should be auditable, and a rejected stock should have a stateable reason. The LLM sits last and only explains; it never picks. And the whole system is framed as decision support with that caveat written into the README, because overstating a financial tool's promise is the fastest way to make it harmful.",
-        ],
-      },
-      {
-        heading: "Results",
-        body: [
-          "A daily scanner producing ranked, explained candidates from IDX market data — the most heavily iterated project in the portfolio, with 100+ commits of pipeline hardening. The source is private given the domain; the architecture is documented publicly.",
-        ],
-      },
-      {
-        heading: "Lessons learned",
-        body: [
-          "Hybrid systems beat monoliths when each layer's failure mode is different: rules fail loudly, models fail statistically, LLMs fail plausibly. Keeping them separate keeps each failure diagnosable.",
-        ],
-      },
-    ],
-    images: [
-      {
-        src: "/projects/idx-stock-scanner.png",
-        alt: "IDX Stock Scanner GitHub repository with three-layer architecture documentation",
-        caption: "GitHub repository — rules filter, ML ranker, and LLM explainer pipeline",
-        width: 1440,
-        height: 900,
-      },
-    ],
-  },
-
   /* ── Research & Simulation ── */
 
   {
