@@ -4,13 +4,13 @@ const chapters = [
     years: "Jun — Aug 2025",
     org: "CV. Veda Sakti Dharma",
     place: "Indonesia",
-    role: "Student intern — payroll systems",
+    role: "Software Engineering Intern",
     context:
-      "My first engineering internship: a firm where payroll ran on manual spreadsheets — including PPh 21, Indonesia's income-tax withholding calculation, recomputed by hand every cycle.",
+      "My first internship. I built internal software for payroll automation at a small firm in Indonesia.",
     built:
-      "A Python system for PPh 21 tax calculation, automated payroll reports, and an employee database — turning a monthly manual process into software the finance team can rerun on demand.",
+      "Developed a Python application that automated PPh 21 income tax calculations and generated employee payslips. I also helped organize employee and payroll data to make reporting more efficient.",
     learned:
-      "Payroll is unforgiving: a wrong number isn't a bug, it's someone's salary. Correctness, auditability, and boring reliability beat anything clever — a standard I've held every system to since.",
+      "Payroll software needs to be correct every time. That was a good standard to learn early.",
   },
   {
     index: "02",
@@ -19,11 +19,11 @@ const chapters = [
     place: "Remote",
     role: "Web development & data operations",
     context:
-      "A nursing-education company where I moved from managing exam-prep content data to owning the organization's software end to end.",
+      "Started at a nursing-education company managing exam-prep content data, then moved into building software for the organization.",
     built:
-      "Three production websites from concept to deployment, and Aspen OS — the internal project platform the team now runs on daily: tasks, kanban boards, documentation, and collaboration in one place. It's documented as a case study above.",
+      "Three production websites from concept to deployment. Also built Aspen OS, an internal platform for tasks, documentation, and collaboration that the team uses daily.",
     learned:
-      "Ownership means the full lifecycle: requirements from non-technical stakeholders, deployment, and the maintenance that follows. Real users are the most honest code review I've had.",
+      "Building for real users meant working with non-technical stakeholders, figuring out what they actually need, and maintaining things after launch. That full cycle was valuable.",
   },
   {
     index: "03",
@@ -32,11 +32,11 @@ const chapters = [
     place: "Toronto, Canada",
     role: "IT & media strategy associate",
     context:
-      "One of Canada's largest Indonesian student organizations, where I work across the IT and strategic-operations divisions on the systems the organization runs on.",
+      "Working across IT and strategy at PERMIKA Toronto, an Indonesian student organization in Canada. I build and maintain systems that support the organization's operations and events.",
     built:
-      "Internal workflows and automation for events and member engagement, and the Instagram campaign for League of Toronto 2026 — the organization's biggest event — where I led a team of ten from planning to delivery.",
+      "Internal tools for event management and member engagement. Led the social media campaign for League of Toronto 2026, the organization's annual event, coordinating a team of ten from planning through delivery.",
     learned:
-      "Technology is leverage for communities, not just companies. And leading peers — where nobody reports to you — is its own engineering discipline: alignment has to be earned, not assigned.",
+      "Working with volunteers taught me that leading without authority requires earning trust rather than relying on hierarchy.",
   },
 ];
 
@@ -51,7 +51,7 @@ export function Experience() {
           The journey so far.
         </h2>
         <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
-          Three chapters, in order — each one raised the bar for the next.
+          Three roles, in order.
         </p>
 
         <ol className="mt-16">
