@@ -16,7 +16,7 @@ export function Hero() {
             Toronto, Canada
           </p>
 
-          <p className="mt-14 text-4xl leading-[1.15] font-medium tracking-[-0.02em] md:text-5xl text-paper">
+          <p className="mt-14 text-[clamp(2rem,5vw,4.5rem)] leading-[1.1] font-medium tracking-[-0.03em] text-paper">
             Welcome to my portfolio.
           </p>
 
