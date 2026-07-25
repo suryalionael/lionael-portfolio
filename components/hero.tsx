@@ -16,11 +16,11 @@ export function Hero() {
             Toronto, Canada
           </p>
 
-          <p className="mt-16 text-4xl leading-[1.15] font-medium tracking-[-0.02em] md:text-5xl text-paper">
-            Welcome.
+          <p className="mt-14 text-3xl leading-[1.15] font-medium tracking-[-0.02em] md:text-4xl text-paper">
+            Welcome to my portfolio.
           </p>
 
-          <p className="mt-5 max-w-[36rem] text-lg leading-8 text-neutral-400 md:text-xl md:leading-9">
+          <p className="mt-6 max-w-[36rem] text-lg leading-8 text-neutral-400 md:text-xl md:leading-9">
             I'm a Data Science student at Seneca Polytechnic building
             production-ready data platforms, internal software, and AI-powered
             systems. My focus is reliable architecture, reproducible pipelines,
