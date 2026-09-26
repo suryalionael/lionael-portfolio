@@ -1,16 +1,29 @@
+import Link from "next/link";
+
 export function Contact() {
   return (
     <section id="contact" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1120px] px-6 py-32 md:py-44">
         <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
-          Contact
+          Resume
         </p>
         <h2 className="mt-6 max-w-[24ch] text-5xl leading-[1.08] font-medium tracking-[-0.03em] md:text-7xl">
-          The pipeline ends here. Let&apos;s build the next one together.
+          Different versions for different directions.
         </h2>
+        <p className="mt-6 max-w-[38rem] text-lg leading-relaxed text-neutral-400">
+          Seventeen variants of the same record, each written for a specific
+          role. Preview any of them in full, then take the one that matches the
+          job.
+        </p>
+        <Link
+          href="/resume"
+          className="u-link mt-12 inline-block text-2xl font-medium text-paper md:text-4xl"
+        >
+          Resume <span aria-hidden="true">→</span>
+        </Link>
         <a
           href="mailto:suryalionael@gmail.com"
-          className="u-link mt-12 inline-block text-2xl font-medium text-paper md:text-4xl"
+          className="u-link mt-8 inline-block text-xl font-medium text-neutral-400 transition-colors hover:text-paper md:text-2xl"
         >
           suryalionael@gmail.com
         </a>
