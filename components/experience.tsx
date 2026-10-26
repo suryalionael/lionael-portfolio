@@ -19,9 +19,9 @@ const roles = [
     years: "Jul 2025 — present",
     org: "QuickRN Canada",
     place: "Remote",
-    role: "Web Development & Data Operations",
+    role: "Web Development and Data Operations",
     summary:
-      "Started on exam-prep content data and website support, then moved into building the team's software.",
+      "QuickRN is a nursing-education company. I started on exam-prep content data and website support, then moved into building the team's software.",
     points: [
       "Built Aspen OS solo — the tasks, kanban, and documentation platform the team uses daily — with Supabase row-level security, versioned migrations, and Playwright end-to-end tests.",
       "Delivered three production websites from concept to deployment, turning non-technical stakeholders' needs into requirements and maintaining each site after launch.",

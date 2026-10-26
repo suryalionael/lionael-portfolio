@@ -175,6 +175,100 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "sakti-21",
+    title: "Sakti 21",
+    category: "Payroll SaaS",
+    group: "Featured Systems",
+    discipline: "Full Stack",
+    year: "2026",
+    live: true,
+    featured: true,
+    // Source and screens are private while clients use it.
+    thumb: "architecture",
+    summary:
+      "A multi-tenant PPh 21 payroll tax calculator serving 64 companies from one shared instance — Indonesian income-tax rules, bulk payroll imports, and PDF payslips in one system.",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Playwright"],
+    links: {
+      github:
+        "https://github.com/suryalionael/Lionael-Surya/tree/main/software-products/sakti21",
+    },
+    metrics: [
+      { value: "64", label: "companies served in production" },
+      { value: "2", label: "tax methods — TER and Pasal 17" },
+      { value: "Gross / Up", label: "employee- or company-borne tax" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "import",
+          label: "CSV import",
+          tech: "schema + referential checks",
+          detail:
+            "Employees and monthly payroll inputs arrive in bulk as CSV. Each file is validated against a schema and checked for referential integrity before anything is written.",
+        },
+        {
+          id: "tenancy",
+          label: "Multi-tenant data",
+          tech: "Prisma · row-level isolation",
+          detail:
+            "Every company is a tenant root with its own branches, employees, payroll periods, and users. Isolation is enforced at the row level through Prisma middleware rather than filtered in the UI.",
+        },
+        {
+          id: "reference",
+          label: "Tax reference data",
+          tech: "versioned · effective-dated",
+          detail:
+            "PTKP allowances, TER monthly rates, and Pasal 17 brackets are stored as effective-dated database rows, not hardcoded — regulations change, and old calculations must stay reproducible.",
+        },
+        {
+          id: "engine",
+          label: "PPh 21 engine",
+          tech: "TER Jan–Nov · Pasal 17 Dec",
+          detail:
+            "January to November uses the TER effective-rate lookup; December and terminations use progressive Pasal 17 brackets on annual income and reconcile against tax already withheld. Gross and Gross Up modes decide who bears the tax.",
+        },
+        {
+          id: "output",
+          label: "Reports & payslips",
+          tech: "CSV export · PDF",
+          detail:
+            "Monthly and annual reports per company with CSV export, plus payslips on screen and as server-generated PDFs rendered with Playwright.",
+        },
+      ],
+      foundation: [
+        "NextAuth with company-scoped roles",
+        "audit trail tied to the tax-rate version used",
+        "architecture decisions recorded as ADRs",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Indonesian payroll providers calculate monthly PPh 21 withholding for many client companies under regulations that keep changing. Doing it in spreadsheets is slow, error-prone, and impossible to audit once the rates change.",
+        ],
+      },
+      {
+        heading: "What I built",
+        body: [
+          "A multi-tenant web application covering the whole monthly cycle: employee master data, payroll inputs by CSV or by hand, automatic PPh 21 calculation, reports, and payslips. It started as a Glide app and was rebuilt for production with proper authentication, row-level multi-tenancy, and server-side PDF generation.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "Tax rules live in versioned, effective-dated reference tables, and every stored calculation records which version it used — so a payslip from March can be explained in December. Tenancy is isolated at the row level, not by filtering in the interface. CSV imports are validated end to end before they touch the database.",
+        ],
+      },
+      {
+        heading: "Results",
+        body: [
+          "In production, serving 64 companies from one shared instance. The source repository is private while clients use it; the architecture and tax-engine design are documented publicly.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "streaming-clickstream-pipeline",
     title: "Streaming Clickstream Pipeline",
     category: "Real-time data",
@@ -305,7 +399,7 @@ export const projects: Project[] = [
     live: true,
     featured: true,
     summary:
-      "The project operating system a nonprofit team actually runs on — tasks, kanban, documentation, and collaboration in one place. Built solo, in production at QuickRN.",
+      "The project operating system the QuickRN team actually runs on — tasks, kanban, documentation, and collaboration in one place. Built solo, in daily use at a nursing-education company.",
     tags: ["Next.js", "TypeScript", "Supabase", "Playwright", "Vercel"],
     links: {
       github: "https://github.com/suryalionael/aspen-os",
@@ -357,7 +451,7 @@ export const projects: Project[] = [
       {
         heading: "Problem",
         body: [
-          "QuickRN's project coordination lived across spreadsheets, chats, and memory — the default state of most small nonprofits. The team needed one place for tasks, boards, and documentation, simple enough that non-technical members would actually use it.",
+          "QuickRN is a nursing-education company, and its project coordination lived across spreadsheets, chats, and memory — the default state of most small teams. The team needed one place for tasks, boards, and documentation, simple enough that non-technical members would actually use it.",
         ],
       },
       {
@@ -624,11 +718,10 @@ export const projects: Project[] = [
     slug: "behind-the-feed",
     title: "Behind the Feed",
     category: "Data science research",
-    group: "Featured Systems",
-    discipline: "Data Science & ML",
+    group: "Research & Simulation",
+    discipline: "Research & Simulation",
     year: "2026",
     live: false,
-    featured: true,
     summary:
       "Does personalized news exposure cost people diversity? A reproducible analysis of 8.6 million Microsoft News impressions for the TECHNATION Behind the Feed challenge, with Margil Parekh.",
     tags: ["Python", "pandas", "Jupyter", "scikit-learn", "matplotlib"],
@@ -1813,11 +1906,11 @@ export const projects: Project[] = [
 // AI, analytics, research.
 const FEATURED_ORDER = [
   "aspen-os",
+  "sakti-21",
   "streaming-clickstream-pipeline",
   "fraudlens",
   "idx-stock-scanner",
   "nutrition-priority-index",
-  "behind-the-feed",
 ];
 
 export const featuredProjects = FEATURED_ORDER.map((slug) =>

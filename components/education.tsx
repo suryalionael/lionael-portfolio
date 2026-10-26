@@ -32,7 +32,7 @@ export function Education() {
               Seneca Polytechnic · Cumulative GPA 3.9 / 4.0
             </p>
             <p className="mt-4 max-w-[40rem] text-lg leading-8 text-neutral-400">
-              President&apos;s Honour List recipient and SSF International
+              President&apos;s Honour List (Winter 2026) and SSF International
               Student Merit Award scholar. Throughout my first four semesters at
               Seneca Polytechnic, I balanced multiple part-time roles while
               building production software for real organizations. The classroom
