@@ -151,21 +151,6 @@ body {
   transform-origin: left;
 }
 
-@keyframes pulse-soft {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.45;
-  }
-}
-
-.dot-live {
-  box-shadow: 0 0 10px 1px rgb(62 99 221 / 0.55);
-  animation: pulse-soft 3.2s ease-in-out infinite;
-}
-
 .stage-label {
   transition:
     color 0.4s ease,
@@ -223,27 +208,11 @@ body {
   }
 }
 
-@keyframes card-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(1.5deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(1.5deg);
-  }
-}
-
-.card-float {
-  animation: card-float 7s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .anim-rise,
   .anim-fade-up,
   .anim-fade,
   .anim-grow-x,
-  .dot-live,
-  .card-float,
   .flow-line-active {
     animation: none;
   }

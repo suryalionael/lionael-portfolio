@@ -1,6 +1,6 @@
 export const site = {
-  // Update this to the custom domain if one is attached after deployment.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://lionaelsurya.vercel.app",
+  // Production URL; NEXT_PUBLIC_SITE_URL overrides it (e.g. a custom domain).
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://lionael-portfolio.vercel.app",
   name: "Lionael Surya",
   title: "Lionael Surya — Building systems people can depend on",
   description:
