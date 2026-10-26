@@ -32,9 +32,9 @@ export default function Home() {
               Systems I&apos;ve built.
             </h2>
             <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
-              Fourteen projects curated across six categories. Every case study
-              explains the engineering decisions behind the work — not just
-              what was built, but why.
+              Six featured systems, then the rest grouped by discipline. Every
+              case study explains the engineering decisions behind the work —
+              not just what was built, but why.
             </p>
 
             <div className="mt-14">

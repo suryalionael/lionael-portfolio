@@ -98,7 +98,7 @@ export function CaseStudy({
               rel="noopener noreferrer"
               className="u-link text-base font-medium text-paper"
             >
-              Live dashboard ↗
+              Live demo ↗
             </a>
           )}
           {project.links.github && (
@@ -151,7 +151,7 @@ export function CaseStudy({
         {project.images && (
           <section className="mt-12">
             <h4 className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
-              Dashboard
+              Visuals
             </h4>
             {project.images.length >= 3 ? (
               <figure className="mt-4">

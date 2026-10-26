@@ -29,6 +29,8 @@ export type Project = {
   architecture: { nodes: ArchNode[]; foundation: string[] };
   sections: { heading: string; body: string[] }[];
   images?: ProjectImage[];
+  /** Card visual: the first image (default) or the architecture outline. */
+  thumb?: "image" | "architecture";
 };
 
 export const disciplines = [
@@ -294,6 +296,8 @@ export const projects: Project[] = [
   {
     slug: "aspen-os",
     title: "Aspen OS",
+    // The only public screen is sign-in; the app itself is behind auth.
+    thumb: "architecture",
     category: "Internal software",
     group: "Featured Systems",
     discipline: "Full Stack",
@@ -302,15 +306,15 @@ export const projects: Project[] = [
     featured: true,
     summary:
       "The project operating system a nonprofit team actually runs on — tasks, kanban, documentation, and collaboration in one place. Built solo, in production at QuickRN.",
-    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Vercel"],
+    tags: ["Next.js", "TypeScript", "Supabase", "Playwright", "Vercel"],
     links: {
       github: "https://github.com/suryalionael/aspen-os",
       demo: "https://aspen-os.vercel.app",
     },
     metrics: [
       { value: "in production", label: "daily use at QuickRN" },
-      { value: "1", label: "hub for tasks, docs, kanban" },
-      { value: "solo", label: "designed, built, and shipped" },
+      { value: "42", label: "versioned SQL migrations" },
+      { value: "32", label: "Playwright end-to-end specs" },
     ],
     architecture: {
       nodes: [
@@ -369,6 +373,12 @@ export const projects: Project[] = [
         ],
       },
       {
+        heading: "Measuring before optimizing",
+        body: [
+          "When the app felt slow, I profiled production with Playwright tracing, V8 code coverage, the bundle analyzer, and the React profiler — and then audited an earlier performance write-up against those measurements. Several claims did not survive: a duplicate react-dom said to cost 1,200 ms measured about 83 ms of parse time, and a suggestion to swap server-verified auth for a cheaper session check was reversed, because the security boundary is worth its ~130 ms. JavaScript parse and execute, not React re-renders, was the real bottleneck.",
+        ],
+      },
+      {
         heading: "Results",
         body: [
           "The platform is the team's daily hub at QuickRN — the strongest kind of result a portfolio project can have: real users who chose to keep using it. Built end-to-end solo, from requirements gathering with non-technical stakeholders to deployment and maintenance.",
@@ -401,16 +411,15 @@ export const projects: Project[] = [
     live: true,
     featured: true,
     summary:
-      "A daily decision-support agent for Indonesian equities with a three-layer architecture: rules filter, ML ranks, and an LLM explains — each layer doing what it's best at.",
-    tags: ["Python", "XGBoost", "Claude API", "yfinance", "Parquet"],
+      "A daily decision-support agent for Indonesian equities: rules filter, an XGBoost model ranks, and an LLM explains. It now runs itself — scheduled scans, signal tracking against the index, and a gated challenger-model workflow.",
+    tags: ["Python", "XGBoost", "Claude API", "GitHub Actions", "Streamlit"],
     links: {
-      github:
-        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/idx-stock-signal-scanner",
+      github: "https://github.com/suryalionael/idx-stock-scanner-agent",
     },
     metrics: [
       { value: "3", label: "layers — rules → ML → LLM" },
-      { value: "24", label: "engineered indicators" },
-      { value: "daily", label: "scan cadence" },
+      { value: "8", label: "GitHub Actions workflows" },
+      { value: "470+", label: "test functions" },
     ],
     architecture: {
       nodes: [
@@ -451,8 +460,9 @@ export const projects: Project[] = [
         },
       ],
       foundation: [
-        "explicitly decision-support, not profit guarantee",
-        "source private — architecture documented",
+        "scheduled scans, alerts, and evening performance tracking",
+        "challenger models promoted only through an explicit gate",
+        "explicitly decision-support, not a profit guarantee",
       ],
     },
     sections: [
@@ -475,9 +485,16 @@ export const projects: Project[] = [
         ],
       },
       {
+        heading: "What changed since launch",
+        body: [
+          "The scanner moved from a script I ran to a system that runs on a schedule. GitHub Actions now run the pre-market scan, a post-close movers job, and an evening job that records how each signal actually performed, benchmarked against the IHSG index in the dashboard.",
+          "Model updates follow a challenger workflow: a new model is trained from the signal database, compared against explicit promotion criteria, and only promoted — with a rollback path — when it passes. Drift monitoring raises alerts rather than retraining silently. An audit pass removed a silent mock-data fallback in the broker-data integration so missing data now fails visibly.",
+        ],
+      },
+      {
         heading: "Results",
         body: [
-          "A daily scanner producing ranked, explained candidates from IDX market data — the most heavily iterated project in the portfolio, with 100+ commits of pipeline hardening. The source is private given the domain; the architecture is documented publicly.",
+          "A daily scanner producing ranked, explained candidates from IDX market data, refreshed automatically every trading day — the most heavily iterated project in the portfolio. The model's ranking power is modest, which is exactly why the rules and the performance tracking around it matter.",
         ],
       },
       {
@@ -494,6 +511,220 @@ export const projects: Project[] = [
         caption: "Daily decision-support dashboard — rules filter, ML ranker, and LLM explainer layers",
         width: 1440,
         height: 900,
+      },
+    ],
+  },
+
+  {
+    slug: "fraudlens",
+    title: "FraudLens",
+    category: "ML systems · API",
+    group: "Featured Systems",
+    discipline: "Data Science & ML",
+    year: "2026",
+    live: false,
+    featured: true,
+    summary:
+      "A real-time fraud-scoring API that answers one question for an analyst — which transactions to investigate, and why — with leakage-safe features, SHAP explanations, and a hybrid ML-plus-rules risk engine.",
+    tags: ["FastAPI", "PostgreSQL", "scikit-learn", "SHAP", "dbt", "Terraform"],
+    links: {
+      github: "https://github.com/suryalionael/fraudlens",
+    },
+    metrics: [
+      { value: "139", label: "Python tests — API, leakage, idempotency" },
+      { value: "5M", label: "transactions in PostgreSQL (synthetic)" },
+      { value: "70 / 30", label: "ML / rules weighting in the risk score" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "api",
+          label: "FastAPI",
+          tech: "Pydantic · extra=forbid",
+          detail:
+            "POST /score-transaction validates the raw transaction strictly: unknown fields and precomputed features are rejected, so a client can never inject its own risk signals.",
+        },
+        {
+          id: "context",
+          label: "Historical context",
+          tech: "PostgreSQL · strict < T",
+          detail:
+            "Behavioral history is read from PostgreSQL with a strict temporal cutoff — only rows timestamped before the transaction being scored — so no future data leaks into a prediction.",
+        },
+        {
+          id: "features",
+          label: "Feature engineering",
+          tech: "server-side · shared contract",
+          detail:
+            "Velocity, customer behavior, and merchant/location risk features are computed on the server from one shared MODEL_FEATURES contract, keeping training and inference identical.",
+        },
+        {
+          id: "model",
+          label: "Model + SHAP",
+          tech: "Random Forest · TreeExplainer",
+          detail:
+            "Logistic Regression, Random Forest, and XGBoost were compared on a temporal split with PR-AUC as the primary metric. The served model returns SHAP feature contributions — explanations, not causal claims.",
+        },
+        {
+          id: "risk",
+          label: "Risk engine",
+          tech: "ML 70% · rules 30%",
+          detail:
+            "Combines model probability with deterministic rules into a 0–100 score, a level (low → critical), and an action (allow, monitor, review, urgent review).",
+        },
+        {
+          id: "persist",
+          label: "Persistence & queue",
+          tech: "upsert · Streamlit",
+          detail:
+            "Every score is persisted before the response is returned — a failed write is a 500, never a fake success. Duplicate transaction IDs return the existing result. A five-page Streamlit dashboard reads the same tables.",
+        },
+      ],
+      foundation: [
+        "dbt staging → intermediate → marts on PostgreSQL",
+        "Docker multi-stage, non-root images",
+        "Terraform for AWS ECS Fargate, RDS, S3 · GitHub Actions CI",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "A fraud team has limited investigation capacity. A model that outputs a probability is not enough: an analyst needs a ranked queue, a reason for every flag, and confidence that the score was not computed with information the system could not have had at the time.",
+        ],
+      },
+      {
+        heading: "What I built",
+        body: [
+          "A synchronous scoring service: FastAPI validates an incoming transaction, the server rebuilds behavioral features from PostgreSQL history, a trained model scores it, SHAP explains it, and a risk engine turns the probability and a set of deterministic rules into a score and recommended action. Results are persisted and surface in an investigation queue.",
+          "Around the service sit an ingestion pipeline with schema validation and checksums, a dbt analytics layer, a Streamlit dashboard backed entirely by PostgreSQL, Docker images, Terraform definitions for an AWS deployment, and CI workflows.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "Features are generated server-side rather than accepted from the client, which prevents training/inference mismatch and blocks fabricated inputs. The temporal cutoff is strict (< T), and the dataset's precomputed fields that carried leakage are rejected at validation. Scoring is idempotent through a PostgreSQL upsert, and persistence happens before the response so the API never reports a result it failed to store.",
+        ],
+      },
+      {
+        heading: "Limitations",
+        body: [
+          "The 5M-row dataset is synthetic (generated to mimic Nigerian banking patterns), so model scores say more about the pipeline than about real-world fraud. Latency has not been stress-tested at scale, drift monitoring and retraining are not implemented, and the API has no authentication. These are documented in the repository rather than hidden.",
+        ],
+      },
+      {
+        heading: "Lessons learned",
+        body: [
+          "In fraud work, the leakage controls are the product. Most of the effort went into making sure a score could be defended — what data it used, when that data existed, and why the system acted on it.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "behind-the-feed",
+    title: "Behind the Feed",
+    category: "Data science research",
+    group: "Featured Systems",
+    discipline: "Data Science & ML",
+    year: "2026",
+    live: false,
+    featured: true,
+    summary:
+      "Does personalized news exposure cost people diversity? A reproducible analysis of 8.6 million Microsoft News impressions for the TECHNATION Behind the Feed challenge, with Margil Parekh.",
+    tags: ["Python", "pandas", "Jupyter", "scikit-learn", "matplotlib"],
+    links: {
+      github: "https://github.com/suryalionael/information-diversity",
+    },
+    metrics: [
+      { value: "8.6M", label: "logged impressions analyzed (MIND)" },
+      { value: "5.08×", label: "entertainment's exposure vs. catalogue share" },
+      { value: "+89%", label: "categories for −3.2% nDCG@10 (simulated MMR)" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "data",
+          label: "MIND dataset",
+          tech: "news.tsv · behaviors.tsv",
+          detail:
+            "Microsoft News articles and anonymized US behaviour logs. An impression is treated as a proxy for exposure and a click as engagement — never as proof that something was read.",
+        },
+        {
+          id: "amplification",
+          label: "Amplification",
+          tech: "shares · CTR · Gini",
+          detail:
+            "Catalogue vs. exposure vs. click shares per category, exposure amplification, and article-level concentration with Lorenz curves, Gini coefficients, and top-X% shares.",
+        },
+        {
+          id: "narrowing",
+          label: "Narrowing",
+          tech: "Shannon entropy",
+          detail:
+            "User-level category entropy of what people were shown versus what they clicked, compared across behavioral activity groups and against a history-blind baseline.",
+        },
+        {
+          id: "tradeoff",
+          label: "Relevance vs. diversity",
+          tech: "simulated recommenders · MMR",
+          detail:
+            "Popularity, TF-IDF content, and category-preference recommenders, re-ranked with MMR to trace a relevance–diversity frontier. Explicitly simulated — not MSN's system.",
+        },
+        {
+          id: "report",
+          label: "Report",
+          tech: "5-page PDF · provenance",
+          detail:
+            "Publication charts and a five-page visual report built from saved results. Every number is read from outputs/results with its denominator, population, filters, and source notebook recorded.",
+        },
+      ],
+      foundation: [
+        "run_pipeline.py — notebooks 01–04 + PDF in one command",
+        "unit tests on a synthetic fixture, never on results",
+        "observational, US-only, one week — limits stated up front",
+      ],
+    },
+    sections: [
+      {
+        heading: "Question",
+        body: [
+          "A news feed decides which stories millions of people see. If it reflects only what each person already clicks, readers could end up with a thinner slice of the news without noticing. We set out to measure whether exposure mirrors the catalogue, whether it narrows over time, and what diversity would cost a recommender.",
+        ],
+      },
+      {
+        heading: "What we found",
+        body: [
+          "Exposure did not mirror the catalogue: entertainment received 5.08× its catalogue share while sports — 29.7% of articles — received 0.37×, and over-exposure was unrelated to click-through rate. The top 1% of shown articles took 34.7% of impressions. Exposure leaned only modestly toward users' past favourites (1.11× a history-blind baseline) and stayed broader than clicks.",
+          "In simulation, the most accurate strategy was also the narrowest, but diversity was cheap to add: MMR re-ranking at λ = 0.5 increased categories in the top 10 by 89% for a 3.2% drop in nDCG@10.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "The analysis is a pipeline, not a notebook pile: four notebooks generated from scripts, a single command to rebuild every figure and the PDF, and a provenance file for every headline number. Tests run the whole chain on a synthetic fixture so results are never used to test themselves.",
+        ],
+      },
+      {
+        heading: "Limitations",
+        body: [
+          "MIND covers one week of US Microsoft News; it does not represent Canadian audiences or the wider internet. Logs are observational, so associations are not causal, and the observed impressions were produced by MSN's own recommendation system. No demographic attributes exist and none are inferred.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/behind-the-feed-report.png",
+        alt: "First page of the Behind the Feed Phase 1 report: What gets shown — and what gets overlooked?",
+        caption: "Phase 1 report, page 1 — headline findings with provenance",
+        width: 1440,
+        height: 900,
+      },
+      {
+        src: "/projects/behind-the-feed-frontier.png",
+        alt: "Chart of relevance (nDCG@10) against diversity for three simulated recommenders with MMR re-ranking",
+        caption: "Relevance–diversity frontier for three simulated recommenders",
+        width: 1408,
+        height: 1089,
       },
     ],
   },
@@ -711,6 +942,113 @@ export const projects: Project[] = [
     ],
   },
 
+  {
+    slug: "toronto-mobility-intelligence",
+    title: "Toronto Mobility Intelligence",
+    category: "Spatial analytics",
+    group: "Data Engineering",
+    discipline: "Data Engineering",
+    year: "2026",
+    live: false,
+    summary:
+      "A reproducible PostgreSQL + PostGIS platform that turns 20 years of Toronto's official collision data into findings a city team could defend — from Open Data to a Power BI dashboard.",
+    tags: ["PostgreSQL", "PostGIS", "Python", "Power BI", "pytest", "Docker"],
+    links: {
+      github:
+        "https://github.com/suryalionael/Lionael-Surya/tree/main/case-studies/toronto-mobility-intelligence",
+    },
+    metrics: [
+      { value: "91", label: "passing tests" },
+      { value: "20 m", label: "spatial match radius, derived from data" },
+      { value: "19", label: "curated analytical SQL queries" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "source",
+          label: "Toronto Open Data",
+          tech: "CKAN API · 4 datasets",
+          detail:
+            "KSI collisions, traffic volumes, traffic signals, and neighbourhood boundaries, downloaded through the CKAN API with schema-drift detection before anything is loaded.",
+        },
+        {
+          id: "warehouse",
+          label: "Three-layer warehouse",
+          tech: "staging → clean → analytics",
+          detail:
+            "A 1:1 raw mirror, then typed and deduplicated tables with geometry built — every excluded row logged with a reason — then a star schema of collision and traffic facts with date, intersection, and neighbourhood dimensions.",
+        },
+        {
+          id: "spatial",
+          label: "Spatial matching",
+          tech: "PostGIS · nearest neighbour",
+          detail:
+            "Each geocoded collision is matched to the nearest signalized intersection within 20 m — a threshold taken from the real distance distribution, not a round number. Matches live in a bridge table, so unmatched collisions are kept.",
+        },
+        {
+          id: "analytics",
+          label: "Analytics layer",
+          tech: "19 SQL queries · 9 views",
+          detail:
+            "Curated SQL across temporal, severity, road-user, neighbourhood, intersection, exposure, and data-quality topics. Raw counts are always paired with land-area-normalized figures.",
+        },
+        {
+          id: "bi",
+          label: "Dashboard",
+          tech: "Power BI (PBIP/TMDL) · HTML",
+          detail:
+            "A four-page Power BI project whose 18 DAX measures mirror the SQL definitions exactly, plus an interactive HTML prototype built on the same analytics schema.",
+        },
+      ],
+      foundation: [
+        "Docker + Makefile — one reproducible build",
+        "KPI-to-SQL reconciliation tests",
+        "seven limitations documented with the findings",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Collision counts show where severe crashes happened, but not where risk is concentrated: a large, busy neighbourhood accumulates more collisions almost by construction. The goal was a platform that answers what, where, when, and who honestly — normalizing where a fair denominator exists and saying so where it doesn't.",
+        ],
+      },
+      {
+        heading: "Findings",
+        body: [
+          "The fatal share of KSI collisions rose from under 12% (2006–2012) into a 13–22% range from 2013 onward, even as raw counts fell. Pedestrians and cyclists were involved in the majority of KSI collisions in every year. West Humber-Clairville ranks first by raw count but 120th of 158 once normalized by land area.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "No layer skips the one below it: the dashboard never touches raw data, and no business logic is defined in DAX that isn't already in SQL. The spatial match radius was derived from the observed distance distribution and cross-validated against the source data's own location fields, and the 44.7% match rate is reported as expected rather than hidden — most severe collisions happen midblock.",
+        ],
+      },
+      {
+        heading: "Limitations",
+        body: [
+          "KSI captures only collisions where someone was killed or seriously injured. Traffic counts are not temporally aligned with collision history, so the exposure metric compares intersections cross-sectionally, never as a trend.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/toronto-mobility-overview.png",
+        alt: "Toronto Mobility Intelligence dashboard overview with KSI totals, annual trend, and road-user involvement charts",
+        caption: "Dashboard prototype — Overview page",
+        width: 1440,
+        height: 900,
+      },
+      {
+        src: "/projects/toronto-mobility-where.png",
+        alt: "Toronto Mobility Intelligence dashboard page comparing raw collision counts with land-area density by neighbourhood",
+        caption: "Where — raw count and density ranked side by side",
+        width: 1440,
+        height: 900,
+      },
+    ],
+  },
   /* ── Machine Learning & Data Science ── */
 
   {
@@ -726,7 +1064,7 @@ export const projects: Project[] = [
     tags: ["XGBoost", "SHAP", "Optuna", "FastAPI", "Streamlit"],
     links: {
       github:
-        "https://github.com/suryalionael/Customer-Churn-Prediction",
+        "https://github.com/suryalionael/Lionael-Surya/tree/main/machine-learning/customer-churn-prediction-telecom",
     },
     metrics: [
       { value: "0.847", label: "ROC-AUC on holdout" },
@@ -1471,7 +1809,20 @@ export const projects: Project[] = [
   },
 ];
 
-export const featuredProjects = projects.filter((p) => p.featured);
+// Display order for the featured grid — software, data engineering, ML,
+// AI, analytics, research.
+const FEATURED_ORDER = [
+  "aspen-os",
+  "streaming-clickstream-pipeline",
+  "fraudlens",
+  "idx-stock-scanner",
+  "nutrition-priority-index",
+  "behind-the-feed",
+];
+
+export const featuredProjects = FEATURED_ORDER.map((slug) =>
+  projects.find((p) => p.slug === slug && p.featured),
+).filter((p): p is Project => p !== undefined);
 
 export const categories = [
   "Data Engineering",
