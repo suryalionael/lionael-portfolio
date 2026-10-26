@@ -18,15 +18,19 @@ export function Education() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-[220px_1fr] md:gap-12">
           <div className="font-mono text-xs leading-6 text-muted">
-            <span className="block">2024 — present</span>
-            <span className="block">Seneca Polytechnic</span>
+            <span className="block text-neutral-300">
+              2024 — Apr 2028 (expected)
+            </span>
             <span className="block">Toronto, Canada</span>
           </div>
 
           <div>
             <h3 className="text-3xl font-medium tracking-tight md:text-4xl">
-              Data Science &amp; Analytics
+              Honours Bachelor of Data Science and Analytics
             </h3>
+            <p className="mt-1 text-base text-neutral-300">
+              Seneca Polytechnic · Cumulative GPA 3.9 / 4.0
+            </p>
             <p className="mt-4 max-w-[40rem] text-lg leading-8 text-neutral-400">
               President&apos;s Honour List recipient and SSF International
               Student Merit Award scholar. Throughout my first four semesters at

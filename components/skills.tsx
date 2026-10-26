@@ -1,33 +1,35 @@
 const groups = [
   {
-    name: "Programming",
+    name: "Languages",
     items: ["Python", "SQL", "TypeScript", "JavaScript", "R"],
   },
   {
-    name: "Data",
-    items: ["dbt", "Spark", "Kafka", "Airflow", "DuckDB", "Delta Lake"],
+    name: "Data engineering",
+    items: ["Kafka", "Spark Structured Streaming", "Delta Lake", "Airflow", "dbt", "DuckDB"],
   },
   {
-    name: "Machine learning",
-    items: ["scikit-learn", "XGBoost", "Prophet", "SHAP", "Optuna"],
+    name: "Machine learning & AI",
+    items: ["scikit-learn", "XGBoost", "SHAP", "Prophet", "Optuna", "Claude API"],
   },
   {
-    name: "Databases",
-    items: ["PostgreSQL", "MongoDB", "Neo4j"],
+    name: "Backend & databases",
+    items: ["FastAPI", "PostgreSQL", "PostGIS", "Supabase"],
   },
   {
-    name: "Frontend",
-    items: ["React", "Next.js", "Tailwind CSS"],
+    name: "Web",
+    items: ["Next.js", "React", "Tailwind CSS"],
   },
   {
-    name: "Automation & DevOps",
-    items: [
-      "Google Apps Script",
-      "Power Automate",
-      "Make",
-      "Docker",
-      "GitHub Actions",
-    ],
+    name: "Analytics & BI",
+    items: ["Power BI", "Streamlit", "Tableau", "pandas"],
+  },
+  {
+    name: "Testing & DevOps",
+    items: ["pytest", "Playwright", "Docker", "GitHub Actions", "Terraform"],
+  },
+  {
+    name: "Automation",
+    items: ["Google Apps Script", "Power Automate"],
   },
 ];
 
@@ -46,7 +48,7 @@ export function Skills() {
           system above.
         </p>
 
-        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {groups.map((group) => (
             <div key={group.name}>
               <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
