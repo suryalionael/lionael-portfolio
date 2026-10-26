@@ -1,52 +1,50 @@
 const DISCIPLINES = ["Data Science", "Data Engineering", "Software Engineering"];
 
-// Editorial spread: type on the dark "page", the portrait as a full-height
-// plate bleeding off the right edge. Text block edges align to the plate.
-// Columns: gutter | text (616) | plate (456) | gutter — the two middle
-// tracks add up to the 1072px content width used by every other section.
+// Type leads; the portrait is a small, quiet plate in the top-right corner
+// of the content column.
 export function Hero() {
   return (
     <section
       id="top"
-      className="grid grid-cols-[24px_minmax(0,1fr)_24px] pt-24 md:grid-cols-[minmax(24px,1fr)_minmax(0,616px)_minmax(0,456px)_minmax(24px,1fr)] md:grid-rows-[auto_1fr] md:pt-28 md:pb-20 lg:min-h-svh lg:pt-28 lg:pb-14"
+      className="mx-auto grid max-w-[1120px] gap-x-16 px-6 pt-28 pb-24 md:grid-cols-[minmax(0,1fr)_auto] md:pt-40 md:pb-32"
     >
+      <figure
+        className="anim-fade w-[120px] overflow-hidden bg-neutral-200 md:col-start-2 md:row-start-1 md:w-[180px] lg:w-[208px]"
+        style={{ "--d": "0.15s" } as React.CSSProperties}
+      >
+        <picture>
+          <source
+            type="image/webp"
+            srcSet="/portrait-crop-240.webp 240w, /portrait-crop-480.webp 480w"
+            sizes="(min-width: 1024px) 208px, (min-width: 768px) 180px, 120px"
+          />
+          <img
+            src="/portrait-crop-480.jpg"
+            alt="Portrait of Lionael Surya in a black shirt"
+            width={480}
+            height={600}
+            fetchPriority="high"
+            className="block aspect-[4/5] w-full object-cover"
+          />
+        </picture>
+      </figure>
+
       <h1
-        className="anim-fade-up col-start-2 font-medium tracking-[-0.055em] md:pr-12 lg:pr-16"
+        className="anim-fade-up mt-10 font-medium tracking-[-0.055em] md:col-start-1 md:row-start-1 md:mt-0"
         style={{ "--d": "0.05s" } as React.CSSProperties}
       >
         <span className="block text-lg font-normal tracking-normal text-muted md:text-xl">
           Hi, I&apos;m
         </span>
-        <span className="mt-3 block text-[clamp(4.25rem,10.5vw,8.75rem)] leading-[0.86]">
+        <span className="mt-3 block text-[clamp(3.75rem,9vw,7.5rem)] leading-[0.88]">
           Lionael
           <br />
           Surya
         </span>
       </h1>
 
-      <figure
-        className="anim-fade relative col-span-2 col-start-2 mt-12 aspect-[4/5] overflow-hidden bg-neutral-200 md:col-span-2 md:col-start-3 md:row-span-2 md:row-start-1 md:mt-0 md:aspect-auto md:min-h-[36rem]"
-        style={{ "--d": "0.15s" } as React.CSSProperties}
-      >
-        <picture>
-          <source
-            type="image/webp"
-            srcSet="/portrait-800.webp 800w, /portrait-1400.webp 1400w"
-            sizes="(min-width: 768px) 45vw, 100vw"
-          />
-          <img
-            src="/portrait.jpg"
-            alt="Studio portrait of Lionael Surya in a black shirt, seated on a stool against a white wall"
-            width={1400}
-            height={2487}
-            fetchPriority="high"
-            className="absolute inset-0 size-full origin-[55%_30%] scale-[1.28] object-cover object-[50%_40%] md:scale-100"
-          />
-        </picture>
-      </figure>
-
       <div
-        className="anim-fade-up col-start-2 mt-12 md:row-start-2 md:mt-0 md:self-end md:pt-16 md:pr-12 lg:pr-16"
+        className="anim-fade-up mt-12 md:col-start-1 md:mt-16"
         style={{ "--d": "0.25s" } as React.CSSProperties}
       >
         <p className="max-w-[34rem] text-lg leading-8 text-neutral-400 md:text-[1.1875rem] md:leading-[1.7]">
@@ -82,7 +80,7 @@ export function Hero() {
           </a>
         </div>
 
-        <dl className="mt-12 grid grid-cols-[auto_auto] justify-start gap-x-14 gap-y-2 border-t border-white/[0.08] pt-6 pb-16 md:mt-14 md:pb-0">
+        <dl className="mt-12 grid grid-cols-[auto_auto] justify-start gap-x-14 gap-y-2 border-t border-white/[0.08] pt-6 md:mt-14">
           <dt className="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">
             Focus
           </dt>

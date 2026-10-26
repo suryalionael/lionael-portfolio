@@ -7,8 +7,7 @@ the site itself is held to the same standard as the systems it documents.
 
 ## Structure
 
-One continuous story: hero (editorial spread — name, intro, and a full-height
-portrait plate) → why I build → education → six featured systems plus the
+One continuous story: hero (name and intro, with a small portrait) → why I build → education → six featured systems plus the
 rest grouped by discipline, each documented as a case study → experience →
 skills → social activities → resume and contact.
 
