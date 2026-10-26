@@ -26,7 +26,7 @@ export function Nav() {
           ? "border-white/[0.08] bg-ink/75 backdrop-blur-md"
           : "border-transparent bg-transparent"
       }`}
-      style={{ "--d": "1.9s" } as React.CSSProperties}
+      style={{ "--d": "0.3s" } as React.CSSProperties}
     >
       <nav
         aria-label="Main"
