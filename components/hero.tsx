@@ -1,96 +1,77 @@
+import Link from "next/link";
+
 const DISCIPLINES = ["Data Science", "Data Engineering", "Software Engineering"];
 
-// Type leads; the portrait sits in a small, static ID card in the
-// top-right corner of the content column.
+// Each letter rises out of a masked line, staggered left to right.
+function Line({ text, start }: { text: string; start: number }) {
+  return (
+    <span className="block overflow-hidden pb-[0.08em]">
+      {[...text].map((ch, i) => (
+        <span
+          key={i}
+          className="anim-rise inline-block"
+          style={{ "--d": `${start + i * 0.045}s` } as React.CSSProperties}
+        >
+          {ch}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export function Hero() {
   return (
     <section
       id="top"
-      className="mx-auto grid max-w-[1120px] gap-x-16 px-6 pt-28 pb-24 md:grid-cols-[minmax(0,1fr)_auto] md:pt-40 md:pb-32"
+      className="mx-auto grid max-w-[1120px] gap-x-14 px-6 pt-28 pb-20 md:grid-cols-[minmax(0,1fr)_minmax(0,340px)] md:pt-36 md:pb-28 lg:grid-cols-[minmax(0,1fr)_380px]"
     >
-      <figure
-        className="anim-fade group w-[200px] self-start md:col-start-2 md:row-span-2 md:row-start-1 md:w-[208px] lg:w-[232px]"
-        style={{ "--d": "0.15s" } as React.CSSProperties}
-      >
-        <div className="rounded-[14px] border border-white/[0.12] bg-ink-raised p-2.5 shadow-[0_24px_60px_-28px_rgb(0_0_0/0.9)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:rotate-[2deg] md:group-hover:rotate-0">
-          <div className="flex items-center justify-between px-1 pt-0.5 pb-2.5">
-            <span className="font-mono text-[9px] tracking-[0.2em] text-muted uppercase">
-              Portfolio
-            </span>
-            <span
-              aria-hidden="true"
-              className="h-1.5 w-9 rounded-full border border-white/10 bg-ink"
-            />
-            <span className="font-mono text-[9px] tracking-[0.2em] text-muted uppercase">
-              2026
-            </span>
-          </div>
-
-          <picture>
-            <source
-              type="image/webp"
-              srcSet="/portrait-crop-240.webp 240w, /portrait-crop-480.webp 480w"
-              sizes="(min-width: 1024px) 212px, (min-width: 768px) 188px, 180px"
-            />
-            <img
-              src="/portrait-crop-480.jpg"
-              alt="Portrait of Lionael Surya in a black shirt"
-              width={480}
-              height={600}
-              fetchPriority="high"
-              className="block aspect-[4/5] w-full rounded-[8px] bg-neutral-200 object-cover"
-            />
-          </picture>
-
-          <figcaption className="px-1 pt-3.5 pb-1">
-            <p className="text-[15px] leading-tight font-medium tracking-tight text-paper">
-              Lionael Surya
-            </p>
-            <p className="mt-1 text-xs text-neutral-400">
-              Data Science &amp; Analytics
-            </p>
-            <div className="mt-3.5 flex items-center justify-between border-t border-white/[0.08] pt-2.5 font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
-              <span>Seneca · 2028</span>
-              <span>Toronto</span>
-            </div>
-          </figcaption>
-        </div>
-      </figure>
-
-      <h1
-        className="anim-fade-up mt-10 font-medium tracking-[-0.055em] md:col-start-1 md:row-start-1 md:mt-0"
-        style={{ "--d": "0.05s" } as React.CSSProperties}
-      >
-        <span className="block text-lg font-normal tracking-normal text-muted md:text-xl">
-          Hi, I&apos;m
-        </span>
-        <span className="mt-3 block text-[clamp(3.75rem,9vw,7.5rem)] leading-[0.88]">
-          Lionael
-          <br />
-          Surya
-        </span>
-      </h1>
-
-      <div
-        className="anim-fade-up mt-12 md:col-start-1 md:mt-16"
-        style={{ "--d": "0.25s" } as React.CSSProperties}
-      >
-        <p className="max-w-[34rem] text-lg leading-8 text-neutral-400 md:text-[1.1875rem] md:leading-[1.7]">
-          <span className="text-paper">Welcome to my portfolio.</span>{" "}
-          I&apos;m a Data Science student at Seneca Polytechnic building
-          production-ready data platforms, internal software, and AI-powered
-          systems. My focus is reliable architecture, reproducible pipelines,
-          and software people can actually trust.
+      <div className="md:col-start-1">
+        <p
+          className="anim-fade-up flex items-center gap-3 font-mono text-[11px] tracking-[0.18em] text-neutral-400 uppercase"
+          style={{ "--d": "0.05s" } as React.CSSProperties}
+        >
+          <span className="relative flex size-2">
+            <span className="dot-ping absolute inline-flex size-full rounded-full bg-emerald-400/70" />
+            <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+          </span>
+          Open to Summer 2027 co-op
         </p>
 
-        <div className="mt-9 flex items-center gap-9">
+        <h1
+          aria-label="Lionael Surya"
+          className="mt-8 text-[clamp(4rem,10vw,8.25rem)] leading-[0.86] font-medium tracking-[-0.055em]"
+        >
+          <span aria-hidden="true">
+            <Line text="Lionael" start={0.15} />
+            <Line text="Surya" start={0.35} />
+          </span>
+        </h1>
+
+        <p
+          className="anim-fade-up mt-10 max-w-[30rem] text-2xl leading-snug font-medium tracking-tight text-paper md:text-[1.75rem]"
+          style={{ "--d": "0.7s" } as React.CSSProperties}
+        >
+          I build data systems people can actually trust.
+        </p>
+        <p
+          className="anim-fade-up mt-5 max-w-[34rem] text-lg leading-8 text-neutral-400"
+          style={{ "--d": "0.8s" } as React.CSSProperties}
+        >
+          Data Science &amp; Analytics student at Seneca Polytechnic, shipping
+          production data platforms, internal software, and ML systems — with
+          tests, documentation, and decisions you can trace back.
+        </p>
+
+        <div
+          className="anim-fade-up mt-10 flex flex-wrap items-center gap-x-9 gap-y-4"
+          style={{ "--d": "0.9s" } as React.CSSProperties}
+        >
           <a
             href="#work"
-            className="group inline-flex items-center gap-2 text-base font-medium text-paper"
+            data-magnetic
+            className="group inline-flex items-center gap-3 rounded-full bg-paper px-6 py-3 text-[15px] font-medium text-ink transition-colors hover:bg-white"
           >
-            <span className="underline decoration-white/30 decoration-1 underline-offset-[7px] transition-[text-decoration-color] duration-300 group-hover:decoration-white">
-              Explore my work
-            </span>
+            Explore my work
             <span
               aria-hidden="true"
               className="transition-transform duration-300 group-hover:translate-y-0.5"
@@ -98,35 +79,92 @@ export function Hero() {
               ↓
             </span>
           </a>
+          <Link
+            href="/resume"
+            className="u-link text-[15px] text-neutral-300 transition-colors hover:text-paper"
+          >
+            Resume <span aria-hidden="true">→</span>
+          </Link>
           <a
             href="https://github.com/suryalionael"
             target="_blank"
             rel="noopener noreferrer"
-            className="u-link text-base text-neutral-400 transition-colors hover:text-paper"
+            className="u-link text-[15px] text-neutral-400 transition-colors hover:text-paper"
           >
             GitHub <span aria-hidden="true">↗</span>
           </a>
         </div>
 
-        <dl className="mt-12 grid grid-cols-[auto_auto] justify-start gap-x-14 gap-y-2 border-t border-white/[0.08] pt-6 md:mt-14">
-          <dt className="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">
-            Focus
-          </dt>
-          <dt className="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">
-            Based in
-          </dt>
-          <dd className="text-sm leading-6 text-neutral-300">
-            <ul>
-              {DISCIPLINES.map((d) => (
-                <li key={d}>{d}</li>
-              ))}
-            </ul>
-          </dd>
-          <dd className="text-sm leading-6 text-neutral-300">
-            Toronto, Canada
-          </dd>
+        <dl
+          className="anim-fade-up mt-14 grid grid-cols-2 gap-x-10 gap-y-2 border-t border-white/[0.08] pt-6 sm:grid-cols-[auto_auto_auto] sm:justify-start sm:gap-x-14"
+          style={{ "--d": "1s" } as React.CSSProperties}
+        >
+          <div>
+            <dt className="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">
+              Focus
+            </dt>
+            <dd className="mt-2 text-sm leading-6 text-neutral-300">
+              <ul>
+                {DISCIPLINES.map((d) => (
+                  <li key={d}>{d}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+          <div>
+            <dt className="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">
+              Currently
+            </dt>
+            <dd className="mt-2 text-sm leading-6 text-neutral-300">
+              QuickRN — Web Dev &amp; Data Ops
+              <br />
+              Seneca Works — Career Peer
+            </dd>
+          </div>
+          <div>
+            <dt className="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">
+              Based in
+            </dt>
+            <dd className="mt-2 text-sm leading-6 text-neutral-300">
+              Toronto, Canada
+            </dd>
+          </div>
         </dl>
       </div>
+
+      {/* Portrait: a tall editorial frame. Grayscale at rest, colour on
+          hover; the image drifts slightly with the cursor and scroll. */}
+      <figure
+        className="anim-reveal-clip group mt-16 self-start md:col-start-2 md:row-start-1 md:mt-2"
+        style={{ "--d": "0.4s" } as React.CSSProperties}
+      >
+        <div
+          data-cursor="Hello"
+          className="relative aspect-[3/4] overflow-hidden rounded-[10px] bg-neutral-200"
+        >
+          <div data-parallax="14" className="absolute -inset-6">
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="/portrait-hero-480.webp 480w, /portrait-hero-960.webp 960w"
+                sizes="(min-width: 1024px) 380px, (min-width: 768px) 340px, 100vw"
+              />
+              <img
+                src="/portrait-hero-960.jpg"
+                alt="Lionael Surya seated on a stool in a black shirt"
+                width={960}
+                height={1280}
+                fetchPriority="high"
+                className="portrait-breathe size-full object-cover grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+              />
+            </picture>
+          </div>
+        </div>
+        <figcaption className="mt-4 flex items-center justify-between font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
+          <span>Seneca · Class of 2028</span>
+          <span>Toronto</span>
+        </figcaption>
+      </figure>
     </section>
   );
 }
