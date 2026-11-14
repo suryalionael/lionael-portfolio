@@ -1,7 +1,9 @@
+import { SplitHeading } from "@/components/split-heading";
 import { Contact } from "@/components/contact";
 import { Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
+import { Marquee } from "@/components/marquee";
 import { Nav } from "@/components/nav";
 import { Skills } from "@/components/skills";
 import { SocialActivities } from "@/components/social-activities";
@@ -20,21 +22,23 @@ export default function Home() {
       <Nav />
       <main id="main">
         <Hero />
+        <Marquee />
         <WhyIBuild />
         <Education />
 
         <section id="work" className="border-t border-white/[0.06]">
           <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
-            <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+            <p data-reveal className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
               Selected work
             </p>
-            <h2 className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl">
-              Systems I&apos;ve built.
-            </h2>
-            <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
-              Six featured systems, then the rest grouped by discipline. Every
-              case study explains the engineering decisions behind the work —
-              not just what was built, but why.
+            <SplitHeading
+          className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl"
+          text="Systems I’ve built."
+        />
+            <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
+              Six featured systems, then the rest grouped by discipline. Open
+              any of them for the engineering decisions behind it — not just
+              what was built, but why.
             </p>
 
             <div className="mt-14">

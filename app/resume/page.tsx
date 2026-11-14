@@ -7,13 +7,13 @@ import { resumes } from "@/lib/resumes";
 export const metadata: Metadata = {
   title: "Resume",
   description:
-    "Seventeen tailored resumes for data, business, AI, software, and analytical roles. Preview each one in full and download the PDF that fits the job.",
+    "Resumes tailored for data, business, AI, and software roles. Preview each one in full and download the PDF that fits the role.",
   alternates: { canonical: "/resume" },
   openGraph: {
     url: "/resume",
     title: "Resume — Lionael Surya",
     description:
-      "Seventeen tailored resumes for data, business, AI, software, and analytical roles.",
+      "Resumes tailored for data, business, AI, and software roles.",
   },
 };
 
@@ -66,15 +66,15 @@ export default function ResumePage() {
             Resume
           </p>
           <h1 className="anim-fade-up mt-6 max-w-[20ch] text-5xl leading-[1.08] font-medium tracking-[-0.03em] md:text-7xl">
-            Different versions for different directions.
+            Pick the resume that fits the role.
           </h1>
           <p
             className="anim-fade-up mt-6 max-w-[42rem] text-lg leading-relaxed text-neutral-400"
             style={{ "--d": "0.1s" } as React.CSSProperties}
           >
-            {resumes.length} resumes, each written for a specific role. Open any
-            one to read it in full, then download the version that matches the
-            job you&apos;re applying to.
+            Same experience, {resumes.length} different emphases — data,
+            business, AI, and software. Preview any version in full, then
+            download the one closest to the opening you&apos;re hiring for.
           </p>
         </section>
 

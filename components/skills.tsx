@@ -1,3 +1,4 @@
+import { SplitHeading } from "@/components/split-heading";
 const groups = [
   {
     name: "Languages",
@@ -37,20 +38,25 @@ export function Skills() {
   return (
     <section id="skills" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
-        <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+        <p data-reveal className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Skills
         </p>
-        <h2 className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl">
-          What I work with.
-        </h2>
-        <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
+        <SplitHeading
+          className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl"
+          text="What I work with."
+        />
+        <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
           Grouped by the job to be done — nearly every tool here appears in a
           system above.
         </p>
 
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {groups.map((group) => (
-            <div key={group.name}>
+          {groups.map((group, i) => (
+            <div
+              key={group.name}
+              data-reveal
+              style={{ "--i": i % 4 } as React.CSSProperties}
+            >
               <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
                 {group.name}
               </p>

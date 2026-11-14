@@ -1,3 +1,4 @@
+import { SplitHeading } from "@/components/split-heading";
 // Source of truth: the role-specific resumes in /public/resumes.
 // Most recent first.
 const roles = [
@@ -66,13 +67,14 @@ export function Experience() {
   return (
     <section id="experience" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
-        <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+        <p data-reveal className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Experience
         </p>
-        <h2 className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl">
-          The journey so far.
-        </h2>
-        <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
+        <SplitHeading
+          className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl"
+          text="The journey so far."
+        />
+        <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
           Four roles, most recent first.
         </p>
 
@@ -80,6 +82,7 @@ export function Experience() {
           {roles.map((r) => (
             <li
               key={r.org}
+              data-reveal
               className="grid gap-5 border-b border-white/[0.06] py-12 md:grid-cols-[220px_1fr] md:gap-12"
             >
               <div className="font-mono text-xs leading-6 text-muted">
