@@ -40,7 +40,7 @@ export const resumes: Resume[] = [
     "Data",
     "data-analyst",
     "Data Analyst",
-    "Data analytics, SQL, Python, dbt, forecasting, and applied analytics.",
+    "SQL + R analytics, Python, dbt, forecasting, and applied statistics.",
     "Lionael_Surya_Data_Analyst_Resume.pdf",
   ),
   resume(

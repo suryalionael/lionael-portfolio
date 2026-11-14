@@ -1,7 +1,7 @@
 const groups = [
   {
     name: "Languages",
-    items: ["Python", "SQL", "TypeScript", "JavaScript", "R"],
+    items: ["Python", "SQL", "R (tidyverse)", "TypeScript", "JavaScript"],
   },
   {
     name: "Data engineering",
@@ -21,7 +21,7 @@ const groups = [
   },
   {
     name: "Analytics & BI",
-    items: ["Power BI", "Streamlit", "Tableau", "pandas"],
+    items: ["Power BI", "Streamlit", "Tableau", "pandas", "Quarto / R Markdown"],
   },
   {
     name: "Testing & DevOps",
