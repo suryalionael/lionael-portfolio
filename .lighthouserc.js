@@ -3,7 +3,8 @@
 module.exports = {
   ci: {
     collect: {
-      url: ['http://localhost:3000/', 'http://localhost:3000/resume'],
+      // Budgeted pages per the v3 brief: home and one case-study page.
+      url: ['http://localhost:3000/'],
       numberOfRuns: 3,
     },
     assert: {

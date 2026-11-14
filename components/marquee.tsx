@@ -19,7 +19,7 @@ export function Marquee() {
       {ITEMS.map((item) => (
         <li
           key={item}
-          className="flex items-center text-2xl font-medium tracking-tight text-neutral-600 transition-colors duration-500 hover:text-paper md:text-4xl"
+          className="flex items-center text-2xl font-medium tracking-tight text-neutral-500 transition-colors duration-500 hover:text-paper md:text-4xl"
         >
           <span className="px-8 md:px-10">{item}</span>
           <span aria-hidden="true" className="text-neutral-700">

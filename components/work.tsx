@@ -284,7 +284,7 @@ function ProjectCard({
         )}
         {project.category} · {project.year}
       </p>
-      <h4
+      <h3
         className={`mt-2 font-medium tracking-tight text-paper ${
           featured ? "text-2xl" : "text-lg"
         }`}
@@ -297,7 +297,7 @@ function ProjectCard({
         >
           {project.title}
         </button>
-      </h4>
+      </h3>
       <p
         className={`mt-2 leading-relaxed text-neutral-400 ${
           featured ? "text-[15px]" : "line-clamp-2 text-sm"

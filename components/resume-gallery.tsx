@@ -21,9 +21,11 @@ function trackDownload(resume: Resume) {
 function Card({
   resume,
   onOpen,
+  eager,
 }: {
   resume: Resume;
   onOpen: (trigger: HTMLElement) => void;
+  eager: boolean;
 }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-ink-raised/70 transition-colors duration-300 hover:border-white/25">
@@ -39,6 +41,10 @@ function Card({
           alt={`First page of the ${resume.title} resume`}
           width={resume.preview.width}
           height={resume.preview.height}
+          priority={eager}
+          fetchPriority={eager ? "high" : undefined}
+          quality={55}
+          sizes="(min-width: 1280px) 340px, (min-width: 640px) 50vw, 100vw"
           className="h-auto w-full"
         />
         <span
@@ -148,7 +154,7 @@ export function ResumeGallery() {
 
   return (
     <>
-      {resumesByCategory.map((group) => (
+      {resumesByCategory.map((group, groupIndex) => (
         <section key={group.category} className="mt-20 first:mt-0">
           <div className="flex items-baseline justify-between gap-6 border-t border-white/[0.06] pt-6">
             <h2 className="text-2xl font-medium tracking-tight text-paper md:text-3xl">
@@ -160,10 +166,11 @@ export function ResumeGallery() {
           </div>
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
-            {group.resumes.map((resume) => (
+            {group.resumes.map((resume, i) => (
               <Card
                 key={resume.slug}
                 resume={resume}
+                eager={groupIndex === 0 && i === 0}
                 onOpen={(trigger) => open(resume, trigger)}
               />
             ))}
