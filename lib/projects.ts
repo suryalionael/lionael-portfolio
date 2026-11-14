@@ -715,6 +715,125 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "beyond-gdp",
+    title: "Beyond GDP",
+    category: "Applied statistics",
+    group: "Research & Simulation",
+    discipline: "Research & Simulation",
+    year: "2026",
+    live: false,
+    summary:
+      "Does GDP per capita actually predict national happiness once health, employment, connectivity, urbanization, and inflation are controlled for? A reproducible R regression pipeline that tests the association, its nonlinearity, and its stability.",
+    tags: ["R", "tidyverse", "regression", "ggplot2", "testthat", "renv"],
+    links: {
+      github:
+        "https://github.com/suryalionael/Lionael-Surya/tree/main/case-studies/beyond-gdp",
+    },
+    metrics: [
+      { value: "0.462", label: "GDP coefficient (95% CI 0.21–0.71)" },
+      { value: "144", label: "countries in the primary sample" },
+      { value: "0.409–0.497", label: "coefficient range across sensitivity checks" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "sources",
+          label: "Official sources",
+          tech: "WHR 2026 · World Bank API",
+          detail:
+            "Life Ladder comes from the World Happiness Report; every predictor is pulled independently from the World Bank REST API. The report's own decomposition columns were rejected as predictors after verifying they sum to the outcome by construction — max discrepancy 0.003 across 1,013 fully decomposed rows.",
+        },
+        {
+          id: "join",
+          label: "Join & sample",
+          tech: "documented crosswalk",
+          detail:
+            "A country-code crosswalk matched 98.7% of rows, with 22 manual name overrides and 3 permanently unmatched political-status cases. The primary 2019 complete-case sample is 144 countries; every exclusion is counted.",
+        },
+        {
+          id: "models",
+          label: "Progressive models",
+          tech: "OLS · nested F-tests",
+          detail:
+            "Intercept-only → GDP alone → health/employment → the full six-predictor model, compared on adjusted R² and AIC. A quadratic GDP term and one pre-specified GDP × unemployment interaction were both tested and rejected.",
+        },
+        {
+          id: "diagnostics",
+          label: "Diagnostics",
+          tech: "Shapiro–Wilk · Breusch–Pagan · VIF",
+          detail:
+            "Residual diagnostics, Cook's distance, and VIF are reported in full, including the genuine multicollinearity between GDP and internet use (VIF ≈ 8.5–8.7). HC1 robust standard errors were evaluated, not applied by default.",
+        },
+        {
+          id: "robustness",
+          label: "Robustness",
+          tech: "5 checks · pooled panel",
+          detail:
+            "The GDP coefficient stayed in a 0.409–0.497 range across five pre-specified checks and an independent 2019–2024 pooled panel with country-clustered SEs (146 countries, 809 country-year observations). The panel is a robustness check, not causal panel evidence.",
+        },
+      ],
+      foundation: [
+        "8-stage R pipeline, 01_ingestion → 08_findings",
+        "renv.lock · 19 tests / 38 expectations",
+        "associations, never causal claims",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Most public treatments of the happiness–income question reuse the World Happiness Report's own \"Explained by: GDP\" columns as if they were independent predictors. A Phase 0 feasibility check showed those columns are the report's regression output and sum to the Life Ladder score by construction, which would make the analysis close to circular.",
+          "The real question is narrower: after sourcing predictors independently, does GDP per capita remain associated with life satisfaction once health, employment, connectivity, urbanization, and inflation are in the model?",
+        ],
+      },
+      {
+        heading: "Solution",
+        body: [
+          "A reproducible R pipeline that pulls official data from the World Happiness Report and the World Bank API, documents the country-code join, and fits a progressive series of OLS models. It then runs a full diagnostic suite, tests nonlinearity and one interaction, and reports five pre-specified robustness checks plus a pooled-panel re-estimation.",
+          "Every coefficient is reported with a 95% CI and described as an association. The pipeline produces 19 ggplot2 figures and 19 tests from the same scripts.",
+        ],
+      },
+      {
+        heading: "Findings",
+        body: [
+          "GDP per capita is positively associated with Life Ladder and survives the five controls: coefficient 0.462 [95% CI 0.212, 0.711], p < 0.001, N = 144 countries in 2019. Unemployment, urbanization, and inflation are also independently associated; life expectancy and internet use are not once GDP is in the model.",
+          "There is no evidence of a diminishing-returns quadratic (p = 0.222) or a GDP × unemployment interaction (p = 0.259). The GDP coefficient stayed within 0.409–0.497 across sensitivity checks and the pooled panel.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "Data feasibility came before code: OECD well-being data covered only ~38–41 countries against 144–168 for WHR/World Bank, so it was ruled out. The report's decomposition columns were rejected as predictors after the arithmetic check. The primary year was chosen for maximum complete-case coverage, not recency, and that choice is documented.",
+          "The result is a pipeline, not a notebook: numbered scripts, a single run_all entry point, renv.lock, and tests that check the chain rather than the headline coefficients.",
+        ],
+      },
+      {
+        heading: "Limitations",
+        body: [
+          "The data are observational, cross-sectional, and country-level. Social support, trust, and inequality are omitted because no adequate free, independent source was found. GDP and internet use are collinear enough (VIF ≈ 8.5–8.7) that internet use's independent association cannot be cleanly separated. Life Ladder is a three-year rolling average matched to single-year World Bank predictors.",
+          "Thirteen limitations are documented in the case study; none are softened into a causal claim.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/beyond-gdp-coefficient.png",
+        alt: "Plot showing the GDP coefficient and confidence interval across model specifications and robustness checks",
+        caption: "GDP coefficient stability across the progressive models and sensitivity checks",
+        width: 1800,
+        height: 1350,
+      },
+      {
+        src: "/projects/beyond-gdp-gap.png",
+        alt: "Ranked bar chart of observed minus predicted Life Ladder scores by country",
+        caption: "Happiness gap — observed minus predicted Life Ladder, reported as residuals only",
+        width: 2250,
+        height: 1950,
+      },
+    ],
+  },
+
+  {
     slug: "behind-the-feed",
     title: "Behind the Feed",
     category: "Data science research",
@@ -823,6 +942,131 @@ export const projects: Project[] = [
   },
 
   /* ── Data Engineering ── */
+
+  {
+    slug: "ttc-delay-analysis",
+    title: "TTC Delay Analysis",
+    category: "Transit analytics",
+    group: "Data Engineering",
+    discipline: "Data Science & ML",
+    year: "2026",
+    live: false,
+    summary:
+      "Where, when, and why do TTC delays concentrate — and what predicts a major delay? A reproducible R + PostgreSQL pipeline over 1,251,597 reported incidents, with logistic and negative binomial models.",
+    tags: ["R", "SQL", "PostgreSQL", "tidyverse", "MASS", "pROC", "rmarkdown"],
+    links: {
+      github: "https://github.com/suryalionael/ttc-delay-analysis",
+    },
+    metrics: [
+      { value: "1,251,597", label: "reported incidents, 2014–2026" },
+      { value: "64.8%", label: "of incidents are bus" },
+      { value: "0.756", label: "2024 holdout AUC" },
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "source",
+          label: "City open data",
+          tech: "CKAN API · 2014–2026",
+          detail:
+            "Every yearly subway, bus, and streetcar file plus the rolling since-2025 extract, downloaded with SHA-256 checksums. Raw files stay out of git; re-running the pipeline re-fetches them.",
+        },
+        {
+          id: "clean",
+          label: "Harmonisation",
+          tech: "R · legacy + 2025 schemas",
+          detail:
+            "Two legacy schemas and the newer 2025 schema are mapped to one grain: mode, date, time, line, location, delay code, delay minutes. Every exclusion is counted in a raw-to-clean reconciliation table.",
+        },
+        {
+          id: "sql",
+          label: "PostgreSQL views",
+          tech: "window functions",
+          detail:
+            "Line and location rankings with cumulative shares, daily and monthly series, a 28-day rolling average, month-over-month and year-over-year change, hour-by-weekday rates, and cause shares — all versioned SQL.",
+        },
+        {
+          id: "models",
+          label: "Two models",
+          tech: "logistic · negative binomial",
+          detail:
+            "P(delay ≥ 15 minutes) with hour, weekday, month, mode, line group, and cause category, using cluster-robust standard errors by line group and a 2024 time-based holdout. Daily incident counts use a negative binomial model with weekday, month, mode, COVID period, and year.",
+        },
+        {
+          id: "checks",
+          label: "Diagnostics & robustness",
+          tech: "separation · VIF · ROC · 7 specs",
+          detail:
+            "Separation, influence, VIF, overdispersion, calibration, and ROC/AUC are reported. Robustness covers excluding 2020–2021, 10/20-minute thresholds, dropping the top 1% of delays, an alternate hour specification, and clustering by location.",
+        },
+        {
+          id: "report",
+          label: "Stakeholder report",
+          tech: "R Markdown · HTML",
+          detail:
+            "A 3–4 page briefing with three charts, three recommendations for service planners, and limitations. Quarto was unavailable, so the report is R Markdown rendered to HTML with rmarkdown.",
+        },
+      ],
+      foundation: [
+        "numbered R pipeline, 00_config → 08_findings",
+        "7 data-quality checks; 1,233 sentinel 999-minute rows documented",
+        "associations, not causal effects",
+      ],
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "TTC service planning has limited recovery time, vehicles, and staff. A network-wide average hides the fact that bus, streetcar, and subway delays behave differently, and that a small number of lines and locations carry a large share of the problem.",
+          "The analysis asks where, when, and why delays concentrate, and which factors are associated with a reported delay lasting 15 minutes or more.",
+        ],
+      },
+      {
+        heading: "Solution",
+        body: [
+          "An R + PostgreSQL pipeline over 1,251,597 incidents from 2014 to 2026: ingest every City of Toronto resource, harmonise the schemas, load PostgreSQL, build the analytical views in SQL, then fit and diagnose two models in R. The pre-registered analysis plan was committed before any model was estimated.",
+          "Bus is 64.8% of incidents and 83.9% of reported delay minutes. The top 5 streetcar lines are 74.0% of streetcar delay minutes, while the top 10 bus lines are only 17.4% of bus delay — the bus problem is network-wide, the streetcar problem is line-specific.",
+        ],
+      },
+      {
+        heading: "Findings",
+        body: [
+          "Major delays peak overnight, not in the PM rush: the 15-minute-plus rate is 57.3% at 03:00 on bus and 53.4% at 03:00 on streetcar. Hour 3 has an odds ratio of 1.71 relative to midnight; the PM peak is lower than midnight. The pre-specified PM-peak hypothesis is not supported.",
+          "The overall major-delay rate is 25.7%. Bus is highest at 34.5%, streetcar 20.5%, and subway 2.65%. The logistic model reaches AUC 0.756 (95% CI 0.753–0.759) on the 2024 holdout and under-predicts 2024 severity (mean 24.2% vs observed 28.1%). COVID has a negative binomial rate ratio of 0.79.",
+        ],
+      },
+      {
+        heading: "Engineering decisions",
+        body: [
+          "The SQL does the heavy aggregation: line/location ranks, 28-day rolling averages, year-over-year change, and cumulative shares live in versioned views, and R reads those views instead of re-implementing the same group-bys. The universe is one grain, not one script per chart.",
+          "The measurement caveats are part of the result: 1,233 records contain a 999-minute placeholder, legacy bus/streetcar files use coarse cause labels, and the 2025 schema renames routes to lines. Those are documented in the limitations instead of quietly dropped.",
+        ],
+      },
+      {
+        heading: "Limitations",
+        body: [
+          "Reporting bias: an incident only appears if someone reports it and a delay code is assigned. There is no ridership, weather, construction, or staffing denominator. Cause categories are coarse before 2021, the 2025 schema breaks the legacy route coding, and the final month of the rolling extract may be partial.",
+          "The 2024 holdout is one year and is harder than the training period. VIF is high for the line-group specification because line groups nest inside modes. Every model result is an association, not a causal effect.",
+        ],
+      },
+    ],
+    images: [
+      {
+        src: "/projects/ttc-major-delay-heatmap.png",
+        alt: "Heatmap of the share of TTC incidents lasting 15 minutes or more, by weekday and hour, for bus, streetcar and subway",
+        caption: "Major-delay rate by weekday and hour — bus and streetcar severity peaks overnight",
+        width: 1440,
+        height: 1280,
+      },
+      {
+        src: "/projects/ttc-top-lines.png",
+        alt: "Bar chart of the top TTC lines by reported delay minutes and their share of each mode's delay",
+        caption: "Top lines by delay minutes — streetcar delay is concentrated, bus delay is not",
+        width: 1440,
+        height: 1280,
+      },
+    ],
+  },
 
   {
     slug: "retail-sales-etl-pipeline",
