@@ -4,8 +4,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { resumesByCategory, type Resume } from "@/lib/resumes";
+import { report } from "@/lib/analytics";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+function trackDownload(resume: Resume) {
+  let role = "general";
+  try {
+    role = localStorage.getItem("role") || "general";
+  } catch {
+    // Private windows may block storage; the event still matters.
+  }
+  report("resume_download", { resume: resume.slug, role });
+}
 
 function Card({
   resume,
@@ -59,6 +70,7 @@ function Card({
           <a
             href={resume.file}
             download={resume.downloadName}
+            onClick={() => trackDownload(resume)}
             className="u-link text-xs text-neutral-400 transition-colors hover:text-paper"
           >
             Download PDF
@@ -200,6 +212,7 @@ export function ResumeGallery() {
                   <a
                     href={active.file}
                     download={active.downloadName}
+                    onClick={() => trackDownload(active)}
                     className="u-link text-xs font-medium text-paper"
                   >
                     Download PDF
