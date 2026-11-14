@@ -89,7 +89,8 @@ export function CaseStudy({
         </p>
       </Reveal>
 
-      <Reveal delay={1.05}>
+      {project.links.demo && (
+      <Reveal delay={0.55}>
         <div className="mt-8 flex items-center gap-8">
           {project.links.demo && (
             <a
@@ -101,18 +102,9 @@ export function CaseStudy({
               Live demo ↗
             </a>
           )}
-          {project.links.github && (
-            <a
-              href={project.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="u-link text-base text-neutral-400 transition-colors hover:text-paper"
-            >
-              GitHub ↗
-            </a>
-          )}
         </div>
       </Reveal>
+      )}
 
       <Reveal delay={0.6}>
         <dl className="mt-10 grid grid-cols-3 gap-4 border-y border-white/[0.08] py-8">

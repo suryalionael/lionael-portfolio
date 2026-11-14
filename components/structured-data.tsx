@@ -55,7 +55,6 @@ const graph = {
       description: project.summary,
       author: { "@id": personId },
       keywords: project.tags.join(", "),
-      ...(project.links.github && { sameAs: project.links.github }),
     })),
   ],
 };

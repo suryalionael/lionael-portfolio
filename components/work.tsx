@@ -23,6 +23,7 @@ export function Work() {
   const pushedRef = useRef(false);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
   const reduceMotion = useReducedMotion();
 
   const open = (project: Project, trigger: HTMLElement) => {
@@ -66,10 +67,16 @@ export function Work() {
     document.body.style.top = `-${scrollY}px`;
     document.body.style.width = "100%";
 
-    setTimeout(() => {
+    // Always open a case study at its top. Focusing the close button
+    // without preventScroll let the browser scroll the overlay to wherever
+    // the button sat mid-animation, which was often the end of the article.
+    const toTop = () => overlayRef.current?.scrollTo({ top: 0 });
+    toTop();
+    const focusTimer = setTimeout(() => {
       dialogRef.current
         ?.querySelector<HTMLElement>("[aria-label='Close case study']")
-        ?.focus();
+        ?.focus({ preventScroll: true });
+      toTop();
     }, 0);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
@@ -102,6 +109,7 @@ export function Work() {
       document.body.style.top = "";
       document.body.style.width = "";
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      clearTimeout(focusTimer);
       document.removeEventListener("keydown", onKey);
     };
   }, [active, close]);
@@ -110,20 +118,28 @@ export function Work() {
     ? { duration: 0 }
     : { duration: 0.6, ease: EASE, delay: 0.05 };
 
-  const card = (project: Project, size: "featured" | "compact") => (
-    <ProjectCard
+  const card = (project: Project, size: "featured" | "compact", i: number) => (
+    <div
       key={project.slug}
-      project={project}
-      size={size}
-      transition={layoutTransition}
-      onOpen={open}
-    />
+      data-reveal
+      style={{ "--i": i % 3 } as React.CSSProperties}
+      className="flex"
+    >
+      <div data-tilt className="relative flex w-full">
+        <ProjectCard
+          project={project}
+          size={size}
+          transition={layoutTransition}
+          onOpen={open}
+        />
+      </div>
+    </div>
   );
 
   return (
     <>
       <div className="grid gap-x-6 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
-        {featuredProjects.map((project) => card(project, "featured"))}
+        {featuredProjects.map((project, i) => card(project, "featured", i))}
       </div>
 
       <div className="mt-28 space-y-20">
@@ -135,19 +151,24 @@ export function Work() {
 
             {group.category === "Client Software & Websites" ? (
               <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-                {group.projects.map((project) => card(project, "compact"))}
+                {group.projects.map((project, i) => card(project, "compact", i))}
               </div>
             ) : (
               <ul className="mt-6 border-t border-white/[0.06]">
-                {group.projects.map((project) => (
-                  <li key={project.slug}>
+                {group.projects.map((project, i) => (
+                  <li
+                    key={project.slug}
+                    data-reveal
+                    style={{ "--i": i } as React.CSSProperties}
+                  >
                     <motion.button
+                      data-cursor="Open"
                       layoutId={`card-${project.slug}`}
                       transition={layoutTransition}
                       type="button"
                       onClick={(e) => open(project, e.currentTarget)}
                       aria-haspopup="dialog"
-                      className="group flex w-full items-baseline justify-between gap-6 border-b border-white/[0.06] py-5 text-left transition-colors hover:border-white/20"
+                      className="group flex w-full items-baseline justify-between gap-6 border-b border-white/[0.06] py-5 text-left transition-[border-color,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-white/20 md:hover:pl-3"
                     >
                       <span className="flex shrink-0 items-center gap-3 text-lg font-medium text-neutral-200 transition-colors group-hover:text-paper">
                         {project.title}
@@ -185,13 +206,17 @@ export function Work() {
             }}
             transition={{ duration: reduceMotion ? 0 : 0.4 }}
             onClick={close}
-            className="fixed inset-0 z-[60] overflow-y-auto bg-black/70 backdrop-blur-sm"
+            ref={overlayRef}
+            className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain bg-black/70 backdrop-blur-sm"
           >
             <div className="flex min-h-full justify-center px-4 py-6 md:px-6 md:py-12">
               <motion.article
                 ref={dialogRef}
                 layoutId={`card-${active.slug}`}
                 transition={layoutTransition}
+                onLayoutAnimationComplete={() =>
+                  overlayRef.current?.scrollTo({ top: 0 })
+                }
                 onClick={(e) => e.stopPropagation()}
                 role="dialog"
                 aria-modal="true"
@@ -235,7 +260,8 @@ function ProjectCard({
     <motion.article
       layoutId={`card-${project.slug}`}
       transition={transition}
-      className="group relative flex flex-col"
+      data-cursor="View"
+      className="group relative flex w-full flex-col"
     >
       <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-white/[0.08] bg-ink-raised transition-colors duration-300 group-hover:border-white/20">
         {image ? (
@@ -301,17 +327,6 @@ function ProjectCard({
             className="u-link relative z-10 text-neutral-400 transition-colors hover:text-paper"
           >
             {featured ? "Live" : "Live site"} <span aria-hidden="true">↗</span>
-            <span className="sr-only"> — {project.title}</span>
-          </a>
-        )}
-        {project.links.github && (
-          <a
-            href={project.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="u-link relative z-10 text-neutral-400 transition-colors hover:text-paper"
-          >
-            GitHub <span aria-hidden="true">↗</span>
             <span className="sr-only"> — {project.title}</span>
           </a>
         )}
