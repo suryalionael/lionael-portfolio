@@ -42,10 +42,10 @@ for (const width of widths) {
     await tab.evaluate(async () => {
       const step = window.innerHeight * 0.7;
       for (let y = 0; y < document.body.scrollHeight; y += step) {
-        window.scrollTo(0, y);
+        window.scrollTo({ top: y, behavior: "instant" });
         await new Promise((r) => setTimeout(r, 120));
       }
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "instant" });
     });
     await tab.waitForTimeout(1200);
     await tab.screenshot({

@@ -271,8 +271,9 @@ body {
   animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* Scroll-triggered reveal */
-[data-reveal] {
+/* Scroll-triggered reveal. Guarded by html.js (set by an inline script in
+   the layout) so nothing is trapped at opacity 0 when JS doesn't run. */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(28px);
   transition:
@@ -295,7 +296,7 @@ body {
   margin-bottom: -0.1em;
 }
 
-.split-word > span {
+.js .split-word > span {
   display: inline-block;
   transform: translateY(105%);
   transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -496,8 +497,8 @@ h2[data-reveal] {
     animation: none;
   }
 
-  [data-reveal],
-  .split-word > span {
+  .js [data-reveal],
+  .js .split-word > span {
     opacity: 1;
     transform: none;
     transition: none;

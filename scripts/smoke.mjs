@@ -18,7 +18,11 @@ for (const check of checks) {
   const page = await context.newPage();
   const errors = [];
   page.on("console", (msg) => {
-    if (msg.type() === "error") errors.push(msg.text());
+    if (msg.type() !== "error") return;
+    const url = msg.location()?.url ?? "";
+    // The Vercel Analytics script only exists on Vercel deployments.
+    if (url.includes("/_vercel/")) return;
+    errors.push(`${msg.text()} (${url})`);
   });
   page.on("pageerror", (err) => errors.push(String(err)));
 
