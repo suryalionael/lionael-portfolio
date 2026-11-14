@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main, v3]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run build
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Smoke test
+        run: |
+          npm run start &
+          npx --yes wait-on@8 http://localhost:3000 -t 60000
+          node scripts/smoke.mjs
+      - name: Lighthouse CI
+        run: npx --yes @lhci/cli@0.14.x autorun
