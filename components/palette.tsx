@@ -196,6 +196,16 @@ export default function Palette({
                     </Item>
                   )}
                   <Item
+                    value="terminal mode"
+                    onSelect={() => {
+                      onClose();
+                      window.dispatchEvent(new Event("open-terminal"));
+                    }}
+                  >
+                    Terminal mode
+                    <Hint>~</Hint>
+                  </Item>
+                  <Item
                     value="open github profile"
                     onSelect={() => {
                       window.open(site.github, "_blank", "noopener");

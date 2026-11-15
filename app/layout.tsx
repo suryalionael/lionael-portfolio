@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { StructuredData } from "@/components/structured-data";
 import { Ambient } from "@/components/ambient";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { TerminalTrigger } from "@/components/terminal-trigger";
 import { RoleProvider } from "@/components/role-context";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -94,6 +95,7 @@ export default function RootLayout({
         <RoleProvider>{children}</RoleProvider>
         <Ambient />
         <SmoothScroll />
+        <TerminalTrigger />
         <Analytics />
       </body>
     </html>
