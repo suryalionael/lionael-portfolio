@@ -2,21 +2,10 @@ import { RolePitch, RoleSwitch, ResumeCta } from "@/components/role-lens";
 
 const DISCIPLINES = ["Data Science", "Data Engineering", "Software Engineering"];
 
-// Each letter rises out of a masked line, staggered left to right.
-function Line({ text, start }: { text: string; start: number }) {
-  return (
-    <span className="block overflow-hidden pb-[0.08em]">
-      {[...text].map((ch, i) => (
-        <span
-          key={i}
-          className="anim-rise inline-block"
-          style={{ "--d": `${start + i * 0.045}s` } as React.CSSProperties}
-        >
-          {ch}
-        </span>
-      ))}
-    </span>
-  );
+// Static lines: the hero heading is the LCP element, so it must paint
+// immediately rather than animate in from outside its box.
+function Line({ text }: { text: string }) {
+  return <span className="block">{text}</span>;
 }
 
 export function Hero() {
@@ -42,8 +31,8 @@ export function Hero() {
           className="mt-8 text-[clamp(4rem,10vw,8.25rem)] leading-[0.86] font-medium tracking-[-0.055em]"
         >
           <span aria-hidden="true">
-            <Line text="Lionael" start={0.15} />
-            <Line text="Surya" start={0.35} />
+            <Line text="Lionael" />
+            <Line text="Surya" />
           </span>
         </h1>
 
