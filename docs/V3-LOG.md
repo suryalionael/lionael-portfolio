@@ -136,3 +136,34 @@ sitemap; README rewritten for v3.
 Lighthouse after Phases 3–6 (local, mobile): `/` and `/work/aspen-os`
 still Performance 100 · Accessibility 100 · Best Practices 96 (local-only
 analytics 404) · SEO 100.
+
+## Phase 7 — Terminal mode (2026-11-15)
+
+Shipped: press `~` (or pick "Terminal mode" in the palette) for a
+full-screen terminal that mirrors the site — `help`, `ls projects`,
+`cat about`, `open <project>`, `resume --role <id>`, `role <id>`, `clear`,
+`exit`. Command history with ↑/↓, shell-style tab completion (longest
+common prefix + candidate listing), lazy-loaded, Escape exits, focus
+returns to where it was.
+
+## Final state (2026-11-15)
+
+Lighthouse (local, mobile, production build):
+
+- `/` — 100 · 100 · 96 · 100
+- `/work/aspen-os` — 100 · 100 · 96 · 100
+- `/colophon` — 95 · 100 · 96 · 100
+- `/resume` — 90 · 100 · 96 · 100 (not a budgeted page)
+- Best Practices 96 everywhere is the Vercel Analytics 404, local-only.
+
+Everything Lio still needs to supply or confirm:
+
+1. The featured four: Aspen OS, Streaming Clickstream Pipeline, FraudLens,
+   Nutrition Priority Index.
+2. The four role pitch lines (Phase 2 above) and the role → resume
+   mapping (data-engineer, ai-ml-engineering, data-analytics-bi,
+   software-web-fullstack).
+3. The numbers-strip figures (Phase 6 above).
+4. Real testimonials for `lib/testimonials.ts`, whenever they exist.
+5. Whether per-project GitHub links should return on case-study pages
+   (currently removed on purpose).
