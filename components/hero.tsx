@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { RolePitch, RoleSwitch, ResumeCta } from "@/components/role-lens";
 
 const DISCIPLINES = ["Data Science", "Data Engineering", "Software Engineering"];
 
@@ -47,12 +47,10 @@ export function Hero() {
           </span>
         </h1>
 
-        <p
-          className="anim-fade-up mt-10 max-w-[30rem] text-2xl leading-snug font-medium tracking-tight text-paper md:text-[1.75rem]"
+        <RolePitch
+          className="anim-fade-up mt-10"
           style={{ "--d": "0.7s" } as React.CSSProperties}
-        >
-          I build data systems people can actually trust.
-        </p>
+        />
         <p
           className="anim-fade-up mt-5 max-w-[34rem] text-lg leading-8 text-neutral-400"
           style={{ "--d": "0.8s" } as React.CSSProperties}
@@ -81,12 +79,7 @@ export function Hero() {
           </a>
           {/* Keep the two text links together so neither orphan-wraps. */}
           <span className="flex items-center gap-x-9">
-            <Link
-              href="/resume"
-              className="u-link text-[15px] text-neutral-300 transition-colors hover:text-paper"
-            >
-              Resume <span aria-hidden="true">→</span>
-            </Link>
+            <ResumeCta variant="hero" />
             <a
               href="https://github.com/suryalionael"
               target="_blank"
@@ -98,8 +91,15 @@ export function Hero() {
           </span>
         </div>
 
+        <div
+          className="anim-fade-up"
+          style={{ "--d": "0.95s" } as React.CSSProperties}
+        >
+          <RoleSwitch />
+        </div>
+
         <dl
-          className="anim-fade-up mt-14 grid grid-cols-2 gap-x-10 gap-y-6 border-t border-white/[0.08] pt-6 lg:grid-cols-[auto_auto_auto] lg:justify-start lg:gap-x-14"
+          className="anim-fade-up mt-12 grid grid-cols-2 gap-x-10 gap-y-6 border-t border-white/[0.08] pt-6 lg:grid-cols-[auto_auto_auto] lg:justify-start lg:gap-x-14"
           style={{ "--d": "1s" } as React.CSSProperties}
         >
           <div>

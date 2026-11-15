@@ -9,6 +9,7 @@ import { Skills } from "@/components/skills";
 import { SocialActivities } from "@/components/social-activities";
 import { WhyIBuild } from "@/components/why-i-build";
 import { Work } from "@/components/work";
+import { RoleProvider } from "@/components/role-context";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         Skip to main content
       </a>
       <Nav />
+      <RoleProvider>
       <main id="main">
         <Hero />
         <Marquee />
@@ -63,6 +65,7 @@ export default function Home() {
         <SocialActivities />
         <Contact />
       </main>
+      </RoleProvider>
       <footer className="border-t border-white/[0.06]">
         <div className="mx-auto flex max-w-[1120px] items-center justify-between px-6 py-8">
           <p className="font-mono text-xs text-muted">

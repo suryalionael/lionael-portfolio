@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { SplitHeading } from "@/components/split-heading";
+import { ResumeCta } from "@/components/role-lens";
 
 export function Contact() {
   return (
@@ -35,19 +35,7 @@ export function Contact() {
           >
             suryalionael@gmail.com
           </a>
-          <Link
-            href="/resume"
-            data-magnetic
-            className="group inline-flex items-center gap-3 rounded-full border border-white/20 px-6 py-3 text-[15px] font-medium text-paper transition-colors hover:border-white/50"
-          >
-            Choose a resume
-            <span
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            >
-              →
-            </span>
-          </Link>
+          <ResumeCta variant="contact" />
         </div>
 
         <div
