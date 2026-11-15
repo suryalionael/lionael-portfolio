@@ -17,28 +17,34 @@ const base = process.argv[2] ?? "http://localhost:3000";
 const pages = ["/", "/work/aspen-os"];
 const categories = ["performance", "accessibility", "best-practices", "seo"];
 
+// One uncounted pass per page first: a cold Next image optimizer on a
+// shared CI runner otherwise drags the first measured run down.
+const run = (url, out) =>
+  execFileSync(
+    "npx",
+    [
+      "--yes",
+      LIGHTHOUSE,
+      url,
+      "--quiet",
+      "--chrome-flags=--headless=new --no-sandbox",
+      "--output=json",
+      `--output-path=${out}`,
+      `--only-categories=${categories.join(",")}`,
+    ],
+    { stdio: ["ignore", "ignore", "inherit"] },
+  );
+
 const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
 
 let failed = false;
 
 for (const path of pages) {
   const scores = Object.fromEntries(categories.map((c) => [c, []]));
+  run(`${base}${path}`, "/tmp/lh-budget-warmup.json");
   for (let i = 0; i < RUNS; i++) {
     const out = `/tmp/lh-budget-${i}.json`;
-    execFileSync(
-      "npx",
-      [
-        "--yes",
-        LIGHTHOUSE,
-        `${base}${path}`,
-        "--quiet",
-        "--chrome-flags=--headless=new --no-sandbox",
-        "--output=json",
-        `--output-path=${out}`,
-        `--only-categories=${categories.join(",")}`,
-      ],
-      { stdio: ["ignore", "ignore", "inherit"] },
-    );
+    run(`${base}${path}`, out);
     const report = JSON.parse(readFileSync(out, "utf8"));
     for (const c of categories) scores[c].push(report.categories[c].score);
   }
