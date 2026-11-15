@@ -34,3 +34,50 @@ Lighthouse (local, `next start`, mobile emulation, single run):
   after the Vercel preview exists (AVIF + CDN).
 
 Open questions for Lio: none yet.
+
+## Phase 1 — Case studies become pages (2026-11-14)
+
+Shipped:
+
+- `/work/[slug]`: 21 static case-study pages with full metadata, per-project
+  OG images (architecture stages as the motif), prev/next navigation, and a
+  "Back to work" link that restores the exact scroll position.
+- Card → page morph via native cross-document view transitions (plain-anchor
+  navigation + `view-transition-name`; Firefox gets a normal navigation,
+  reduced motion disables it). bfcache makes back instant.
+- Featured grid curated to four: Aspen OS, Streaming Clickstream Pipeline,
+  FraudLens, Nutrition Priority Index. Everything else in a filterable,
+  keyboard-accessible archive table (cards-style stacked rows on mobile).
+- Old `/#slug` deep links forward to `/work/slug` from the inline head
+  script (no flash). Sitemap + JSON-LD updated. Modal code deleted.
+- Independent review pass fixes: BackLink no longer hijacks modified clicks
+  or trusts `document.referrer`; metrics no longer overlap at 360; valid
+  dt/dd order; archive announces counts, not the whole list.
+
+Lighthouse (local, mobile): `/` and `/work/aspen-os` both
+Performance 100 · Accessibility 100 · Best Practices 96 · SEO 100.
+
+## Phase 2 — Role lens (2026-11-14)
+
+Shipped:
+
+- "Hiring for: Data Eng · ML · Analytics · Software" segmented control in
+  the hero with an animated pill; selecting a role crossfades the pitch,
+  reorders the featured grid (layout animation), highlights matching
+  skills and dims the rest, and points every Resume CTA at the matching
+  PDF (data-engineer, ai-ml-engineering, data-analytics-bi,
+  software-web-fullstack).
+- State in `?role=` + localStorage; `/?role=ml` loads already tailored, so
+  each recruiter can get a tailored link. Screen readers get the pitch via
+  `aria-live="polite"`; the control is plain buttons with `aria-pressed`.
+- `role_select` fires on selection; `resume_download` now carries the
+  active role.
+- Fixed in verification: the pitch crossfade originally used
+  AnimatePresence and could wedge after racing the initial mount — swapped
+  for a keyed CSS fade.
+
+Pitch wording per role reuses existing site copy ("…people can depend on",
+"…actually trust", "…can act on", "…actually use").
+
+Open questions for Lio: confirm the four pitch lines and the
+role → resume mapping above.
