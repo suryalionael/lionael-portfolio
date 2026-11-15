@@ -44,7 +44,7 @@ export function MobileMenu() {
         onClick={() => setOpen(true)}
         aria-expanded={open}
         aria-label="Open menu"
-        className="flex size-9 items-center justify-center rounded-full text-neutral-300 transition-colors hover:text-paper"
+        className="flex size-11 items-center justify-center rounded-full text-neutral-300 transition-colors hover:text-paper"
       >
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
           <path d="M2 5.5h14M2 12.5h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -68,7 +68,7 @@ export function MobileMenu() {
               type="button"
               onClick={close}
               aria-label="Close menu"
-              className="flex size-9 items-center justify-center rounded-full border border-white/[0.12] text-neutral-300"
+              className="flex size-11 items-center justify-center rounded-full border border-white/[0.12] text-neutral-300"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

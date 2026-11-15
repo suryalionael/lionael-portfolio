@@ -123,7 +123,7 @@ function FilterButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-full border px-3.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase transition-colors ${
+      className={`rounded-full border px-3.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase transition-colors max-sm:py-2.5 ${
         active
           ? "border-white/40 bg-white/[0.08] text-paper"
           : "border-white/[0.1] text-neutral-400 hover:border-white/25 hover:text-paper"

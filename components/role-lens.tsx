@@ -31,7 +31,7 @@ export function RoleSwitch() {
               type="button"
               aria-pressed={on}
               onClick={() => setRole(on ? null : r.id)}
-              className={`relative rounded-full px-3.5 py-1.5 font-mono text-[11px] tracking-[0.08em] whitespace-nowrap uppercase transition-colors ${
+              className={`relative rounded-full px-3.5 py-1.5 font-mono text-[11px] tracking-[0.08em] whitespace-nowrap uppercase transition-colors max-sm:py-2.5 ${
                 on ? "text-ink" : "text-neutral-400 hover:text-paper"
               }`}
             >
