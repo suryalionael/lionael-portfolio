@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { PaletteTrigger } from "@/components/palette-trigger";
+import { MobileMenu } from "@/components/mobile-menu";
 
 const links = [
   { href: "/#about", label: "About" },
@@ -59,7 +60,10 @@ export function Nav() {
           <span className="sm:hidden">ls</span>
           <span className="hidden sm:inline">lionael.surya</span>
         </a>
-        <ul className="flex items-center gap-1 sm:gap-2">
+        <div className="sm:hidden">
+          <MobileMenu />
+        </div>
+        <ul className="hidden items-center gap-1 sm:flex sm:gap-2">
           {links.map((link) => {
             const on = current === link.href.slice(1);
             return (

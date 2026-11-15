@@ -31,7 +31,10 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
   // keeps the page static and hydration clean. The URL always ends up
   // reflecting the active role, so a copied link shares what's on screen.
   useEffect(() => {
+    // Only the home page carries ?role= — it's where the lens lives.
+    const onHome = window.location.pathname === "/";
     const syncUrl = (id: RoleId | null) => {
+      if (!onHome) return;
       const url = new URL(window.location.href);
       if (id) url.searchParams.set("role", id);
       else url.searchParams.delete("role");

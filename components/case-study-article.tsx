@@ -80,8 +80,33 @@ export function CaseStudyArticle({ project }: { project: Project }) {
           <h2 className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
             Visuals
           </h2>
+          {/* Phones: one swipeable scroll-snap strip for any multi-image set. */}
+          {project.images.length > 1 && (
+            <div
+              className="-mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 sm:hidden"
+              style={{ scrollbarWidth: "none" }}
+            >
+              {project.images.map((image) => (
+                <figure key={image.src} className="w-[86%] shrink-0 snap-center">
+                  <div className="overflow-hidden rounded-xl border border-white/[0.08]">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      sizes="86vw"
+                      className="w-full"
+                    />
+                  </div>
+                  <figcaption className="mt-2 font-mono text-xs text-neutral-400">
+                    {image.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
           {project.images.length >= 3 ? (
-            <figure className="mt-4">
+            <figure className="mt-4 max-sm:hidden">
               <PhotoFade
                 photos={project.images}
                 sizes="(min-width: 768px) 712px, 100vw"
@@ -93,7 +118,11 @@ export function CaseStudyArticle({ project }: { project: Project }) {
               </figcaption>
             </figure>
           ) : (
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div
+              className={`mt-4 grid gap-4 sm:grid-cols-2 ${
+                project.images.length > 1 ? "max-sm:hidden" : ""
+              }`}
+            >
               {project.images.map((image) => (
                 <figure key={image.src}>
                   <div className="overflow-hidden rounded-xl border border-white/[0.08]">
