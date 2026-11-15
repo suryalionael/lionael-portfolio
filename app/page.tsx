@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SplitHeading } from "@/components/split-heading";
 import { Contact } from "@/components/contact";
 import { Education } from "@/components/education";
@@ -7,6 +8,8 @@ import { Marquee } from "@/components/marquee";
 import { Nav } from "@/components/nav";
 import { PipelineLive } from "@/components/pipeline-live";
 import { LocalTime } from "@/components/local-time";
+import { NumbersStrip } from "@/components/numbers-strip";
+import { Testimonials } from "@/components/testimonials";
 import { Skills } from "@/components/skills";
 import { SocialActivities } from "@/components/social-activities";
 import { WhyIBuild } from "@/components/why-i-build";
@@ -26,6 +29,9 @@ export default function Home() {
       <SkillProofProvider>
       <main id="main">
         <Hero />
+        <div className="mx-auto max-w-[1120px] px-6" data-reveal>
+          <NumbersStrip />
+        </div>
         <Marquee />
         <WhyIBuild />
         <Education />
@@ -68,13 +74,19 @@ export default function Home() {
         <Experience />
         <Skills />
         <SocialActivities />
+        <Testimonials />
         <Contact />
       </main>
       </SkillProofProvider>
       <footer className="overflow-hidden border-t border-white/[0.06]">
         <div className="mx-auto max-w-[1120px] px-6 pt-10 pb-6">
           <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2 font-mono text-xs text-muted">
-            <p>© 2026 Lionael Surya</p>
+            <p>
+              © 2026 Lionael Surya ·{" "}
+              <Link href="/colophon" className="u-link hover:text-paper">
+                Colophon
+              </Link>
+            </p>
             <p>
               Toronto, Canada · <LocalTime />
             </p>
