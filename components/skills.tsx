@@ -55,7 +55,7 @@ export function Skills() {
           system above.
           {role && (
             <span className="block pt-1 text-sm text-neutral-400">
-              Highlighting what matters for {role.label.toLowerCase()} roles.
+              Highlighting what matters for {role.label} roles.
             </span>
           )}
         </p>
@@ -79,7 +79,7 @@ export function Skills() {
                       key={item}
                       className={`text-base leading-relaxed transition-[color,opacity] duration-500 ${
                         dim
-                          ? "text-neutral-300 opacity-35"
+                          ? "text-neutral-300 opacity-60"
                           : lit
                             ? "text-paper"
                             : "text-neutral-300"

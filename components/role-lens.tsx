@@ -51,6 +51,15 @@ export function RoleSwitch() {
           );
         })}
       </div>
+      {role && (
+        <button
+          type="button"
+          onClick={() => setRole(null)}
+          className="u-link font-mono text-[11px] tracking-[0.08em] text-neutral-400 uppercase transition-colors hover:text-paper"
+        >
+          Clear
+        </button>
+      )}
     </div>
   );
 }
@@ -98,17 +107,14 @@ export function ResumeCta({
       ? "u-link text-[15px] text-neutral-300 transition-colors hover:text-paper"
       : "group inline-flex items-center gap-3 rounded-full border border-white/20 px-6 py-3 text-[15px] font-medium text-paper transition-colors hover:border-white/50";
 
-  if (resume) {
+  if (role && resume) {
     return (
       <a
         href={resume.file}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() =>
-          report("resume_download", {
-            resume: resume.slug,
-            role: role?.id ?? "general",
-          })
+          report("resume_download", { resume: resume.slug, role: role.id })
         }
         className={classes}
         {...(variant === "contact" ? { "data-magnetic": true } : {})}

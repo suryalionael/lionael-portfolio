@@ -28,8 +28,16 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
   const [roleId, setRoleId] = useState<RoleId | null>(null);
 
   // URL and localStorage only exist client-side; reading them post-mount
-  // keeps the page static and hydration clean.
+  // keeps the page static and hydration clean. The URL always ends up
+  // reflecting the active role, so a copied link shares what's on screen.
   useEffect(() => {
+    const syncUrl = (id: RoleId | null) => {
+      const url = new URL(window.location.href);
+      if (id) url.searchParams.set("role", id);
+      else url.searchParams.delete("role");
+      history.replaceState(history.state, "", url);
+    };
+
     const fromUrl = new URLSearchParams(window.location.search).get("role");
     if (isRoleId(fromUrl)) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -39,10 +47,14 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
       } catch {}
       return;
     }
+    let stored: string | null = null;
     try {
-      const stored = localStorage.getItem("role");
-      if (isRoleId(stored)) setRoleId(stored);
+      stored = localStorage.getItem("role");
     } catch {}
+    const restored = isRoleId(stored) ? stored : null;
+    if (restored) setRoleId(restored);
+    // Strip an invalid ?role= and surface a restored one.
+    if (fromUrl !== restored) syncUrl(restored);
   }, []);
 
   const setRole = useCallback((id: RoleId | null) => {
@@ -55,7 +67,7 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
       if (id) localStorage.setItem("role", id);
       else localStorage.removeItem("role");
     } catch {}
-    if (id) report("role_select", { role: id });
+    report("role_select", { role: id ?? "none" });
   }, []);
 
   return (

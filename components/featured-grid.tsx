@@ -22,10 +22,13 @@ export function FeaturedGrid() {
   const { role } = useRole();
   const reduce = useReducedMotion();
 
+  // A slug missing from the role's list sorts last, not first.
+  const rank = (slug: string) => {
+    const i = role ? role.projects.indexOf(slug) : -1;
+    return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+  };
   const ordered = role
-    ? [...featuredProjects].sort(
-        (a, b) => role.projects.indexOf(a.slug) - role.projects.indexOf(b.slug),
-      )
+    ? [...featuredProjects].sort((a, b) => rank(a.slug) - rank(b.slug))
     : featuredProjects;
 
   return (
