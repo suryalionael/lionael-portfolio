@@ -23,7 +23,7 @@ export function LocalTime() {
 
   // Server renders nothing; the slot keeps layout stable.
   return (
-    <span className="inline-block min-w-[7.5ch] tabular-nums">
+    <span className="inline-block min-w-[9.5ch] tabular-nums">
       {time ?? "—"}
     </span>
   );

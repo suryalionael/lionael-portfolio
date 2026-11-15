@@ -16,13 +16,16 @@ export function PaletteTrigger() {
   const restoreFocus = useRef<HTMLElement | null>(null);
 
   const openPalette = useCallback(() => {
-    restoreFocus.current =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
+    setOpen((already) => {
+      if (already) return already;
+      restoreFocus.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+      report("palette_open", {});
+      return true;
+    });
     setWanted(true);
-    setOpen(true);
-    report("palette_open", {});
   }, []);
 
   const close = useCallback(() => {
@@ -42,6 +45,9 @@ export function PaletteTrigger() {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
+        if (e.repeat) return;
+        // Don't open (and steal focus) under the terminal overlay.
+        if (document.querySelector("[aria-label='Terminal']")) return;
         openPalette();
       }
     };

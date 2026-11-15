@@ -137,9 +137,11 @@ export function Hero() {
 
       {/* Portrait: a tall editorial frame. Grayscale at rest, colour on
           hover; the image drifts slightly with the cursor and scroll. */}
+      {/* Fade, not clip: a clipped entrance hides the LCP element and
+          inflates LCP by seconds on slow devices. */}
       <figure
-        className="anim-reveal-clip group mt-16 self-start md:col-start-2 md:row-start-1 md:mt-2"
-        style={{ "--d": "0.4s" } as React.CSSProperties}
+        className="anim-portrait group mt-16 self-start md:col-start-2 md:row-start-1 md:mt-2"
+        style={{ "--d": "0.1s" } as React.CSSProperties}
       >
         <div
           data-cursor="Hello"

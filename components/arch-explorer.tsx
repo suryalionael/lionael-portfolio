@@ -19,8 +19,10 @@ export function ArchExplorer({ nodes, foundation }: Props) {
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const rootRef = useRef<HTMLDivElement>(null);
   // Scrolling the explorer through the viewport walks the stages in order,
-  // teaching the flow — until the reader takes over by hand.
+  // teaching the flow — until the reader takes over by hand (click, focus
+  // or keyboard; a passing mouse doesn't cancel the walk).
   const interacted = useRef(false);
+  const [manual, setManual] = useState(false);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: rootRef,
@@ -34,6 +36,7 @@ export function ArchExplorer({ nodes, foundation }: Props) {
   });
   const takeOver = () => {
     interacted.current = true;
+    setManual(true);
   };
   const selectedIndex = nodes.findIndex((n) => n.id === selectedId);
   const selected = nodes[selectedIndex];
@@ -83,10 +86,7 @@ export function ArchExplorer({ nodes, foundation }: Props) {
                   takeOver();
                   setSelectedId(node.id);
                 }}
-                onMouseEnter={() => {
-                  takeOver();
-                  setSelectedId(node.id);
-                }}
+                onMouseEnter={() => setSelectedId(node.id)}
                 onFocus={() => {
                   takeOver();
                   setSelectedId(node.id);
@@ -120,8 +120,10 @@ export function ArchExplorer({ nodes, foundation }: Props) {
         })}
       </div>
 
+      {/* Only user-initiated selections announce; the scroll-walk and a
+          passing mouse stay quiet for screen readers. */}
       <div
-        aria-live="polite"
+        aria-live={manual ? "polite" : "off"}
         className="min-h-28 border-t border-white/[0.08] px-5 py-5 md:px-7"
       >
         <motion.div

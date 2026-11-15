@@ -42,19 +42,21 @@ const norm = (s: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
-const squash = (s: string) => norm(s).replace(/ /g, "");
+
+// A skill matches a project only when a tag is the same name, or when an
+// explicit alias below says so. No clever string math: "CSS" must never
+// prove "Tailwind CSS", and "GeoPandas" must never prove "pandas".
+const ALIASES: Record<string, string[]> = {
+  SQL: ["PostgreSQL", "PostGIS"],
+  "R (tidyverse)": ["R", "tidyverse"],
+  "Spark Structured Streaming": ["Spark"],
+  "Quarto / R Markdown": ["rmarkdown", "Quarto"],
+};
 
 /** Does this project's tag list back up this skill? */
 export function skillMatchesProject(skill: string, project: Project) {
-  const skillWords = new Set(norm(skill).split(" "));
-  const skillSquashed = squash(skill);
-  return project.tags.some((tag) => {
-    const tagWords = norm(tag).split(" ");
-    if (tagWords.every((w) => skillWords.has(w))) return true;
-    const tagSquashed = squash(tag);
-    return (
-      (tagSquashed.length >= 4 && skillSquashed.includes(tagSquashed)) ||
-      (skillSquashed.length >= 4 && tagSquashed.includes(skillSquashed))
-    );
-  });
+  const accepted = new Set(
+    [skill, ...(ALIASES[skill] ?? [])].map((name) => norm(name)),
+  );
+  return project.tags.some((tag) => accepted.has(norm(tag)));
 }

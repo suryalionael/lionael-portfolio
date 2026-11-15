@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useDialog } from "@/components/use-dialog";
 import { orderedProjects } from "@/lib/projects";
 import { resumes } from "@/lib/resumes";
 import { roles } from "@/lib/roles";
@@ -39,15 +40,9 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
   const [cursor, setCursor] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    inputRef.current?.focus();
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, []);
+  useDialog(rootRef, onClose, { initialFocus: "input" });
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
@@ -203,13 +198,13 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
         setCursor(next);
         setValue(history[next]);
       }
-    } else if (e.key === "Escape") {
-      onClose();
     }
+    // Escape is handled document-wide by useDialog.
   };
 
   return (
     <div
+      ref={rootRef}
       role="dialog"
       aria-modal="true"
       aria-label="Terminal"
@@ -232,7 +227,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
       <div
         ref={scrollRef}
         className="grow overflow-y-auto overscroll-contain px-4 py-4"
-        aria-live="polite"
+        role="log"
       >
         {lines.map((line, i) => (
           <p

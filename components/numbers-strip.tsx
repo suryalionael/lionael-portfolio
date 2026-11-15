@@ -12,7 +12,7 @@ const FACTS = [
     value: projects.filter((p) => p.live).length,
     decimals: 0,
     suffix: "",
-    label: "systems live right now",
+    label: "systems live in production",
   },
   {
     value: projects.length,

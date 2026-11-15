@@ -273,6 +273,22 @@ body {
   animation-delay: var(--d, 0s);
 }
 
+@keyframes portrait-in {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anim-portrait {
+  animation: portrait-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
 @keyframes breathe {
   from {
     transform: scale(1.02);
@@ -658,6 +674,7 @@ h2[data-reveal] {
 
 @media (prefers-reduced-motion: reduce) {
   .anim-reveal-clip,
+  .anim-portrait,
   .portrait-breathe,
   .dot-ping,
   .marquee-track {

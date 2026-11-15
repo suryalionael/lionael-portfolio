@@ -29,7 +29,10 @@ export function Ambient() {
     // Mono label scramble ------------------------------------------------
     const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const scramble = (el: HTMLElement) => {
-      if (reduce || "scrambling" in el.dataset) return;
+      // Once per element: a reveal flourish, not a hover fidget toy.
+      if (reduce || "scrambled" in el.dataset || "scrambling" in el.dataset)
+        return;
+      el.dataset.scrambled = "";
       const original = (el.dataset.scrambleText ??= el.textContent ?? "");
       if (!original.trim()) return;
       if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", original);

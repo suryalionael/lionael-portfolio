@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { Command } from "cmdk";
+import { useDialog } from "@/components/use-dialog";
 import { orderedProjects } from "@/lib/projects";
 import { resumes } from "@/lib/resumes";
 import { roles } from "@/lib/roles";
@@ -29,19 +30,17 @@ export default function Palette({
 }) {
   const { role, setRole } = useRole();
   const [toast, setToast] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
   const toastTimer = useRef(0);
-
-  // Body scroll lock while open.
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => () => clearTimeout(toastTimer.current), []);
+
+  // Fresh query every time the palette opens.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (open) setQuery("");
+  }, [open]);
 
   const showToast = useCallback((message: string) => {
     setToast(message);
@@ -83,12 +82,14 @@ export default function Palette({
           onClick={onClose}
         >
           <div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"
             className="palette-panel mx-auto mt-[12vh] w-full max-w-[560px] px-4 max-sm:fixed max-sm:inset-x-0 max-sm:bottom-0 max-sm:mt-0 max-sm:px-0"
             onClick={(e) => e.stopPropagation()}
           >
+            <DialogBehavior dialogRef={dialogRef} onClose={onClose} />
             <Command
               label="Command palette"
               // Substring/word-prefix matching instead of cmdk's fuzzy
@@ -103,12 +104,11 @@ export default function Palette({
                 return v.includes(q) ? 1 : 0;
               }}
               className="overflow-hidden rounded-xl border border-white/[0.12] bg-ink-raised shadow-[0_32px_80px_-24px_rgb(0_0_0/0.9)] max-sm:rounded-b-none"
-              onKeyDown={(e) => {
-                if (e.key === "Escape") onClose();
-              }}
             >
               <Command.Input
                 autoFocus
+                value={query}
+                onValueChange={setQuery}
                 placeholder="Type a command or search…"
                 className="w-full border-b border-white/[0.08] bg-transparent px-5 py-4 text-[15px] text-paper placeholder:text-neutral-500 focus:outline-none"
               />
@@ -118,7 +118,12 @@ export default function Palette({
                 </Command.Empty>
 
                 <Group heading="Projects">
-                  {orderedProjects.map((p) => (
+                  {/* All 21 projects would push Sections/Actions far below
+                      the fold; show the featured four until a query. */}
+                  {(query.trim()
+                    ? orderedProjects
+                    : orderedProjects.slice(0, 4)
+                  ).map((p) => (
                     <Item
                       key={p.slug}
                       value={`${p.title} ${p.tags.join(" ")}`}
@@ -241,6 +246,19 @@ export default function Palette({
       </div>
     </>
   );
+}
+
+// Runs the shared dialog behavior (scroll lock, focus trap, Escape) for
+// the lifetime of the open dialog.
+function DialogBehavior({
+  dialogRef,
+  onClose,
+}: {
+  dialogRef: RefObject<HTMLDivElement | null>;
+  onClose: () => void;
+}) {
+  useDialog(dialogRef, onClose, { initialFocus: "input" });
+  return null;
 }
 
 function Group({

@@ -23,6 +23,10 @@ export function PipelineLive() {
     let width = 0;
     let height = 0;
     let dpr = 1;
+    const accent =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-accent")
+        .trim() || "#3e63dd";
     const fit = () => {
       dpr = Math.min(devicePixelRatio || 1, 2);
       width = wrap.clientWidth;
@@ -30,8 +34,10 @@ export function PipelineLive() {
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Resizing clears the canvas; redraw so the static diagram (reduced
+      // motion, or paused offscreen) never stays blank.
+      drawTrack();
     };
-    fit();
     const ro = new ResizeObserver(fit);
     ro.observe(wrap);
 
@@ -41,6 +47,7 @@ export function PipelineLive() {
     const midY = () => height * 0.42;
 
     const drawTrack = () => {
+      ctx.globalAlpha = 1;
       ctx.clearRect(0, 0, width, height);
       ctx.strokeStyle = "rgba(255,255,255,0.12)";
       ctx.lineWidth = 1;
@@ -111,8 +118,9 @@ export function PipelineLive() {
         }
         // Brighter as it reaches Serve, with the accent at the end.
         const nearEnd = dot.p > 0.92;
+        ctx.globalAlpha = nearEnd ? 0.9 : 1;
         ctx.fillStyle = nearEnd
-          ? "rgba(62,99,221,0.9)"
+          ? accent
           : `rgba(255,255,255,${0.25 + dot.p * 0.4})`;
         ctx.beginPath();
         ctx.arc(x, y, dot.size, 0, Math.PI * 2);
