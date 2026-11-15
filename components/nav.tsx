@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { PaletteTrigger } from "@/components/palette-trigger";
 
 const links = [
   { href: "/#about", label: "About" },
@@ -82,6 +83,9 @@ export function Nav() {
               </li>
             );
           })}
+          <li className="sm:ml-1">
+            <PaletteTrigger />
+          </li>
         </ul>
       </nav>
     </header>

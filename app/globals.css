@@ -493,6 +493,77 @@ h2[data-reveal] {
   opacity: 1;
 }
 
+/* Command palette enter animations */
+@keyframes palette-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes palette-panel-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes palette-sheet-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.palette-overlay {
+  animation: palette-overlay-in 0.25s ease both;
+}
+
+.palette-panel {
+  animation: palette-panel-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (max-width: 639px) {
+  .palette-panel {
+    animation-name: palette-sheet-in;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.palette-toast {
+  animation: toast-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .palette-overlay,
+  .palette-panel,
+  .palette-toast {
+    animation: none;
+  }
+}
+
 /* Role-lens pitch swap */
 @keyframes pitch-swap {
   from {

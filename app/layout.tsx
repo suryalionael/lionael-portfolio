@@ -4,6 +4,7 @@ import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 import { StructuredData } from "@/components/structured-data";
 import { Ambient } from "@/components/ambient";
+import { RoleProvider } from "@/components/role-context";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -89,7 +90,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         <StructuredData />
-        {children}
+        <RoleProvider>{children}</RoleProvider>
         <Ambient />
         <Analytics />
       </body>
