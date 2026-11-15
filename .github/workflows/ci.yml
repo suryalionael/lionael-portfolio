@@ -25,21 +25,5 @@ jobs:
           npm run start &
           npx --yes wait-on@8 http://localhost:3000 -t 60000
           node scripts/smoke.mjs
-      - name: Lighthouse CI
-        run: npx --yes @lhci/cli@0.14.x autorun
-      - name: Lighthouse diagnostics on failure
-        if: failure()
-        run: |
-          npx --yes lighthouse http://localhost:3000/ --quiet \
-            --chrome-flags="--headless=new" --output=json \
-            --output-path=/tmp/lh-debug.json --only-categories=performance
-          node -e "
-            const d = require('/tmp/lh-debug.json');
-            const a = d.audits;
-            console.log('perf', d.categories.performance.score,
-              'LCP', a['largest-contentful-paint'].displayValue,
-              'FCP', a['first-contentful-paint'].displayValue,
-              'TBT', a['total-blocking-time'].displayValue);
-            const el = a['largest-contentful-paint-element'];
-            console.log(JSON.stringify(el && el.details, null, 1));
-          "
+      - name: Lighthouse budget (>= 0.95, median of 3, mobile)
+        run: node scripts/lighthouse-budget.mjs
