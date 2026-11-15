@@ -140,14 +140,14 @@ export function Hero() {
             <picture>
               <source
                 type="image/webp"
-                srcSet="/portrait-hero-480.webp 480w, /portrait-hero-760.webp 760w, /portrait-hero-960.webp 960w"
+                srcSet="/portrait-hero-480.webp 480w, /portrait-hero-760.webp 760w, /portrait-hero-1050.webp 1050w"
                 sizes="(min-width: 1024px) 380px, (min-width: 768px) 340px, 100vw"
               />
               <img
-                src="/portrait-hero-960.jpg"
+                src="/portrait-hero-1050.jpg"
                 alt="Lionael Surya standing on a rocky mountainside with clouds and steam behind him"
-                width={960}
-                height={1280}
+                width={1050}
+                height={1400}
                 fetchPriority="high"
                 className="portrait-breathe size-full object-cover grayscale transition-[filter] duration-700 group-hover:grayscale-0"
               />
