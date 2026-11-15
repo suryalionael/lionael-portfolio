@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { archiveProjects, disciplines, type Discipline } from "@/lib/projects";
+import { markBackToWork } from "@/components/featured-grid";
 
 // Compact archive of everything outside the featured grid: a table on
 // desktop, stacked cards on mobile, filterable by discipline.
@@ -17,7 +18,9 @@ export function Archive() {
         <h3 className="text-2xl font-medium tracking-tight text-paper md:text-3xl">
           Archive
         </h3>
-        <span className="font-mono text-[11px] text-muted">
+        {/* The one live region: announces "08 projects" on filter change
+            instead of re-reading the whole list. */}
+        <span aria-live="polite" className="font-mono text-[11px] text-muted">
           {String(shown.length).padStart(2, "0")} projects
         </span>
       </div>
@@ -43,22 +46,28 @@ export function Archive() {
       </div>
 
       {/* Desktop/tablet: table rows. Mobile: cards. */}
-      <ul className="mt-6 border-t border-white/[0.06]" aria-live="polite">
+      <ul className="mt-6 border-t border-white/[0.06]">
         {shown.map((project) => (
           <li key={project.slug}>
             <a
               href={`/work/${project.slug}`}
+              onClick={markBackToWork}
               data-cursor="Open"
               className="group grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-white/[0.06] py-4 transition-[border-color,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-white/20 sm:grid-cols-[3.5rem_minmax(10rem,1.2fr)_minmax(0,1fr)_minmax(0,1.2fr)_auto] md:hover:pl-3"
             >
               <span className="order-2 font-mono text-[11px] text-neutral-400 sm:order-none">
                 {project.year}
               </span>
-              <span
-                className="order-1 text-base font-medium text-neutral-200 transition-colors group-hover:text-paper sm:order-none"
-                style={{ viewTransitionName: `title-${project.slug}` }}
-              >
-                {project.title}
+              <span className="order-1 text-base font-medium text-neutral-200 transition-colors group-hover:text-paper sm:order-none">
+                <span style={{ viewTransitionName: `title-${project.slug}` }}>
+                  {project.title}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="ml-2 inline text-neutral-400 sm:hidden"
+                >
+                  →
+                </span>
               </span>
               <span className="order-3 col-span-2 text-sm text-neutral-400 sm:order-none sm:col-span-1">
                 {project.discipline}

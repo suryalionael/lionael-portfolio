@@ -65,7 +65,7 @@ export default async function WorkPage({
                 key={label}
                 className={`bg-ink ${label === "Next" ? "sm:text-right" : ""}`}
               >
-                {p && (
+                {p ? (
                   <a
                     href={`/work/${p.slug}`}
                     className="group block h-full p-6 transition-colors hover:bg-ink-raised"
@@ -78,6 +78,22 @@ export default async function WorkPage({
                     </span>
                     <span className="mt-1 block text-sm text-neutral-400">
                       {p.category}
+                    </span>
+                  </a>
+                ) : (
+                  // eslint-disable-next-line @next/next/no-html-link-for-pages
+                  <a
+                    href="/#work"
+                    className="group block h-full p-6 transition-colors hover:bg-ink-raised"
+                  >
+                    <span className="font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
+                      {label === "Previous" ? `${arrow} ${label}` : `${label} ${arrow}`}
+                    </span>
+                    <span className="mt-2 block text-lg font-medium text-neutral-200 transition-colors group-hover:text-paper">
+                      All systems
+                    </span>
+                    <span className="mt-1 block text-sm text-neutral-400">
+                      Back to the overview
                     </span>
                   </a>
                 )}

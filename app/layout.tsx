@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 import { StructuredData } from "@/components/structured-data";
 import { Ambient } from "@/components/ambient";
@@ -75,11 +76,14 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
         {/* Reveal styles only apply when JS runs; see globals.css. If the
-            bundle fails to hydrate, drop the class so nothing stays hidden. */}
+            bundle fails to hydrate, drop the class so nothing stays hidden.
+            Also forwards old /#slug case-study links to /work/slug before
+            first paint. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "document.documentElement.classList.add('js');setTimeout(function(){if(!window.__ambient)document.documentElement.classList.remove('js')},3000)",
+              "document.documentElement.classList.add('js');setTimeout(function(){if(!window.__ambient)document.documentElement.classList.remove('js')},3000);" +
+              `(function(){var s=${JSON.stringify(projects.map((p) => p.slug))};var h=location.hash.slice(1);if(location.pathname==='/'&&s.indexOf(h)>-1)location.replace('/work/'+h)})()`,
           }}
         />
       </head>

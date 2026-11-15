@@ -44,24 +44,29 @@ export function CaseStudyArticle({ project }: { project: Project }) {
 
       <dl
         data-reveal
-        className="mt-10 grid grid-cols-3 gap-4 border-y border-white/[0.08] py-8"
+        className="mt-10 grid gap-6 border-y border-white/[0.08] py-8 sm:grid-cols-3 sm:gap-4"
       >
         {project.metrics.map((m) => (
-          <div key={m.label}>
+          // dt before dd for valid HTML; flex-col-reverse keeps the value
+          // visually on top.
+          <div key={m.label} className="flex flex-col-reverse gap-1">
+            <dt className="font-mono text-xs leading-snug text-neutral-400">
+              {m.label}
+            </dt>
             <dd className="text-3xl font-medium tracking-tight md:text-4xl">
               {m.value}
             </dd>
-            <dt className="mt-1 font-mono text-xs leading-snug text-neutral-400">
-              {m.label}
-            </dt>
           </div>
         ))}
       </dl>
 
       <section data-reveal className="mt-12">
         <h2 className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
-          Architecture — hover or select a stage
+          Architecture
         </h2>
+        <p className="mt-2 text-sm text-neutral-400">
+          Select a stage to explore it.
+        </p>
         <div className="mt-5">
           <ArchExplorer
             nodes={project.architecture.nodes}
