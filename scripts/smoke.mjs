@@ -8,6 +8,7 @@ const base = process.argv[2] ?? "http://localhost:3000";
 const checks = [
   { path: "/", selectors: ["h1", "#work", "#contact", "nav"] },
   { path: "/resume", selectors: ["h1", "a[href$='.pdf']"] },
+  { path: "/work/aspen-os", selectors: ["h1", "article", "nav"] },
 ];
 
 const browser = await chromium.launch();
@@ -15,6 +16,7 @@ const context = await browser.newContext({ viewport: { width: 1280, height: 900 
 let failed = false;
 
 for (const check of checks) {
+  let pageFailed = false;
   const page = await context.newPage();
   const errors = [];
   page.on("console", (msg) => {
@@ -29,7 +31,7 @@ for (const check of checks) {
   const res = await page.goto(`${base}${check.path}`, { waitUntil: "networkidle" });
   if (!res?.ok()) {
     console.error(`FAIL ${check.path}: HTTP ${res?.status() ?? "no response"}`);
-    failed = true;
+    pageFailed = true;
   }
   for (const selector of check.selectors) {
     const visible = await page
@@ -39,16 +41,17 @@ for (const check of checks) {
       .catch(() => false);
     if (!visible) {
       console.error(`FAIL ${check.path}: "${selector}" not visible`);
-      failed = true;
+      pageFailed = true;
     }
   }
   // Ignore third-party noise; fail on anything from our own origin.
   const own = errors.filter((e) => !/analytics|third-party/i.test(e));
   if (own.length) {
     console.error(`FAIL ${check.path}: console errors:\n  ${own.join("\n  ")}`);
-    failed = true;
+    pageFailed = true;
   }
-  if (!failed) console.log(`ok ${check.path}`);
+  if (pageFailed) failed = true;
+  else console.log(`ok ${check.path}`);
   await page.close();
 }
 

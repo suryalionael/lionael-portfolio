@@ -2146,14 +2146,12 @@ export const projects: Project[] = [
   },
 ];
 
-// Display order for the featured grid — software, data engineering, ML,
-// AI, analytics, research.
+// The four strongest systems lead the Work section; everything else
+// lives in the archive table.
 const FEATURED_ORDER = [
   "aspen-os",
-  "sakti-21",
   "streaming-clickstream-pipeline",
   "fraudlens",
-  "idx-stock-scanner",
   "nutrition-priority-index",
 ];
 
@@ -2161,17 +2159,22 @@ export const featuredProjects = FEATURED_ORDER.map((slug) =>
   projects.find((p) => p.slug === slug && p.featured),
 ).filter((p): p is Project => p !== undefined);
 
-export const categories = [
-  "Data Engineering",
-  "Machine Learning & Data Science",
-  "Client Software & Websites",
-  "Automation & Productivity",
-  "Research & Simulation",
-] as const;
+/** Everything outside the featured grid, newest first. */
+export const archiveProjects = projects
+  .filter((p) => !FEATURED_ORDER.includes(p.slug))
+  .sort((a, b) => b.year.localeCompare(a.year));
 
-export type Category = (typeof categories)[number];
+/** Reading order for prev/next navigation: featured first, then archive. */
+export const orderedProjects = [...featuredProjects, ...archiveProjects];
 
-export const projectsByCategory = categories.map((category) => ({
-  category,
-  projects: projects.filter((p) => p.group === category),
-}));
+export function adjacentProjects(slug: string): {
+  prev: Project | null;
+  next: Project | null;
+} {
+  const i = orderedProjects.findIndex((p) => p.slug === slug);
+  if (i === -1) return { prev: null, next: null };
+  return {
+    prev: orderedProjects[i - 1] ?? null,
+    next: orderedProjects[i + 1] ?? null,
+  };
+}

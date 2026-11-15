@@ -25,6 +25,25 @@
   border-width: 0;
 }
 
+/* Card → case-study morph on real navigations (Chrome/Safari; others get
+   a normal navigation). Elements carry view-transition-name inline. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;

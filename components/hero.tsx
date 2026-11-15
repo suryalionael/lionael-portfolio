@@ -31,8 +31,8 @@ export function Hero() {
           style={{ "--d": "0.05s" } as React.CSSProperties}
         >
           <span className="relative flex size-2">
-            <span className="dot-ping absolute inline-flex size-full rounded-full bg-emerald-400/70" />
-            <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+            <span className="dot-ping absolute inline-flex size-full rounded-full bg-accent/70" />
+            <span className="relative inline-flex size-2 rounded-full bg-accent" />
           </span>
           Open to Summer 2027 co-op
         </p>
@@ -79,24 +79,27 @@ export function Hero() {
               ↓
             </span>
           </a>
-          <Link
-            href="/resume"
-            className="u-link text-[15px] text-neutral-300 transition-colors hover:text-paper"
-          >
-            Resume <span aria-hidden="true">→</span>
-          </Link>
-          <a
-            href="https://github.com/suryalionael"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="u-link text-[15px] text-neutral-400 transition-colors hover:text-paper"
-          >
-            GitHub <span aria-hidden="true">↗</span>
-          </a>
+          {/* Keep the two text links together so neither orphan-wraps. */}
+          <span className="flex items-center gap-x-9">
+            <Link
+              href="/resume"
+              className="u-link text-[15px] text-neutral-300 transition-colors hover:text-paper"
+            >
+              Resume <span aria-hidden="true">→</span>
+            </Link>
+            <a
+              href="https://github.com/suryalionael"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="u-link text-[15px] text-neutral-400 transition-colors hover:text-paper"
+            >
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </span>
         </div>
 
         <dl
-          className="anim-fade-up mt-14 grid grid-cols-2 gap-x-10 gap-y-2 border-t border-white/[0.08] pt-6 sm:grid-cols-[auto_auto_auto] sm:justify-start sm:gap-x-14"
+          className="anim-fade-up mt-14 grid grid-cols-2 gap-x-10 gap-y-6 border-t border-white/[0.08] pt-6 lg:grid-cols-[auto_auto_auto] lg:justify-start lg:gap-x-14"
           style={{ "--d": "1s" } as React.CSSProperties}
         >
           <div>

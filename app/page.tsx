@@ -36,9 +36,9 @@ export default function Home() {
           text="Systems I’ve built."
         />
             <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
-              Six featured systems, then the rest grouped by discipline. Open
-              any of them for the engineering decisions behind it — not just
-              what was built, but why.
+              Four featured systems, then the full archive. Open any of them
+              for the engineering decisions behind it — not just what was
+              built, but why.
             </p>
 
             <div className="mt-14">

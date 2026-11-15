@@ -20,6 +20,9 @@ export function Ambient() {
   const bar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // The layout's inline script drops the html.js class (showing all
+    // reveal-hidden content) unless this flag appears in time.
+    (window as Window & { __ambient?: boolean }).__ambient = true;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(pointer: fine)").matches;
 
@@ -134,16 +137,31 @@ export function Ambient() {
       }
     };
 
+    const releaseTargets = () => {
+      if (magnet) magnet.style.transform = "";
+      magnet = null;
+      if (tilt) {
+        tilt.style.setProperty("--rx", "0deg");
+        tilt.style.setProperty("--ry", "0deg");
+      }
+      tilt = null;
+      setHover(null);
+    };
     const onLeave = () => {
       visible = false;
       document.documentElement.classList.remove("cursor-on");
+      releaseTargets();
     };
     const onDown = () => ring.current?.classList.add("is-down");
     // A click can open or close a dialog under a still pointer, so
     // re-read what is under it once the UI has settled.
+    let upTimer = 0;
     const onUp = () => {
       ring.current?.classList.remove("is-down");
-      setTimeout(() => setHover(document.elementFromPoint(mx, my)), 60);
+      upTimer = window.setTimeout(
+        () => setHover(document.elementFromPoint(mx, my)),
+        60,
+      );
     };
 
     const tick = () => {
@@ -164,16 +182,19 @@ export function Ambient() {
 
     addEventListener("pointermove", onMove, { passive: true });
     document.addEventListener("pointerleave", onLeave);
+    addEventListener("pointercancel", onLeave);
     addEventListener("pointerdown", onDown);
     addEventListener("pointerup", onUp);
 
     return () => {
       cancelAnimationFrame(raf);
+      clearTimeout(upTimer);
       io.disconnect();
       mo.disconnect();
       removeEventListener("scroll", onScroll);
       removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerleave", onLeave);
+      removeEventListener("pointercancel", onLeave);
       removeEventListener("pointerdown", onDown);
       removeEventListener("pointerup", onUp);
       document.documentElement.classList.remove("has-cursor", "cursor-on");

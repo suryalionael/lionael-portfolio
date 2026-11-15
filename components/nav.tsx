@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#work", label: "Work" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Nav() {
@@ -72,7 +72,7 @@ export function Nav() {
                 )}
                 <a
                   href={link.href}
-                  aria-current={on ? "true" : undefined}
+                  aria-current={on ? "location" : undefined}
                   className={`relative block rounded-full px-3 py-1.5 text-[13px] transition-colors hover:text-paper ${
                     on ? "text-paper" : "text-neutral-400"
                   }`}

@@ -74,10 +74,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* Reveal styles only apply when JS runs; see globals.css. */}
+        {/* Reveal styles only apply when JS runs; see globals.css. If the
+            bundle fails to hydrate, drop the class so nothing stays hidden. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html:
+              "document.documentElement.classList.add('js');setTimeout(function(){if(!window.__ambient)document.documentElement.classList.remove('js')},3000)",
           }}
         />
       </head>
