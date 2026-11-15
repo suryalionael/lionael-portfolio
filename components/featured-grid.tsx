@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { featuredProjects, type Project } from "@/lib/projects";
 import { useRole } from "@/components/role-context";
+import { skillMatchesProject, useSkillProof } from "@/components/skill-context";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -20,6 +21,7 @@ export function markBackToWork() {
 // view transitions can morph card → page.
 export function FeaturedGrid() {
   const { role } = useRole();
+  const { hovered } = useSkillProof();
   const reduce = useReducedMotion();
 
   // A slug missing from the role's list sorts last, not first.
@@ -40,7 +42,11 @@ export function FeaturedGrid() {
           transition={{ duration: reduce ? 0 : 0.55, ease: EASE }}
           data-reveal
           style={{ "--i": i % 2 } as React.CSSProperties}
-          className="flex"
+          className={`flex transition-opacity duration-500 ${
+            hovered && !skillMatchesProject(hovered, project)
+              ? "opacity-40"
+              : ""
+          }`}
         >
           <div data-tilt className="relative flex w-full">
             <ProjectCard project={project} />

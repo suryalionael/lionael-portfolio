@@ -1,7 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "motion/react";
 import type { ArchNode } from "@/lib/projects";
 
 type Props = {
@@ -12,7 +17,24 @@ type Props = {
 export function ArchExplorer({ nodes, foundation }: Props) {
   const [selectedId, setSelectedId] = useState(nodes[0].id);
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Scrolling the explorer through the viewport walks the stages in order,
+  // teaching the flow — until the reader takes over by hand.
+  const interacted = useRef(false);
   const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: rootRef,
+    offset: ["start 0.85", "start 0.3"],
+  });
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (interacted.current || reduce) return;
+    if (v <= 0 || v >= 1) return;
+    const i = Math.min(nodes.length - 1, Math.floor(v * nodes.length));
+    setSelectedId(nodes[i].id);
+  });
+  const takeOver = () => {
+    interacted.current = true;
+  };
   const selectedIndex = nodes.findIndex((n) => n.id === selectedId);
   const selected = nodes[selectedIndex];
 
@@ -24,6 +46,7 @@ export function ArchExplorer({ nodes, foundation }: Props) {
           ? -1
           : 0;
     if (dir === 0) return;
+    takeOver();
     e.preventDefault();
     const next = Math.min(nodes.length - 1, Math.max(0, selectedIndex + dir));
     setSelectedId(nodes[next].id);
@@ -31,7 +54,7 @@ export function ArchExplorer({ nodes, foundation }: Props) {
   };
 
   return (
-    <div className="rounded-xl border border-white/[0.08] bg-ink/50">
+    <div ref={rootRef} className="rounded-xl border border-white/[0.08] bg-ink/50">
       <div
         onKeyDown={onKeyDown}
         className="flex flex-col items-stretch gap-0 p-5 md:flex-row md:items-center md:p-7"
@@ -56,9 +79,18 @@ export function ArchExplorer({ nodes, foundation }: Props) {
                   buttonsRef.current[i] = el;
                 }}
                 type="button"
-                onClick={() => setSelectedId(node.id)}
-                onMouseEnter={() => setSelectedId(node.id)}
-                onFocus={() => setSelectedId(node.id)}
+                onClick={() => {
+                  takeOver();
+                  setSelectedId(node.id);
+                }}
+                onMouseEnter={() => {
+                  takeOver();
+                  setSelectedId(node.id);
+                }}
+                onFocus={() => {
+                  takeOver();
+                  setSelectedId(node.id);
+                }}
                 aria-pressed={isSelected}
                 className={`rounded-lg border px-4 py-3 text-left transition-all duration-300 md:shrink ${
                   isSelected

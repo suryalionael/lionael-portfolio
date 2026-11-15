@@ -1,4 +1,5 @@
 import { SplitHeading } from "@/components/split-heading";
+import { Timeline } from "@/components/timeline";
 // Source of truth: the role-specific resumes in /public/resumes.
 // Most recent first.
 const roles = [
@@ -67,7 +68,7 @@ export function Experience() {
   return (
     <section id="experience" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
-        <p data-reveal className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+        <p data-reveal data-scramble className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Experience
         </p>
         <SplitHeading
@@ -78,14 +79,15 @@ export function Experience() {
           Four roles, most recent first.
         </p>
 
-        <ol className="mt-16 border-t border-white/[0.06]">
+        <Timeline className="mt-16">
+        <ol className="border-t border-white/[0.06]">
           {roles.map((r) => (
             <li
               key={r.org}
               data-reveal
-              className="grid gap-5 border-b border-white/[0.06] py-12 md:grid-cols-[220px_1fr] md:gap-12"
+              className="grid gap-5 border-b border-white/[0.06] py-12 md:grid-cols-[200px_1fr] md:gap-12"
             >
-              <div className="font-mono text-xs leading-6 text-muted">
+              <div className="font-mono text-xs leading-6 text-muted md:sticky md:top-28 md:self-start">
                 <span className="block text-neutral-300">{r.years}</span>
                 <span className="block">{r.place}</span>
               </div>
@@ -121,6 +123,7 @@ export function Experience() {
             </li>
           ))}
         </ol>
+        </Timeline>
       </div>
     </section>
   );

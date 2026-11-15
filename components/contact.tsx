@@ -7,6 +7,7 @@ export function Contact() {
       <div className="mx-auto max-w-[1120px] px-6 py-32 md:py-44">
         <p
           data-reveal
+          data-scramble
           className="font-mono text-xs tracking-[0.18em] text-muted uppercase"
         >
           Contact &amp; resume

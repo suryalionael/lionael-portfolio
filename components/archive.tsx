@@ -3,17 +3,19 @@
 import { useState } from "react";
 import { archiveProjects, disciplines, type Discipline } from "@/lib/projects";
 import { markBackToWork } from "@/components/featured-grid";
+import { skillMatchesProject, useSkillProof } from "@/components/skill-context";
 
 // Compact archive of everything outside the featured grid: a table on
 // desktop, stacked cards on mobile, filterable by discipline.
 export function Archive() {
   const [filter, setFilter] = useState<Discipline | null>(null);
-  const shown = filter
-    ? archiveProjects.filter((p) => p.discipline === filter)
-    : archiveProjects;
+  const { filter: skill, setFilter: setSkill, hovered } = useSkillProof();
+  const shown = archiveProjects
+    .filter((p) => (filter ? p.discipline === filter : true))
+    .filter((p) => (skill ? skillMatchesProject(skill, p) : true));
 
   return (
-    <section aria-label="Project archive">
+    <section aria-label="Project archive" data-archive className="scroll-mt-24">
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h3 className="text-2xl font-medium tracking-tight text-paper md:text-3xl">
           Archive
@@ -43,12 +45,30 @@ export function Archive() {
             onClick={() => setFilter(filter === d ? null : d)}
           />
         ))}
+        {skill && (
+          <button
+            type="button"
+            onClick={() => setSkill(null)}
+            className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/[0.08] px-3.5 py-1.5 font-mono text-[11px] tracking-[0.08em] text-paper uppercase transition-colors hover:border-white/60"
+          >
+            {skill}
+            <span aria-hidden="true">✕</span>
+            <span className="sr-only">— clear skill filter</span>
+          </button>
+        )}
       </div>
 
       {/* Desktop/tablet: table rows. Mobile: cards. */}
       <ul className="mt-6 border-t border-white/[0.06]">
         {shown.map((project) => (
-          <li key={project.slug}>
+          <li
+            key={project.slug}
+            className={`transition-opacity duration-500 ${
+              hovered && !skillMatchesProject(hovered, project)
+                ? "opacity-40"
+                : ""
+            }`}
+          >
             <a
               href={`/work/${project.slug}`}
               onClick={markBackToWork}

@@ -26,12 +26,43 @@ export function Ambient() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(pointer: fine)").matches;
 
+    // Mono label scramble ------------------------------------------------
+    const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const scramble = (el: HTMLElement) => {
+      if (reduce || "scrambling" in el.dataset) return;
+      const original = (el.dataset.scrambleText ??= el.textContent ?? "");
+      if (!original.trim()) return;
+      if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", original);
+      el.dataset.scrambling = "";
+      const start = performance.now();
+      const duration = 360;
+      const step = (t: number) => {
+        const p = Math.min(1, (t - start) / duration);
+        const keep = Math.floor(p * original.length);
+        el.textContent =
+          original.slice(0, keep) +
+          [...original.slice(keep)]
+            .map((c) =>
+              c === " " ? " " : GLYPHS[(Math.random() * GLYPHS.length) | 0],
+            )
+            .join("");
+        if (p < 1) requestAnimationFrame(step);
+        else {
+          el.textContent = original;
+          delete el.dataset.scrambling;
+        }
+      };
+      requestAnimationFrame(step);
+    };
+
     // Reveal on scroll ---------------------------------------------------
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
-            (e.target as HTMLElement).dataset.in = "";
+            const el = e.target as HTMLElement;
+            el.dataset.in = "";
+            if (el.matches("[data-scramble]")) scramble(el);
             io.unobserve(e.target);
           }
         }
@@ -96,6 +127,7 @@ export function Ambient() {
     };
 
     const onMove = (e: PointerEvent) => {
+      if (!raf) raf = requestAnimationFrame(tick);
       mx = e.clientX;
       my = e.clientY;
       px = (mx / innerWidth) * 2 - 1;
@@ -110,6 +142,8 @@ export function Ambient() {
       setHover(e.target as Element | null);
 
       const t = e.target as Element | null;
+      const sc = t?.closest<HTMLElement>("[data-scramble]");
+      if (sc) scramble(sc);
       const m = t?.closest<HTMLElement>("[data-magnetic]") ?? null;
       if (magnet && magnet !== m) magnet.style.transform = "";
       magnet = m;
@@ -176,9 +210,15 @@ export function Ambient() {
         const n = Number(el.dataset.parallax) || 10;
         el.style.transform = `translate3d(${(-cpx * n).toFixed(2)}px, ${(-cpy * n).toFixed(2)}px, 0)`;
       }
-      raf = requestAnimationFrame(tick);
+      // Park the loop once everything has eased into place; pointermove
+      // restarts it. Saves constant wakeups on idle laptops.
+      const settled =
+        Math.abs(mx - rx) < 0.1 &&
+        Math.abs(my - ry) < 0.1 &&
+        Math.abs(px - cpx) < 0.002 &&
+        Math.abs(py - cpy) < 0.002;
+      raf = settled ? 0 : requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
 
     addEventListener("pointermove", onMove, { passive: true });
     document.addEventListener("pointerleave", onLeave);

@@ -12,7 +12,7 @@ export function Education() {
   return (
     <section id="education" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
-        <p data-reveal className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+        <p data-reveal data-scramble className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Education
         </p>
 
