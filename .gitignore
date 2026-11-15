@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/.screens
+/.lighthouseci
 
 # next.js
 /.next/

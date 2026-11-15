@@ -49,13 +49,12 @@ const graph = {
     },
     ...projects.map((project) => ({
       "@type": "CreativeWork",
-      "@id": `${site.url}/#${project.slug}`,
+      "@id": `${site.url}/work/${project.slug}`,
       name: project.title,
-      url: `${site.url}/#${project.slug}`,
+      url: `${site.url}/work/${project.slug}`,
       description: project.summary,
       author: { "@id": personId },
       keywords: project.tags.join(", "),
-      ...(project.links.github && { sameAs: project.links.github }),
     })),
   ],
 };

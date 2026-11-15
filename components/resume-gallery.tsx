@@ -4,15 +4,28 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { resumesByCategory, type Resume } from "@/lib/resumes";
+import { report } from "@/lib/analytics";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+function trackDownload(resume: Resume) {
+  let role = "general";
+  try {
+    role = localStorage.getItem("role") || "general";
+  } catch {
+    // Private windows may block storage; the event still matters.
+  }
+  report("resume_download", { resume: resume.slug, role });
+}
 
 function Card({
   resume,
   onOpen,
+  eager,
 }: {
   resume: Resume;
   onOpen: (trigger: HTMLElement) => void;
+  eager: boolean;
 }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-ink-raised/70 transition-colors duration-300 hover:border-white/25">
@@ -28,6 +41,10 @@ function Card({
           alt={`First page of the ${resume.title} resume`}
           width={resume.preview.width}
           height={resume.preview.height}
+          priority={eager}
+          fetchPriority={eager ? "high" : undefined}
+          quality={55}
+          sizes="(min-width: 1280px) 340px, (min-width: 640px) 50vw, 100vw"
           className="h-auto w-full"
         />
         <span
@@ -59,6 +76,7 @@ function Card({
           <a
             href={resume.file}
             download={resume.downloadName}
+            onClick={() => trackDownload(resume)}
             className="u-link text-xs text-neutral-400 transition-colors hover:text-paper"
           >
             Download PDF
@@ -136,7 +154,7 @@ export function ResumeGallery() {
 
   return (
     <>
-      {resumesByCategory.map((group) => (
+      {resumesByCategory.map((group, groupIndex) => (
         <section key={group.category} className="mt-20 first:mt-0">
           <div className="flex items-baseline justify-between gap-6 border-t border-white/[0.06] pt-6">
             <h2 className="text-2xl font-medium tracking-tight text-paper md:text-3xl">
@@ -148,10 +166,11 @@ export function ResumeGallery() {
           </div>
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
-            {group.resumes.map((resume) => (
+            {group.resumes.map((resume, i) => (
               <Card
                 key={resume.slug}
                 resume={resume}
+                eager={groupIndex === 0 && i === 0}
                 onOpen={(trigger) => open(resume, trigger)}
               />
             ))}
@@ -200,6 +219,7 @@ export function ResumeGallery() {
                   <a
                     href={active.file}
                     download={active.downloadName}
+                    onClick={() => trackDownload(active)}
                     className="u-link text-xs font-medium text-paper"
                   >
                     Download PDF

@@ -1,3 +1,4 @@
+import { SplitHeading } from "@/components/split-heading";
 import { PhotoFade, type FadePhoto } from "@/components/photo-fade";
 
 type Activity = {
@@ -75,20 +76,25 @@ export function SocialActivities() {
   return (
     <section id="community" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
-        <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+        <p data-reveal data-scramble className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Social activities
         </p>
-        <h2 className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl">
-          Leadership before software.
-        </h2>
-        <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
+        <SplitHeading
+          className="mt-4 text-5xl font-medium tracking-[-0.03em] md:text-6xl"
+          text="Leadership before software."
+        />
+        <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
           The first systems I ran were made of people. These are the ones I&apos;m
           proudest of.
         </p>
 
         <div className="mt-14 grid gap-12 md:grid-cols-3 md:gap-8">
-          {activities.map((activity) => (
-            <article key={activity.role}>
+          {activities.map((activity, i) => (
+            <article
+              key={activity.role}
+              data-reveal
+              style={{ "--i": i } as React.CSSProperties}
+            >
               <PhotoFade
                 photos={activity.photos}
                 sizes="(min-width: 768px) 352px, 100vw"

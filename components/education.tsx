@@ -12,11 +12,11 @@ export function Education() {
   return (
     <section id="education" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1120px] px-6 py-28 md:py-36">
-        <p className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
+        <p data-reveal data-scramble className="font-mono text-xs tracking-[0.18em] text-muted uppercase">
           Education
         </p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-[220px_1fr] md:gap-12">
+        <div data-reveal className="mt-10 grid gap-6 md:grid-cols-[220px_1fr] md:gap-12">
           <div className="font-mono text-xs leading-6 text-muted">
             <span className="block text-neutral-300">
               2024 — Apr 2028 (expected)
