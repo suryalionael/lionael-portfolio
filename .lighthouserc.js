@@ -4,7 +4,7 @@ module.exports = {
   ci: {
     collect: {
       // Budgeted pages per the v3 brief: home and one case-study page.
-      url: ['http://localhost:3000/'],
+      url: ['http://localhost:3000/', 'http://localhost:3000/work/aspen-os'],
       numberOfRuns: 3,
     },
     assert: {

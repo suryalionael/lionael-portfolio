@@ -51,7 +51,7 @@ export function Archive() {
               data-cursor="Open"
               className="group grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-white/[0.06] py-4 transition-[border-color,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-white/20 sm:grid-cols-[3.5rem_minmax(10rem,1.2fr)_minmax(0,1fr)_minmax(0,1.2fr)_auto] md:hover:pl-3"
             >
-              <span className="order-2 font-mono text-[11px] text-neutral-500 sm:order-none">
+              <span className="order-2 font-mono text-[11px] text-neutral-400 sm:order-none">
                 {project.year}
               </span>
               <span
@@ -60,15 +60,15 @@ export function Archive() {
               >
                 {project.title}
               </span>
-              <span className="order-3 col-span-2 text-sm text-neutral-500 sm:order-none sm:col-span-1">
+              <span className="order-3 col-span-2 text-sm text-neutral-400 sm:order-none sm:col-span-1">
                 {project.discipline}
               </span>
-              <span className="order-4 col-span-2 hidden truncate font-mono text-[11px] text-neutral-500 sm:order-none sm:col-span-1 sm:block">
+              <span className="order-4 col-span-2 hidden truncate font-mono text-[11px] text-neutral-400 sm:order-none sm:col-span-1 sm:block">
                 {project.tags.slice(0, 4).join(" · ")}
               </span>
               <span
                 aria-hidden="true"
-                className="order-2 hidden text-neutral-500 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-paper sm:order-none sm:block"
+                className="order-2 hidden text-neutral-400 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-paper sm:order-none sm:block"
               >
                 →
               </span>

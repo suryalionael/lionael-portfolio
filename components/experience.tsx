@@ -113,7 +113,7 @@ export function Experience() {
                   </p>
                 )}
                 {r.stack.length > 0 && (
-                  <p className="mt-6 font-mono text-[11px] text-neutral-500">
+                  <p className="mt-6 font-mono text-[11px] text-neutral-400">
                     {r.stack.join(" · ")}
                   </p>
                 )}

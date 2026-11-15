@@ -76,7 +76,7 @@ function ProjectCard({ project }: { project: Project }) {
       <p className="mt-2 text-[15px] leading-relaxed text-neutral-400">
         {project.summary}
       </p>
-      <p className="mt-4 font-mono text-[11px] leading-5 text-neutral-500">
+      <p className="mt-4 font-mono text-[11px] leading-5 text-neutral-400">
         {project.tags.join(" · ")}
       </p>
 

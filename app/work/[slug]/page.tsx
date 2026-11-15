@@ -76,7 +76,7 @@ export default async function WorkPage({
                     <span className="mt-2 block text-lg font-medium text-neutral-200 transition-colors group-hover:text-paper">
                       {p.title}
                     </span>
-                    <span className="mt-1 block text-sm text-neutral-500">
+                    <span className="mt-1 block text-sm text-neutral-400">
                       {p.category}
                     </span>
                   </a>
