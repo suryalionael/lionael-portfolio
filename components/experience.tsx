@@ -4,17 +4,6 @@ import { Timeline } from "@/components/timeline";
 // Most recent first.
 const roles = [
   {
-    years: "Oct 2026 — present",
-    org: "Aspen Training Centre",
-    place: "Remote",
-    role: "Software Developer",
-    points: [
-      "Develop Aspen OS independently, a Next.js and Supabase platform that staff use daily, built across 131 commits and 40+ migrations.",
-      "Redesigned its AI assistant with an intent classifier that answers the 10 most common questions in 1–2 SQL queries without an LLM call, while grounding the rest in pgvector retrieval. Verified through 25 unit tests and Playwright E2E tests.",
-    ],
-    stack: [],
-  },
-  {
     years: "Sep 2026 — present",
     org: "Seneca Works, Seneca Polytechnic",
     place: "Toronto, Canada",
@@ -25,17 +14,6 @@ const roles = [
       "Review resumes and cover letters and give written feedback on clarity and accuracy.",
       "Direct students and alumni to job-board access and career resources; support Career Threads workshops and events.",
       "Keep student-support records up to date in SharePoint.",
-    ],
-    stack: [],
-  },
-  {
-    years: "Apr — Aug 2026",
-    org: "Themas Consulting",
-    place: "Jakarta, Indonesia",
-    role: "Software Development Intern",
-    points: [
-      "Built a hotel management system during a 5-month internship, translating hotel operations requirements into working features.",
-      "Tested and debugged features throughout development, collaborating with the team to resolve defects before delivery.",
     ],
     stack: [],
   },
@@ -98,7 +76,7 @@ export function Experience() {
           text="The journey so far."
         />
         <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
-          Six roles, most recent first.
+          Four roles, most recent first.
         </p>
 
         <Timeline className="mt-16">
