@@ -29,6 +29,17 @@ const roles = [
     stack: [],
   },
   {
+    years: "Apr — Aug 2026",
+    org: "Themas Consulting",
+    place: "Jakarta, Indonesia",
+    role: "Software Development Intern",
+    points: [
+      "Built a hotel management system during a 5-month internship, translating hotel operations requirements into working features.",
+      "Tested and debugged features throughout development, collaborating with the team to resolve defects before delivery.",
+    ],
+    stack: [],
+  },
+  {
     years: "Jul 2025 — present",
     org: "QuickRN Canada",
     place: "Remote",
@@ -87,7 +98,7 @@ export function Experience() {
           text="The journey so far."
         />
         <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
-          Five roles, most recent first.
+          Six roles, most recent first.
         </p>
 
         <Timeline className="mt-16">
