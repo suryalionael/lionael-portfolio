@@ -4,6 +4,17 @@ import { Timeline } from "@/components/timeline";
 // Most recent first.
 const roles = [
   {
+    years: "Oct 2026 — present",
+    org: "Aspen Training Centre",
+    place: "Remote",
+    role: "Software Developer",
+    points: [
+      "Develop Aspen OS independently, a Next.js and Supabase platform that staff use daily, built across 131 commits and 40+ migrations.",
+      "Redesigned its AI assistant with an intent classifier that answers the 10 most common questions in 1–2 SQL queries without an LLM call, while grounding the rest in pgvector retrieval. Verified through 25 unit tests and Playwright E2E tests.",
+    ],
+    stack: [],
+  },
+  {
     years: "Sep 2026 — present",
     org: "Seneca Works, Seneca Polytechnic",
     place: "Toronto, Canada",
@@ -18,7 +29,18 @@ const roles = [
     stack: [],
   },
   {
-    years: "Jul 2025 — present",
+    years: "Apr — Aug 2026",
+    org: "Themas Consulting",
+    place: "Jakarta, Indonesia",
+    role: "Software Development Intern",
+    points: [
+      "Built a hotel management system during a 5-month internship, translating hotel operations requirements into working features.",
+      "Tested and debugged features throughout development, collaborating with the team to resolve defects before delivery.",
+    ],
+    stack: [],
+  },
+  {
+    years: "Jul 2025 — Oct 2026",
     org: "QuickRN Canada",
     place: "Remote",
     role: "Web Development and Data Operations",
@@ -76,7 +98,7 @@ export function Experience() {
           text="The journey so far."
         />
         <p data-reveal className="mt-5 max-w-[36rem] text-lg leading-relaxed text-neutral-400">
-          Four roles, most recent first.
+          Six roles, most recent first.
         </p>
 
         <Timeline className="mt-16">
@@ -96,9 +118,11 @@ export function Experience() {
                   {r.role}
                 </h3>
                 <p className="mt-1 text-base text-neutral-300">{r.org}</p>
-                <p className="mt-5 max-w-[40rem] text-lg leading-8 text-neutral-400">
-                  {r.summary}
-                </p>
+                {r.summary && (
+                  <p className="mt-5 max-w-[40rem] text-lg leading-8 text-neutral-400">
+                    {r.summary}
+                  </p>
+                )}
                 <ul className="mt-4 max-w-[40rem] space-y-2.5">
                   {r.points.map((point) => (
                     <li
